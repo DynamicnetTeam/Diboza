@@ -1,0 +1,50 @@
+unit RptNotasCredito01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  frxClass, frxDBSet, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, Vcl.ExtCtrls,
+  RzPanel;
+
+type
+  TReptNotasCredito01 = class(TForm)
+    pnlTitulo: TRzPanel;
+    pnlCampos: TRzPanel;
+    GroupBox1: TGroupBox;
+    cbOrden: TComboBoxEx;
+    GroupBox2: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    dtpFechaDesde: TDateTimePicker;
+    dtpFechaHasta: TDateTimePicker;
+    chkFecha: TCheckBox;
+    GroupBox4: TGroupBox;
+    cbCliente: TComboBoxEx;
+    GroupBox5: TGroupBox;
+    rbEstadoTodos: TRadioButton;
+    rbEstadoPagado: TRadioButton;
+    rbEstadoAnulado: TRadioButton;
+    pnlOpciones: TRzPanel;
+    btnAceptar: TBitBtn;
+    btnCancelar: TBitBtn;
+    frxReport1: TfrxReport;
+    frxDBDataset1: TfrxDBDataset;
+    FDMemTable1: TFDMemTable;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  ReptNotasCredito01: TReptNotasCredito01;
+
+implementation
+
+{$R *.dfm}
+
+end.

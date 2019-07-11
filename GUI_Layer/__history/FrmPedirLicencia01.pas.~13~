@@ -1,0 +1,193 @@
+unit FrmPedirLicencia01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils,
+  System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons;
+
+type
+  TFormPedirLicencia01 = class(TForm)
+    pnlTitulo: TPanel;
+    pnlOpciones: TPanel;
+    btnAceptar: TBitBtn;
+    btnCancelar: TBitBtn;
+    btnCampos: TPanel;
+    Panel1: TPanel;
+    ButtonedEdit1: TButtonedEdit;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btnAceptarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormPedirLicencia01: TFormPedirLicencia01;
+
+  procedure InicializarForma;
+  procedure FinalizarForma;
+  procedure KeyDownForma(var Key: Word; Shift: TShiftState);
+  procedure LimpiarCampos;
+  procedure Aceptar;
+  procedure Cancelar;
+
+implementation
+
+{$R *.dfm}
+
+var
+  Forma01: TFormPedirLicencia01;
+
+{$REGION 'Funciones Forma'}
+procedure TFormPedirLicencia01.FormShow(Sender: TObject);
+begin
+  Forma01 := FormPedirLicencia01;
+
+  InicializarForma;
+end;
+
+procedure TFormPedirLicencia01.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  FinalizarForma;
+end;
+
+procedure TFormPedirLicencia01.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  KeyDownForma(Key, Shift);
+end;
+
+procedure TFormPedirLicencia01.btnAceptarClick(Sender: TObject);
+begin
+  Aceptar;
+end;
+
+procedure TFormPedirLicencia01.btnCancelarClick(Sender: TObject);
+begin
+  Cancelar;
+end;
+{$ENDREGION}
+
+{$REGION 'Funciones Generales'}
+procedure InicializarForma;
+begin
+  with Forma01 do
+  begin
+
+    try
+      Tag := 0;
+
+      LimpiarCampos;
+
+      edtServidor.SetFocus;
+    except
+      if _Resultado = -1 then
+      begin
+        Application.MessageBox(PChar('Ha ocurrido un error' + #13+#10 + _ErrorM),
+          'Error', MB_ICONERROR);
+        PostMessage(Handle, WM_CLOSE, 0, 0);
+      end;
+      _Resultado := -1;
+    end;
+
+  end;
+end;
+
+procedure FinalizarForma;
+begin
+  with Forma01 do
+  begin
+
+    try
+
+    except
+    end;
+
+  end;
+end;
+
+procedure KeyDownForma(var Key: Word; Shift: TShiftState);
+begin
+  with Forma01 do
+  begin
+
+    if Key = VK_ESCAPE then
+    begin
+      Key := 0;
+      Close;
+    end;
+    if Key = VK_F10 then
+    begin
+      Key := 0;
+      btnAceptar.Click;
+    end;
+    if Key = VK_F11 then
+    begin
+      Key := 0;
+      btnCancelar.Click;
+    end;
+
+  end;
+end;
+
+procedure LimpiarCampos;
+begin
+  with Forma01 do
+  begin
+
+    edtServidor.Text :=
+      Global.DB_Servidor;
+    edtBaseDatos.Text :=
+      Global.DB_BaseDatos;
+    edtUsuario.Text :=
+      Global.DB_Usuario;
+    edtClave.Text :=
+      Global.DB_Clave;
+    spePuerto.Value :=
+      Global.DB_Puerto;
+
+  end;
+end;
+
+procedure Aceptar;
+var
+  mConfig: TConfig;
+begin
+  with Forma01 do
+  begin
+
+    Modificar_Data;
+    if _Resultado = 1 then
+    begin
+      mConfig := TConfig.Create;
+      mConfig.EscribirIni_BaseDatos;
+      mConfig.Destroy;
+
+      Tag := 1;
+      Close;
+    end;
+
+  end;
+end;
+
+procedure Cancelar;
+begin
+  with Forma01 do
+  begin
+
+    Close;
+
+  end;
+end;
+{$ENDREGION}
+
+end.

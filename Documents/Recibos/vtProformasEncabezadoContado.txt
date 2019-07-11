@@ -1,0 +1,33 @@
+Proforma_Numero string 50
+Fecha date
+Hora string 20
+CodigoCliente string 100
+NombreCliente string 160
+SubTotal float
+DescuentoPorcentaje float
+DescuentoMonto float
+IVAPorcentaje float
+IVAMonto float
+Transporte float
+Total float
+TotalGravado float
+TotalExcento float
+Estado string 100
+FormaPago string 100
+Moneda string 100
+TipoCambio float 
+Serie string 5
+Impresa string 100
+NumeroDoc string 100
+FechaVencimiento date
+Tipo string 100
+Saldo float
+CarCredito string 5
+CarContado string 5
+CodigoVendedor string 100
+NombreVendedor string 160
+Numero_Factura string 50
+PagoCon float
+Cambio float
+FraseMayorista string 100
+

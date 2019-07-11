@@ -1,0 +1,35 @@
+unit FrmMovimientoInventario01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils,
+  System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
+  RzPanel, Vcl.Mask, RxToolEdit, RxCurrEdit;
+
+type
+  TFormMovimientoInventario01 = class(TForm)
+    pnlTitulo: TRzPanel;
+    pnlOpciones: TRzPanel;
+    btnAceptar: TBitBtn;
+    btnCancelar: TBitBtn;
+    Label2: TLabel;
+    CurrencyEdit1: TCurrencyEdit;
+    Label1: TLabel;
+    RadioButton1: TRadioButton;
+    RadioButton2: TRadioButton;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormMovimientoInventario01: TFormMovimientoInventario01;
+
+implementation
+
+{$R *.dfm}
+
+end.

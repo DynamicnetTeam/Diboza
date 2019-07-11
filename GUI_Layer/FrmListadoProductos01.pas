@@ -1,0 +1,292 @@
+unit FrmListadoProductos01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils,
+  System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, RzListVw, Vcl.StdCtrls,
+  Vcl.Buttons, Vcl.ExtCtrls, RzPanel, uDL_Skeleton;
+
+type
+  TFormListadoProductos01 = class(TForm)
+    pnlOpciones: TRzPanel;
+    btnAceptar: TBitBtn;
+    btnCancelar: TBitBtn;
+    lvLista1: TRzListView;
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnAceptarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormListadoProductos01: TFormListadoProductos01;
+
+  procedure InicializarForma;
+  procedure FinalizarForma;
+  procedure KeyDownForma(var Key: Word; Shift: TShiftState);
+  procedure LimpiarCampos;
+  procedure Refrescar(lv: TRzListView);
+  procedure LlenarlvLista1(lv: TRzListView; ds1: TDatasetMem);
+  procedure CargarIdioma;
+
+implementation
+
+uses
+  uSistema, ufunciones, uDL_TB_PRODUCTOS, BS_DBConexion,
+  FrmProductos01, FrmMensaje_Espera01, udmLenguajes;
+
+{$R *.dfm}
+
+type
+  Clase_Tipo1 = TDL_TB_PRODUCTOS;
+
+const
+  lv_Codigo = 0;
+  lv_Nombre = 1;
+  lv_id = 5;
+
+var
+  Forma01: TFormListadoProductos01;
+
+{$REGION 'Funciones Forma'}
+procedure TFormListadoProductos01.FormShow(Sender: TObject);
+begin
+  Forma01 := FormListadoProductos01;
+
+  InicializarForma;
+end;
+
+procedure TFormListadoProductos01.btnAceptarClick(Sender: TObject);
+begin
+  Tag := 1;
+  Close;
+end;
+
+procedure TFormListadoProductos01.btnCancelarClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFormListadoProductos01.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  FinalizarForma;
+end;
+
+procedure TFormListadoProductos01.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  KeyDownForma(Key, Shift);
+end;
+{$ENDREGION}
+
+{$REGION 'Funciones Generales'}
+procedure InicializarForma;
+begin
+  with Forma01 do
+  begin
+
+    try
+      Tag := 0;
+
+      LimpiarCampos;
+      CargarIdioma;
+      Refrescar(lvLista1);
+      if _Resultado = -1 then
+        raise Exception.Create('');
+    except
+      if _Resultado = -1 then
+      begin
+        Application.MessageBox(PChar('Ha ocurrido un error' + #13+#10 + _ErrorM),
+          'Error', MB_ICONERROR);
+        PostMessage(Handle, WM_CLOSE, 0, 0);
+      end;
+      _Resultado := -1;
+    end;
+
+  end;
+end;
+
+procedure FinalizarForma;
+begin
+  with Forma01 do
+  begin
+
+    try
+
+    except
+    end;
+
+  end;
+end;
+
+procedure KeyDownForma(var Key: Word; Shift: TShiftState);
+begin
+  with Forma01 do
+  begin
+
+    if Key = VK_ESCAPE then
+    begin
+      Key := 0;
+      Close;
+    end;
+
+  end;
+end;
+
+procedure LimpiarCampos;
+begin
+  with Forma01 do
+  begin
+
+
+  end;
+end;
+
+procedure Refrescar(lv: TRzListView);
+var
+  mBS_Productos: Clase_Tipo1;
+  mWhere, mOrderBy: TStringList;
+  mResultado: Integer;
+  mErrorM: string;
+begin
+  with Forma01 do
+  begin
+
+    Screen.Cursor := crHourGlass;
+    FormMensaje_Espera01.Show;
+    FormMensaje_Espera01.Repaint;
+    try
+      _Resultado := 1;
+
+      _MainConexion.Iniciar_Transaccion(_Resultado, _ErrorM);
+
+      mBS_Productos := Clase_Tipo1.Create;
+      mWhere := TStringList.Create;
+      mWhere.Clear;
+      mOrderBy := TStringList.Create;
+      mOrderBy.Clear;
+      mOrderBy.Add('A.Nombre');
+      mBS_Productos.Consultar(_Resultado, _ErrorM, mWhere.Text,
+        mOrderBy.Text);
+      mWhere.Free;
+      mOrderBy.Free;
+      if _Resultado = -1 then
+        raise Exception.Create('');
+
+      LlenarlvLista1(lv, mBS_Productos.Dataset);
+      mBS_Productos.Destroy;
+
+      _MainConexion.Aceptar_Transaccion(_Resultado, _ErrorM);
+
+      _Resultado := 1;
+    except
+      _Resultado := -1;
+      mResultado := _Resultado;
+      mErrorM := _ErrorM;
+      _MainConexion.Rechazar_Transaccion(_Resultado, _ErrorM);
+      _Resultado := mResultado;
+      _ErrorM := mErrorM;
+    end;
+    FormMensaje_Espera01.Close;
+    Screen.Cursor := crDefault;
+
+  end;
+end;
+
+procedure LlenarlvLista1(lv: TRzListView; ds1: TDatasetMem);
+begin
+  with Forma01 do
+  begin
+
+    lv.Items.Clear;
+
+    with ds1 do
+    begin
+      First;
+      while not Eof do
+      begin
+        with lv.Items.Add do
+        begin
+          Caption := '';
+          SubItems.Add(
+            FieldByName('CODIGO').AsString);
+          SubItems.Add(
+            FieldByName('NOMBRE').AsString);
+          SubItems.Add(
+            FormatFloat('#,##0.00',
+            FieldByName('PRECIOCOSTO').AsFloat));
+          SubItems.Add(
+            FormatFloat('#,##0.00',
+            FieldByName('PRECIOVENTA').AsFloat));
+          SubItems.Add(
+            FormatFloat('#,##0.00',
+            FieldByName('EXISTENCIA').AsFloat));
+          SubItems.Add(
+            FieldByName('ID').AsString);
+        end;
+        Next;
+      end;
+    end;
+
+  end;
+end;
+
+procedure CargarIdioma;
+var
+  mValor: string;
+  mCount, mLen, mCount2: Integer;
+begin
+  with Forma01 do
+  begin
+
+    for mCount := 0 to Forma01.ComponentCount - 1 do
+    begin
+      if Forma01.Components[mCount] is TLabel then
+      begin
+        mValor := TLabel(Forma01.Components[mCount]).Caption;
+        mLen := Length(mValor);
+        if mValor[mLen] = ':' then
+          mValor := Copy(mValor, 1, mLen - 1);
+        mValor := dmLenguajes.GetValue(mValor);
+        if Trim(mValor) <> '' then
+          TLabel(Forma01.Components[mCount]).Caption := mValor;
+      end;
+      if Forma01.Components[mCount] is TBitBtn then
+      begin
+        mValor := TBitBtn(Forma01.Components[mCount]).Caption;
+        mValor := dmLenguajes.GetValue(mValor);
+        if Trim(mValor) <> '' then
+          TBitBtn(Forma01.Components[mCount]).Caption := mValor;
+      end;
+      if Forma01.Components[mCount] is TRzPanel then
+      begin
+        mValor := TRzPanel(Forma01.Components[mCount]).Caption;
+        mValor := dmLenguajes.GetValue(mValor);
+        if Trim(mValor) <> '' then
+          TRzPanel(Forma01.Components[mCount]).Caption := mValor;
+      end;
+      if Forma01.Components[mCount] is TRzListView then
+      begin
+        for mCount2 := 0 to TRzListView(Forma01.Components[mCount]).Columns.Count - 1 do
+        begin
+          mValor := TRzListView(Forma01.Components[mCount]).Columns[mCount2].Caption;
+          mValor := dmLenguajes.GetValue(mValor);
+          if Trim(mValor) <> '' then
+            TRzListView(Forma01.Components[mCount]).Columns[mCount2].Caption := mValor;
+        end;
+      end;
+    end;
+
+  end;
+end;
+{$ENDREGION}
+
+end.

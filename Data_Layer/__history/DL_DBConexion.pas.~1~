@@ -1,0 +1,270 @@
+unit DL_DBConexion;
+
+interface
+uses udmConnection, FireDAC.Comp.Client, TypInfo, System.Classes, Data.DB;
+
+type
+  TBS_DBConexion = class
+    DatasetCampos: TFDMemTable;
+  type
+    TDriver = (FB, MySQL, PG, ODBC, MSAcc, SQLite, MSSQL, Ora);
+  private
+    FDriver: TDriver;
+    FServer: string;
+    FDatabase: string;
+    FUser: string;
+    FPassword: string;
+    FPort: Integer;
+    FOtros: string;
+    function GetDriver: TDriver;
+    procedure SetDriver(Value: TDriver);
+    function GetServer: string;
+    procedure SetServer(Value: string);
+    function GetDatabase: string;
+    procedure SetDatabase(Value: string);
+    function GetUser: string;
+    procedure SetUser(Value: string);
+    function GetPassword: string;
+    procedure SetPassword(Value: string);
+    function GetPort: Integer;
+    procedure SetPort(Value: Integer);
+    function GetOtros: string;
+    procedure SetOtros(Value: string);
+  public
+    {$REGION 'Propiedades'}
+    property Driver: TDriver read GetDriver write SetDriver;
+    property Server: string  read GetServer write SetServer;
+    property Database: string  read GetDatabase write SetDatabase;
+    property User: string read GetUser write SetUser;
+    property Password: string  read GetPassword write SetPassword;
+    property Port: Integer read GetPort write SetPort;
+    property Otros: string  read GetOtros write SetOtros;
+    {$ENDREGION}
+
+    {$REGION 'Metodos'}
+    constructor Create;
+    destructor Destroy;
+    procedure Conectar(pDriver: string; var pResultado: Integer; var pErrorM: string);
+    procedure Desconectar(var pResultado: Integer; var pErrorM: string);
+    function EstaConectado(var pResultado: Integer;
+      var pErrorM: string): Boolean;
+    procedure Iniciar_Transaccion(var pResultado: Integer; var pErrorM: string);
+    procedure Aceptar_Transaccion(var pResultado: Integer; var pErrorM: string);
+    procedure Rechazar_Transaccion(var pResultado: Integer;
+      var pErrorM: string);
+    function ListaBasesDatos: TStringList;
+    function ListaTablas: TStringList;
+    function ListaCampos(pTabla: string): TStringList;
+    procedure ListaCamposCompletos(pTabla: string);
+    function ListaIndices(pTabla: string): TStringList;
+    function ListaCamposLlave(pTabla: string): TStringList;
+    function ListaProcedimientosAlmacenados: TStringList;
+    {$ENDREGION}
+  end;
+
+implementation
+
+{ TBS_DBConexion }
+
+{$REGION 'Metodos'}
+constructor TBS_DBConexion.Create;
+begin
+  Driver := FB;
+  User := 'sysdba';
+  Password := 'masterkey';
+  Port := 3050;
+  Otros := '';
+
+  DatasetCampos := TFDMemTable.Create(nil);
+  with DatasetCampos do
+  begin
+    FieldDefs.Clear;
+    FieldDefs.Add('TablaNombre', ftString, 255);
+    FieldDefs.Add('Nombre', ftString, 255);
+    FieldDefs.Add('Tipo', ftString, 255);
+    FieldDefs.Add('Longitud', ftInteger, 0);
+    FieldDefs.Add('EsLlave', ftInteger, 0);
+    FieldDefs.Add('Procesar', ftInteger, 0);
+    CreateDataSet;
+    Open;
+  end;
+end;
+
+destructor TBS_DBConexion.Destroy;
+begin
+  DatasetCampos.Close;
+  DatasetCampos.Free;
+end;
+
+procedure TBS_DBConexion.Conectar(pDriver: string; var pResultado: Integer; var pErrorM: string);
+begin
+  if pDriver = 'MySQL' then
+    Driver := TBS_DBConexion.TDriver.MySQL;
+  if pDriver = 'FB' then
+    Driver := TBS_DBConexion.TDriver.FB;
+  if pDriver = 'PG' then
+    Driver := TBS_DBConexion.TDriver.PG;
+  if pDriver = 'ODBC' then
+    Driver := TBS_DBConexion.TDriver.ODBC;
+  if pDriver = 'MSAcc' then
+    Driver := TBS_DBConexion.TDriver.MSAcc;
+  if pDriver = 'SQLite' then
+    Driver := TBS_DBConexion.TDriver.SQLite;
+  if pDriver = 'MSSQL' then
+    Driver := TBS_DBConexion.TDriver.MSSQL;
+  if pDriver = 'Ora' then
+    Driver := TBS_DBConexion.TDriver.Ora;
+
+  dmConnection.DB_Conectar(dmConnection.FDMainConnection,
+    GetEnumName(TypeInfo(TDriver), integer(Driver)), Server, Database, User,
+    Password, Port, Otros, pResultado, pErrorM);
+end;
+
+procedure TBS_DBConexion.Desconectar(var pResultado: Integer;
+  var pErrorM: string);
+begin
+  dmConnection.DB_Desconectar(dmConnection.FDMainConnection,
+    pResultado, pErrorM);
+end;
+
+function TBS_DBConexion.EstaConectado(var pResultado: Integer;
+  var pErrorM: string): Boolean;
+begin
+  Result := dmConnection.DB_EstaConectado(dmConnection.FDMainConnection,
+    pResultado, pErrorM);
+end;
+
+procedure TBS_DBConexion.Iniciar_Transaccion(var pResultado: Integer;
+  var pErrorM: string);
+begin
+  dmConnection.DB_Iniciar_Transaccion(dmConnection.FDMainConnection,
+    pResultado, pErrorM);
+end;
+
+procedure TBS_DBConexion.Aceptar_Transaccion(var pResultado: Integer;
+  var pErrorM: string);
+begin
+  dmConnection.DB_Aceptar_Transaccion(dmConnection.FDMainConnection,
+    pResultado, pErrorM);
+end;
+
+procedure TBS_DBConexion.Rechazar_Transaccion(var pResultado: Integer;
+  var pErrorM: string);
+begin
+  dmConnection.DB_Rechazar_Transaccion(dmConnection.FDMainConnection,
+    pResultado, pErrorM);
+end;
+
+function TBS_DBConexion.ListaBasesDatos: TStringList;
+begin
+  Result :=
+    dmConnection.DB_ListaBasesDatos(dmConnection.FDMainConnection);
+end;
+
+function TBS_DBConexion.ListaTablas: TStringList;
+begin
+  Result :=
+    dmConnection.DB_ListaTablas(dmConnection.FDMainConnection);
+end;
+
+function TBS_DBConexion.ListaCampos(pTabla: string): TStringList;
+begin
+  Result :=
+    dmConnection.DB_ListaCampos(dmConnection.FDMainConnection, pTabla);
+end;
+
+procedure TBS_DBConexion.ListaCamposCompletos(pTabla: string);
+begin
+  dmConnection.DB_ListaCampos(DatasetCampos, pTabla);
+end;
+
+function TBS_DBConexion.ListaIndices(pTabla: string): TStringList;
+begin
+  Result :=
+    dmConnection.DB_ListaIndices(dmConnection.FDMainConnection, pTabla);
+end;
+
+function TBS_DBConexion.ListaCamposLlave(pTabla: string): TStringList;
+begin
+  Result :=
+    dmConnection.DB_ListaCamposLlave(dmConnection.FDMainConnection, pTabla);
+end;
+
+function TBS_DBConexion.ListaProcedimientosAlmacenados: TStringList;
+begin
+  Result :=
+    dmConnection.DB_ListaProcedimientosAlmacenados(dmConnection.FDMainConnection);
+end;
+
+function TBS_DBConexion.GetDriver: TDriver;
+begin
+  Result := FDriver;
+end;
+
+procedure TBS_DBConexion.SetDriver(Value: TDriver);
+begin
+  FDriver := Value;
+end;
+
+function TBS_DBConexion.GetServer: string;
+begin
+  Result := FServer;
+end;
+
+procedure TBS_DBConexion.SetServer(Value: string);
+begin
+  FServer := Value;
+end;
+
+function TBS_DBConexion.GetDatabase: string;
+begin
+  Result := FDatabase;
+end;
+
+procedure TBS_DBConexion.SetDatabase(Value: string);
+begin
+  FDatabase := Value;
+end;
+
+function TBS_DBConexion.GetUser: string;
+begin
+  Result := FUser;
+end;
+
+procedure TBS_DBConexion.SetUser(Value: string);
+begin
+  FUser := Value;
+end;
+
+function TBS_DBConexion.GetPassword: string;
+begin
+  Result := FPassword;
+end;
+
+procedure TBS_DBConexion.SetPassword(Value: string);
+begin
+  FPassword := Value;
+end;
+
+function TBS_DBConexion.GetPort: Integer;
+begin
+  Result := FPort;
+end;
+
+procedure TBS_DBConexion.SetPort(Value: Integer);
+begin
+  FPort := Value;
+end;
+
+function TBS_DBConexion.GetOtros: string;
+begin
+  Result := FOtros;
+end;
+
+procedure TBS_DBConexion.SetOtros(Value: string);
+begin
+  FOtros := Value;
+end;
+{$ENDREGION}
+
+end.

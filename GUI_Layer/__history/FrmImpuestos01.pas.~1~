@@ -1,0 +1,24 @@
+unit FrmImpuestos01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+
+type
+  TFormImpuestos01 = class(TForm)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormImpuestos01: TFormImpuestos01;
+
+implementation
+
+{$R *.dfm}
+
+end.

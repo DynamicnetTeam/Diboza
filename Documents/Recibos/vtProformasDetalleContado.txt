@@ -1,0 +1,13 @@
+Codigo_Producto string 100
+Nombre_Producto string 100
+Cantidad float
+UnidadMedida string 100
+PrecioUnitario float
+DescuentoPorcentaje float
+DescuentoMonto float
+PrecioFinal float
+Impuesto string 20
+PrecioUnitarioFinal float
+PrecioMayoristaAplicado string 100
+Descripcion_Producto string 200
+CodigoBarras string 100

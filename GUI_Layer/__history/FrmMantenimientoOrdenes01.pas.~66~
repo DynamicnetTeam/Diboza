@@ -1,0 +1,797 @@
+unit FrmMantenimientoOrdenes01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils,
+  System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls,
+  RzListVw, RzStatus, RzPanel, Vcl.ExtCtrls,
+  System.RegularExpressions, uDL_Skeleton, Vcl.WinXCtrls;
+
+type
+  TFormMantenimientoOrdenes01 = class(TForm)
+    pnlTitulo: TRzPanel;
+    pnlOpciones: TRzPanel;
+    btnInsertar: TBitBtn;
+    btnModificar: TBitBtn;
+    btnEliminar: TBitBtn;
+    btnRefrescar: TBitBtn;
+    btnCerrar: TBitBtn;
+    stbEstado1: TRzStatusBar;
+    RzStatusPane1: TRzStatusPane;
+    lvLista1: TRzListView;
+    pnlListaTitulo: TRzPanel;
+    chkTodoLista1: TCheckBox;
+    btnReimprimir: TBitBtn;
+    btnFacturar: TBitBtn;
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure chkTodoLista1Click(Sender: TObject);
+    procedure btnInsertarClick(Sender: TObject);
+    procedure btnModificarClick(Sender: TObject);
+    procedure btnEliminarClick(Sender: TObject);
+    procedure btnRefrescarClick(Sender: TObject);
+    procedure btnCerrarClick(Sender: TObject);
+    procedure btnReimprimirClick(Sender: TObject);
+    procedure btnFacturarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormMantenimientoOrdenes01: TFormMantenimientoOrdenes01;
+
+  procedure InicializarForma;
+  procedure FinalizarForma;
+  procedure KeyDownForma(var Key: Word; Shift: TShiftState);
+  procedure LimpiarCampos;
+  procedure Insertar;
+  procedure Modificar(lv: TRzListView);
+  procedure Eliminar(lv: TRzListView);
+  procedure Refrescar(lv: TRzListView);
+  procedure ReImprimir(lv: TRzListView);
+  procedure Facturar(lv: TRzListView);
+  procedure Cerrar;
+  procedure LlenarlvLista1(lv: TRzListView; ds1: TDatasetMem);
+  procedure Eliminar_Data(pId: Integer);
+  procedure MDLista_Todos(lv: TRzListView; chk: TCheckBox);
+  procedure CargarIdioma;
+
+implementation
+
+uses
+  uSistema, ufunciones, uDL_TB_OrdenesEncabezado, BS_DBConexion,
+  FrmOrdenes01, FrmMensaje_Espera01, uDL_TB_OrdenesDetalle, udmReports,
+  uDL_TB_PLANTILLAS, uDL_TB_EMPRESAS, FrmFacturaClientes01,
+  uDL_TB_FACTURASCLIENTESDETALLE, uDL_TB_PRODUCTOS, udmLenguajes;
+
+{$R *.dfm}
+
+type
+  Clase_Tipo1 = TDL_TB_OrdenesEncabezado;
+  Clase_Tipo2 = TDL_TB_OrdenesDetalle;
+
+const
+  lv_Nombre = 0;
+  lv_id = 7;
+
+var
+  Forma01: TFormMantenimientoOrdenes01;
+
+{$REGION 'Funciones Forma'}
+procedure TFormMantenimientoOrdenes01.FormShow(Sender: TObject);
+begin
+  Forma01 := FormMantenimientoOrdenes01;
+
+  InicializarForma;
+end;
+
+procedure TFormMantenimientoOrdenes01.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  FinalizarForma;
+end;
+
+procedure TFormMantenimientoOrdenes01.FormKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  KeyDownForma(Key, Shift);
+end;
+
+procedure TFormMantenimientoOrdenes01.chkTodoLista1Click(Sender: TObject);
+begin
+  MDLista_Todos(lvLista1, chkTodoLista1);
+end;
+
+procedure TFormMantenimientoOrdenes01.btnInsertarClick(Sender: TObject);
+begin
+  Insertar;
+end;
+
+procedure TFormMantenimientoOrdenes01.btnModificarClick(Sender: TObject);
+begin
+  Modificar(lvLista1);
+end;
+
+procedure TFormMantenimientoOrdenes01.btnEliminarClick(Sender: TObject);
+begin
+  Eliminar(lvLista1);
+end;
+
+procedure TFormMantenimientoOrdenes01.btnRefrescarClick(Sender: TObject);
+begin
+  Refrescar(lvLista1);
+end;
+
+procedure TFormMantenimientoOrdenes01.btnReimprimirClick(Sender: TObject);
+begin
+  ReImprimir(lvLista1);
+end;
+
+procedure TFormMantenimientoOrdenes01.btnFacturarClick(Sender: TObject);
+begin
+  Facturar(lvLista1);
+end;
+
+procedure TFormMantenimientoOrdenes01.btnCerrarClick(Sender: TObject);
+begin
+  Cerrar;
+end;
+{$ENDREGION}
+
+{$REGION 'Funciones Generales'}
+procedure InicializarForma;
+begin
+  with Forma01 do
+  begin
+
+    try
+      Tag := 0;
+
+      LimpiarCampos;
+      CargarIdioma;
+      Refrescar(lvLista1);
+      if _Resultado = -1 then
+        raise Exception.Create('');
+    except
+      if _Resultado = -1 then
+      begin
+        Application.MessageBox(PChar('Ha ocurrido un error' + #13+#10 + _ErrorM),
+          'Error', MB_ICONERROR);
+        PostMessage(Handle, WM_CLOSE, 0, 0);
+      end;
+      _Resultado := -1;
+    end;
+
+  end;
+end;
+
+procedure FinalizarForma;
+begin
+  with Forma01 do
+  begin
+
+    try
+
+    except
+    end;
+
+  end;
+end;
+
+procedure KeyDownForma(var Key: Word; Shift: TShiftState);
+begin
+  with Forma01 do
+  begin
+
+    if Key = VK_ESCAPE then
+    begin
+      Key := 0;
+      Close;
+    end;
+    if Key = VK_F2 then
+    begin
+      Key := 0;
+      Insertar;
+    end;
+    if Key = VK_F3 then
+    begin
+      Key := 0;
+      btnModificar.Click;
+    end;
+    if Key = VK_F4 then
+    begin
+      Key := 0;
+      btnEliminar.Click;
+    end;
+    if Key = VK_F4 then
+    begin
+      Key := 0;
+      btnRefrescar.Click;
+    end;
+    if (Key = (ord('T') Or ord('t'))) and (Shift = [ssCtrl]) then
+    begin
+      Key := 0;
+      lvLista1.SetFocus;
+    end;
+
+  end;
+end;
+
+procedure LimpiarCampos;
+begin
+  with Forma01 do
+  begin
+
+
+
+  end;
+end;
+
+procedure Insertar;
+begin
+  with Forma01 do
+  begin
+
+    FormOrdenes01._Opcion := 1;
+    FormOrdenes01.ShowModal;
+    if FormOrdenes01.Tag = 1 then
+      btnRefrescar.Click;
+
+  end;
+end;
+
+procedure Modificar(lv: TRzListView);
+var
+  mLinea: string;
+  mId: Integer;
+begin
+  with Forma01 do
+  begin
+
+    if lv.Selected <> nil then
+    begin
+      mLinea := lv.Selected.SubItems[lv_id];
+      try
+        mId := StrToInt(mLinea);
+      except
+        mId := 0;
+      end;
+      if mId > 0 then
+      begin
+        FormOrdenes01._Id := mId;
+        FormOrdenes01._Opcion := 2;
+        FormOrdenes01.ShowModal;
+        if FormOrdenes01.Tag = 1 then
+          btnRefrescar.Click;
+      end;
+    end;
+
+  end;
+end;
+
+procedure Eliminar(lv: TRzListView);
+var
+  mFila, mId: Integer;
+  mLinea: string;
+begin
+  with Forma01 do
+  begin
+
+    if Application.MessageBox('Desea eliminar los registros marcados?',
+      'Confirmar', MB_YESNO + MB_ICONQUESTION) = IDYES then
+    begin
+      for mFila := 0 to lv.Items.Count - 1 do
+      begin
+        if lv.Items[mFila].Checked = True then
+        begin
+          mLinea := lv.Items[mFila].SubItems[lv_id];
+          try
+            mId := StrToInt(mLinea);
+          except
+            mId := 0;
+          end;
+          if mId > 0 then
+            Eliminar_Data(mId);
+        end;
+      end;
+      btnRefrescar.Click;
+    end;
+
+  end;
+end;
+
+procedure Refrescar(lv: TRzListView);
+var
+  mDL_TB_OrdenesEncabezado: Clase_Tipo1;
+  mWhere, mOrderBy: TStringList;
+  mResultado: Integer;
+  mErrorM: string;
+begin
+  with Forma01 do
+  begin
+
+    Screen.Cursor := crHourGlass;
+    FormMensaje_Espera01.Show;
+    FormMensaje_Espera01.Repaint;
+    try
+      _Resultado := 1;
+
+      _MainConexion.Iniciar_Transaccion(_Resultado, _ErrorM);
+
+      mDL_TB_OrdenesEncabezado := Clase_Tipo1.Create;
+      mWhere := TStringList.Create;
+      mWhere.Clear;
+      mOrderBy := TStringList.Create;
+      mOrderBy.Clear;
+      mDL_TB_OrdenesEncabezado.Consultar(_Resultado, _ErrorM, mWhere.Text,
+        mOrderBy.Text);
+      mWhere.Free;
+      mOrderBy.Free;
+      if _Resultado = -1 then
+        raise Exception.Create('');
+      LlenarlvLista1(lv, mDL_TB_OrdenesEncabezado.Dataset);
+      mDL_TB_OrdenesEncabezado.Destroy;
+
+      _MainConexion.Aceptar_Transaccion(_Resultado, _ErrorM);
+      _Resultado := 1;
+    except
+      _Resultado := -1;
+      mResultado := _Resultado;
+      mErrorM := _ErrorM;
+      _MainConexion.Rechazar_Transaccion(_Resultado, _ErrorM);
+      _Resultado := mResultado;
+      _ErrorM := mErrorM;
+    end;
+    FormMensaje_Espera01.Close;
+    Screen.Cursor := crDefault;
+
+  end;
+end;
+
+procedure ReImprimir(lv: TRzListView);
+var
+  mLinea: string;
+  mId: Integer;
+  DL_TB_PLANTILLAS: TDL_TB_PLANTILLAS;
+  mDL_TB_EMPRESAS: TDL_TB_EMPRESAS;
+  mArchivo: TStringList;
+  mNombreArchivo: string;
+  mDL_TB_OrdenesEncabezado: Clase_Tipo1;
+  mDL_TB_OrdenesDetalle: TDL_TB_OrdenesDetalle;
+  mWhere: TStringList;
+begin
+  with Forma01 do
+  begin
+
+    if lv.Selected <> nil then
+    begin
+      mLinea := lv.Selected.SubItems[lv_id];
+      try
+        mId := StrToInt(mLinea);
+      except
+        mId := 0;
+      end;
+      if mId > 0 then
+      begin
+        mDL_TB_OrdenesEncabezado := Clase_Tipo1.Create;
+        mDL_TB_OrdenesEncabezado.Consultar(_Resultado, _ErrorM, 'Id=' + IntToStr(mId));
+
+        mDL_TB_OrdenesDetalle := TDL_TB_OrdenesDetalle.Create;
+        mDL_TB_OrdenesDetalle.Consultar(_Resultado, _ErrorM, 'IDENCABEZADO=' + IntToStr(mId));
+
+        mDL_TB_EMPRESAS := TDL_TB_EMPRESAS.Create;
+        mDL_TB_EMPRESAS.Consultar(_Resultado, _ErrorM);
+
+        mArchivo := TStringList.Create;
+        mWhere := TStringList.Create;
+        mWhere.Add('Id=' + IntToStr(17));
+        DL_TB_PLANTILLAS := TDL_TB_PLANTILLAS.Create;
+        mArchivo.Text :=
+          DL_TB_PLANTILLAS.Obtener_Plantilla(mWhere.Text, _Resultado, _ErrorM);
+        mWhere.Free;
+        if _Resultado = -1 then
+          raise Exception.Create('');
+        DL_TB_PLANTILLAS.Destroy;
+
+        mNombreArchivo := Global.PathAplicacion + '\Plantilla.fr3';
+        if FileExists(mNombreArchivo) = True then
+          DeleteFile(mNombreArchivo);
+
+        mArchivo.SaveToFile(mNombreArchivo);
+        mArchivo.Free;
+
+        dmReports.frxDBDataset1.DataSet := mDL_TB_OrdenesEncabezado.Dataset;
+        dmReports.frxDBDataset2.DataSet := mDL_TB_OrdenesDetalle.Dataset;
+        dmReports.frxDBDataset3.DataSet := mDL_TB_EMPRESAS.Dataset;
+        dmReports.frxDBDataset1.Enabled := True;
+        dmReports.frxDBDataset2.Enabled := True;
+        dmReports.frxDBDataset3.Enabled := True;
+
+        try
+          dmReports.frxReport1.LoadFromFile(mNombreArchivo);
+        except
+        end;
+
+        with mDL_TB_OrdenesDetalle.Dataset do
+        begin
+          First;
+          while not Eof do
+          begin
+            if FieldByName('idImpresora').AsInteger = 1 then
+            begin
+              dmReports.frxReport1.PrepareReport();
+              dmReports.frxReport1.PrintOptions.Printer :=
+                Global.OrdenesImpresora1;
+              dmReports.frxReport1.PrintOptions.ShowDialog := False;
+              dmReports.frxReport1.Print;
+            end;
+            if FieldByName('idImpresora').AsInteger = 2 then
+            begin
+              dmReports.frxReport1.PrepareReport();
+              dmReports.frxReport1.PrintOptions.Printer :=
+                Global.OrdenesImpresora2;
+              dmReports.frxReport1.PrintOptions.ShowDialog := False;
+              dmReports.frxReport1.Print;
+            end;
+            if FieldByName('idImpresora').AsInteger = 3 then
+            begin
+              dmReports.frxReport1.PrepareReport();
+              dmReports.frxReport1.PrintOptions.Printer :=
+                Global.OrdenesImpresora3;
+              dmReports.frxReport1.PrintOptions.ShowDialog := False;
+              dmReports.frxReport1.Print;
+            end;
+            if FieldByName('idImpresora').AsInteger = 4 then
+            begin
+              dmReports.frxReport1.PrepareReport();
+              dmReports.frxReport1.PrintOptions.Printer :=
+                Global.OrdenesImpresora4;
+              dmReports.frxReport1.PrintOptions.ShowDialog := False;
+              dmReports.frxReport1.Print;
+            end;
+
+            Next;
+          end;
+        end;
+
+        dmReports.frxDBDataset1.Enabled := False;
+        dmReports.frxDBDataset2.Enabled := False;
+        dmReports.frxDBDataset3.Enabled := False;
+
+        mDL_TB_EMPRESAS.Destroy;
+        mDL_TB_OrdenesDetalle.Destroy;
+        mDL_TB_OrdenesEncabezado.Destroy;
+      end;
+    end;
+
+  end;
+end;
+
+procedure Facturar(lv: TRzListView);
+var
+  mLinea: string;
+  mId, mIdCliente: Integer;
+  _DL_TB_FACTURASDETALLEActual: TDL_TB_FACTURASCLIENTESDETALLE;
+  mDL_TB_OrdenesEncabezado: Clase_Tipo1;
+  mDL_TB_OrdenesDetalle: Clase_Tipo2;
+  mWhere: TStringList;
+  mDL_TB_PRODUCTOS: TDL_TB_PRODUCTOS;
+  mIVAPorcentaje, mIVAPM, mIVAM, mMonto, mPrecioFinal: Double;
+begin
+  with Forma01 do
+  begin
+
+    if lv.Selected <> nil then
+    begin
+      mLinea := lv.Selected.SubItems[lv_id];
+      try
+        mId := StrToInt(mLinea);
+      except
+        mId := 0;
+      end;
+      mLinea := lv.Selected.SubItems[8];
+      try
+        mIdCliente := StrToInt(mLinea);
+      except
+        mIdCliente := 0;
+      end;
+      if mId > 0 then
+      begin
+        _DL_TB_FACTURASDETALLEActual :=
+          TDL_TB_FACTURASCLIENTESDETALLE.Create;
+
+        mDL_TB_OrdenesDetalle := Clase_Tipo2.Create;
+        mDL_TB_OrdenesDetalle.Consultar(_Resultado, _ErrorM, 'IDENCABEZADO = ' + IntToStr(mId));
+        with mDL_TB_OrdenesDetalle.Dataset do
+        begin
+          First;
+          while not Eof do
+          begin
+            mIVAPorcentaje := 0;
+            mDL_TB_PRODUCTOS := TDL_TB_PRODUCTOS.Create;
+            mIVAPorcentaje :=
+              mDL_TB_PRODUCTOS.Obtener_ImpuestoPorcentaje('A.Id=' + IntToStr(FieldByName('IDPRODUCTO').AsInteger),
+                _Resultado, _ErrorM);
+            mDL_TB_PRODUCTOS.Destroy;
+
+            mIVAPM := 0;
+            if mIVAPorcentaje <> 0 then
+              mIVAPM := mIVAPorcentaje / 100;
+            mIVAM := (FieldByName('PrecioUnitario').AsFloat * mIVAPM) * FieldByName('CANTIDAD').AsFloat;
+            mPrecioFinal := FieldByName('PrecioUnitario').AsFloat;
+
+            mMonto := mPrecioFinal * FieldByName('CANTIDAD').AsFloat;;
+
+            _DL_TB_FACTURASDETALLEActual.Dataset.Append;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('CODIGO').Tag := 1;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('CODIGO').AsString :=
+              FieldByName('ProductoCodigo').AsString;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('NOMBRE').Tag := 1;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('NOMBRE').AsString :=
+              FieldByName('ProductoNombre').AsString;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('CANTIDAD').Tag := 1;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('CANTIDAD').AsFloat :=
+              FieldByName('CANTIDAD').AsFloat;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('PRECIOUNITARIO').Tag := 1;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('PRECIOUNITARIO').AsFloat :=
+              FieldByName('PrecioUnitario').AsFloat;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('DESCUENTOP').Tag := 1;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('DESCUENTOP').AsFloat :=
+              0;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('DESCUENTOM').Tag := 1;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('DESCUENTOM').AsFloat :=
+              0;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('IVAP').Tag := 1;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('IVAP').AsFloat :=
+              mIVAPorcentaje;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('IVAM').Tag := 1;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('IVAM').AsFloat :=
+              mIVAM;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('PRECIOUNITARIOFINAL').Tag := 1;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('PRECIOUNITARIOFINAL').AsFloat :=
+              mPrecioFinal;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('PRECIOFINAL').Tag := 1;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('PRECIOFINAL').AsFloat :=
+              mMonto;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('LINEA').Tag := 1;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('LINEA').AsInteger := 0;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('IdProducto').Tag := 1;
+            _DL_TB_FACTURASDETALLEActual.Dataset.FieldByName('IdProducto').AsInteger :=
+              FieldByName('IDPRODUCTO').AsInteger;
+            _DL_TB_FACTURASDETALLEActual.Dataset.Post;
+
+            Next;
+          end;
+        end;
+        mDL_TB_OrdenesDetalle.Destroy;
+
+        FormFacturaClientes01._IdCliente := mIdCliente;
+        FormFacturaClientes01._Orden := mId;
+        FormFacturaClientes01._Origen := 2;
+        FormFacturaClientes01._IdEstado := 1;
+        FormFacturaClientes01._IdFormaPago := 0;
+        FormFacturaClientes01._IdDocumento := 0;
+        FormFacturaClientes01._Numero := 0;
+        FormFacturaClientes01._DL_TB_FACTURASDETALLEActual :=
+          TDL_TB_FACTURASCLIENTESDETALLE.Create;
+        FormFacturaClientes01._DL_TB_FACTURASDETALLEActual.Dataset.Close;
+        FormFacturaClientes01._DL_TB_FACTURASDETALLEActual.Dataset.Data :=
+          _DL_TB_FACTURASDETALLEActual.Dataset.Data;
+        FormFacturaClientes01._DL_TB_FACTURASDETALLEActual.Dataset.Open;
+        FormFacturaClientes01.WindowState := wsMaximized;
+        FormFacturaClientes01.ShowModal;
+
+        _DL_TB_FACTURASDETALLEActual.Destroy;
+
+        btnRefrescar.Click;
+      end;
+    end;
+
+  end;
+end;
+
+procedure Cerrar;
+begin
+  with Forma01 do
+  begin
+
+    Close;
+
+  end;
+end;
+
+procedure LlenarlvLista1(lv: TRzListView; ds1: TDatasetMem);
+var
+  mFecha, mHora, mApertura: string;
+begin
+  with Forma01 do
+  begin
+
+    lv.Items.Clear;
+
+    with ds1 do
+    begin
+      RzStatusPane1.Caption := 'Registros: ' +
+        FormatFloat('#,##0', RecordCount);
+      First;
+      while not Eof do
+      begin
+        mFecha := FormatDateTime('dd/MM/yyyy',
+          FieldByName('FECHA').AsDateTime);
+        mHora :=
+          FieldByName('HORA').AsString;
+        mApertura := mFecha + ' - ' + mHora;
+        if FieldByName('CODIGOESTADO').AsInteger = 2 then
+          mApertura := '';
+        with lv.Items.Add do
+        begin
+          Caption := '';
+          SubItems.Add(
+            FieldByName('Id').AsString);
+          SubItems.Add(mApertura);
+          SubItems.Add(
+            FieldByName('ETIQUETA').AsString);
+          SubItems.Add(
+            FormatFloat('#,##0.00',
+            FieldByName('VENTA').AsFloat));
+          if FieldByName('CODIGOESTADO').AsInteger = 1 then
+            SubItems.Add('Abierto')
+          else
+            SubItems.Add('Cerrado');
+          SubItems.Add(
+            FieldByName('ClienteNombre').AsString);
+          SubItems.Add(
+            FieldByName('COMENTARIOS').AsString);
+          SubItems.Add(
+            FieldByName('ID').AsString);
+          SubItems.Add(
+            FieldByName('IDCLIENTE').AsString);
+        end;
+        Next;
+      end;
+    end;
+
+  end;
+end;
+
+procedure Eliminar_Data(pId: Integer);
+var
+  mDL_TB_OrdenesEncabezado: Clase_Tipo1;
+  mDL_TB_OrdenesDetalle: Clase_Tipo2;
+  mWhere: TStringList;
+  mResultado: Integer;
+  mErrorM: string;
+begin
+  with Forma01 do
+  begin
+
+    try
+      _Resultado := 1;
+
+      _MainConexion.Iniciar_Transaccion(_Resultado, _ErrorM);
+
+      mDL_TB_OrdenesEncabezado := Clase_Tipo1.Create;
+      with mDL_TB_OrdenesEncabezado.Dataset do
+      begin
+        mDL_TB_OrdenesEncabezado.Limpiar_Tag;
+        EmptyDataSet;
+        Append;
+        FieldByName('ETIQUETA').Tag := 1;
+        FieldByName('ETIQUETA').AsString := '';
+        FieldByName('VENTA').Tag := 1;
+        FieldByName('VENTA').AsFloat := 0;
+        FieldByName('COMENTARIOS').Tag := 1;
+        FieldByName('COMENTARIOS').AsString := '';
+        FieldByName('IDCLIENTE').Tag := 1;
+        FieldByName('IDCLIENTE').AsInteger := 0;
+        FieldByName('FECHA').Tag := 1;
+        FieldByName('FECHA').AsDateTime := Date;
+        FieldByName('HORA').Tag := 1;
+        FieldByName('HORA').AsString := '';
+        FieldByName('CODIGOESTADO').Tag := 1;
+        FieldByName('CODIGOESTADO').AsInteger := 2;
+        Post;
+      end;
+      mDL_TB_OrdenesEncabezado.Modificar('Id=' + IntToStr(pId), _Resultado, _ErrorM);
+      if _Resultado = -1 then
+        raise Exception.Create('');
+      mDL_TB_OrdenesEncabezado.Destroy;
+
+      mDL_TB_OrdenesDetalle := Clase_Tipo2.Create;
+      mWhere := TStringList.Create;
+      mWhere.Add('IDENCABEZADO = ' + IntToStr(pId));
+      mDL_TB_OrdenesDetalle.Eliminar(mWhere.Text, _Resultado, _ErrorM);
+      mWhere.Free;
+      if _Resultado = -1 then
+        raise Exception.Create('');
+      mDL_TB_OrdenesDetalle.Destroy;
+
+      _MainConexion.Aceptar_Transaccion(_Resultado, _ErrorM);
+
+      _Resultado := 1;
+    except
+      mResultado := _Resultado;
+      mErrorM := _ErrorM;
+      _MainConexion.Rechazar_Transaccion(_Resultado, _ErrorM);
+      _Resultado := mResultado;
+      _ErrorM := mErrorM;
+      if _Resultado = -1 then
+      begin
+        Application.MessageBox(PChar('Ha ocurrido un error' + #13+#10 + _ErrorM),
+          'Error', MB_ICONERROR);
+      end;
+      _Resultado := -1;
+    end;
+
+  end;
+end;
+
+procedure MDLista_Todos(lv: TRzListView; chk: TCheckBox);
+var
+  mFila: Integer;
+begin
+  with Forma01 do
+  begin
+
+    for mFila := 0 to lv.Items.Count - 1 do
+      lv.Items[mFila].Checked := chk.Checked;
+
+  end;
+end;
+
+procedure CargarIdioma;
+var
+  mValor: string;
+  mCount, mLen, mCount2: Integer;
+begin
+  with Forma01 do
+  begin
+
+    for mCount := 0 to Forma01.ComponentCount - 1 do
+    begin
+      if Forma01.Components[mCount] is TLabel then
+      begin
+        mValor := TLabel(Forma01.Components[mCount]).Caption;
+        mLen := Length(mValor);
+        if mValor[mLen] = ':' then
+          mValor := Copy(mValor, 1, mLen - 1);
+        mValor := dmLenguajes.GetValue(mValor);
+        if Trim(mValor) <> '' then
+          TLabel(Forma01.Components[mCount]).Caption := mValor;
+      end;
+      if Forma01.Components[mCount] is TBitBtn then
+      begin
+        mValor := TBitBtn(Forma01.Components[mCount]).Caption;
+        mValor := dmLenguajes.GetValue(mValor);
+        if Trim(mValor) <> '' then
+          TBitBtn(Forma01.Components[mCount]).Caption := mValor;
+      end;
+      if Forma01.Components[mCount] is TRzPanel then
+      begin
+        mValor := TRzPanel(Forma01.Components[mCount]).Caption;
+        mValor := dmLenguajes.GetValue(mValor);
+        if Trim(mValor) <> '' then
+          TRzPanel(Forma01.Components[mCount]).Caption := mValor;
+      end;
+      if Forma01.Components[mCount] is TRzListView then
+      begin
+        for mCount2 := 0 to TRzListView(Forma01.Components[mCount]).Columns.Count - 1 do
+        begin
+          mValor := TRzListView(Forma01.Components[mCount]).Columns[mCount2].Caption;
+          mValor := dmLenguajes.GetValue(mValor);
+          if Trim(mValor) <> '' then
+            TRzListView(Forma01.Components[mCount]).Columns[mCount2].Caption := mValor;
+        end;
+      end;
+    end;
+
+  end;
+end;
+{$ENDREGION}
+
+end.

@@ -1,0 +1,79 @@
+unit FrmMantenimientoAsientos01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils,
+  System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls,
+  RzListVw, RzStatus, RzPanel, Vcl.ExtCtrls,
+  System.RegularExpressions, uDL_Skeleton, Vcl.WinXCtrls;
+
+type
+  TFormMantenimientoAsientos01 = class(TForm)
+    pnlTitulo: TRzPanel;
+    pnlOpciones: TRzPanel;
+    btnInsertar: TBitBtn;
+    btnModificar: TBitBtn;
+    btnEliminar: TBitBtn;
+    btnRefrescar: TBitBtn;
+    btnCerrar: TBitBtn;
+    stbEstado1: TRzStatusBar;
+    RzStatusPane1: TRzStatusPane;
+    pnlFiltro: TRzPanel;
+    Label2: TLabel;
+    edtBuscar_Nombre: TSearchBox;
+    pnlListaTitulo: TRzPanel;
+    chkTodoLista1: TCheckBox;
+    lvLista1: TRzListView;
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormMantenimientoAsientos01: TFormMantenimientoAsientos01;
+
+  procedure InicializarForma;
+  procedure FinalizarForma;
+  procedure KeyDownForma(var Key: Word; Shift: TShiftState);
+  procedure LimpiarCampos;
+  procedure Insertar;
+  procedure Modificar(lv: TRzListView);
+  procedure Eliminar(lv: TRzListView);
+  procedure Refrescar(lv: TRzListView);
+  procedure Cerrar;
+  procedure LlenarlvLista1(lv: TRzListView; ds1: TDatasetMem);
+  procedure Eliminar_Data(pId: Integer; pIdProducto: Integer);
+  procedure Buscar_Nombre(pTexto: string; lv: TRzListView);
+  procedure MDLista_Todos(lv: TRzListView; chk: TCheckBox);
+
+implementation
+
+uses
+  uSistema, ufunciones, uDL_TB_Cuentas, BS_DBConexion,
+  FrmCuentas01, FrmMensaje_Espera01;
+
+{$R *.dfm}
+
+type
+  Clase_Tipo1 = TDL_TB_Cuentas;
+
+const
+  lv_Nombre = 0;
+  lv_id = 1;
+
+var
+  Forma01: TFormMantenimientoCuentas01;
+
+{$REGION 'Funciones Forma'}
+procedure TFormMantenimientoAsientos01.FormShow(Sender: TObject);
+begin
+  Forma01 := FormMantenimientoCuentas01;
+
+  InicializarForma;
+end;
+
+end.

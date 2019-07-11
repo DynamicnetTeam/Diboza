@@ -1,0 +1,24 @@
+unit FrmListadoProductos01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+
+type
+  TFormListadoProductos01 = class(TForm)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormListadoProductos01: TFormListadoProductos01;
+
+implementation
+
+{$R *.dfm}
+
+end.

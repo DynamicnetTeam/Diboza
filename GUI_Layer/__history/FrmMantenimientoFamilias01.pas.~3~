@@ -1,0 +1,43 @@
+unit FrmMantenimientoFamilias01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils,
+  System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, RzListVw, Vcl.StdCtrls,
+  Vcl.WinXCtrls, RzStatus, RzPanel, Vcl.Buttons, Vcl.ExtCtrls;
+
+type
+  TFormMantenimientoFamilias01 = class(TForm)
+    pnlTitulo: TRzPanel;
+    pnlOpciones: TRzPanel;
+    btnInsertar: TBitBtn;
+    btnModificar: TBitBtn;
+    btnEliminar: TBitBtn;
+    btnRefrescar: TBitBtn;
+    btnCerrar: TBitBtn;
+    stbEstado1: TRzStatusBar;
+    RzStatusPane1: TRzStatusPane;
+    pnlFiltro: TRzPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    edtBuscar_Usuario: TSearchBox;
+    edtBuscar_Nombre: TSearchBox;
+    pnlListaTitulo: TRzPanel;
+    chkTodoLista1: TCheckBox;
+    lvLista1: TRzListView;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormMantenimientoFamilias01: TFormMantenimientoFamilias01;
+
+implementation
+
+{$R *.dfm}
+
+end.

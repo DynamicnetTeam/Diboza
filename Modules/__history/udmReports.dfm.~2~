@@ -1,0 +1,82 @@
+object dmReports: TdmReports
+  OldCreateOrder = False
+  Height = 230
+  Width = 494
+  object frxReport1: TfrxReport
+    Version = '5.3.14'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 42898.497541655100000000
+    ReportOptions.LastChange = 42898.497541655100000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 32
+    Top = 16
+    Datasets = <>
+    Variables = <>
+    Style = <>
+  end
+  object frxDBDataset1: TfrxDBDataset
+    UserName = 'frxDBDataset1'
+    CloseDataSource = False
+    BCDToCurrency = False
+    Left = 152
+    Top = 24
+  end
+  object frxDBDataset2: TfrxDBDataset
+    UserName = 'frxDBDataset2'
+    CloseDataSource = False
+    BCDToCurrency = False
+    Left = 152
+    Top = 72
+  end
+  object frxDBDataset3: TfrxDBDataset
+    UserName = 'frxDBDataset3'
+    CloseDataSource = False
+    BCDToCurrency = False
+    Left = 152
+    Top = 128
+  end
+  object frxDBDataset4: TfrxDBDataset
+    UserName = 'frxDBDataset4'
+    CloseDataSource = False
+    BCDToCurrency = False
+    Left = 160
+    Top = 176
+  end
+  object frxDBDataset5: TfrxDBDataset
+    UserName = 'frxDBDataset5'
+    CloseDataSource = False
+    BCDToCurrency = False
+    Left = 272
+    Top = 24
+  end
+  object frxDBDataset6: TfrxDBDataset
+    UserName = 'frxDBDataset6'
+    CloseDataSource = False
+    BCDToCurrency = False
+    Left = 272
+    Top = 80
+  end
+  object frxDBDataset7: TfrxDBDataset
+    UserName = 'frxDBDataset7'
+    CloseDataSource = False
+    BCDToCurrency = False
+    Left = 280
+    Top = 136
+  end
+  object frxDBDataset8: TfrxDBDataset
+    UserName = 'frxDBDataset8'
+    CloseDataSource = False
+    BCDToCurrency = False
+    Left = 352
+    Top = 96
+  end
+end

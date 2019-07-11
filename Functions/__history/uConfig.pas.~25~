@@ -1,0 +1,363 @@
+unit uConfig;
+
+interface
+uses
+  System.INIFiles, System.SysUtils, uSistema, System.Classes;
+
+type
+  TConfig = class
+  const
+    Archivo = 'Config_Sisfac.ini';
+  private
+    function HexToStringS(H: String): String;
+    function StringToHexS(S: String): string;
+  public
+    procedure LeerIni;
+    procedure EscribirIni_Instalado;
+    procedure EscribirIni_BaseDatos;
+    procedure EscribirIni_BaseDatosPathFull;
+    procedure EscribirIni_Sistema;
+    procedure LeerEmpresas(var pEmpresas: TStringList);
+    procedure EscribirIni_EmpresaLista(pNombre: string; pValor: string);
+    procedure EliminarIni_EmpresaLista(pNombre: string);
+    function CantidadEmpresas: Integer;
+    function ExisteEmpresa(pNombre: string): Boolean;
+
+  end;
+
+implementation
+
+{ TConfig }
+
+procedure TConfig.LeerIni;
+var
+  SettingsFile: TIniFile;
+  mArchivo: string;
+begin
+  try
+    _Resultado := 1;
+
+    mArchivo := Global.PathAplicacion + '\' + Archivo;
+    SettingsFile := TIniFile.Create(mArchivo);
+
+    {$REGION 'Sistema'}
+    Global.Instalado :=
+      SettingsFile.ReadInteger('Sistema','Instalado',0);
+    Global.AplicarImpuestoServicio :=
+      SettingsFile.ReadInteger('Sistema','AplicarImpuestoServicio',0);
+    Global.ImpresoraComanda :=
+      SettingsFile.ReadString('Sistema','ImpresoraComanda', 'Default');
+    Global.ImpresoraRecibos :=
+      SettingsFile.ReadString('Sistema','ImpresoraRecibos', 'Default');
+    Global.CodigoBarrasDirecto :=
+      SettingsFile.ReadInteger('Sistema','CodigoBarrasDirecto',0);
+    Global.DiasVencimientoDefault :=
+      SettingsFile.ReadInteger('Sistema','DiasVencimientoDefault',0);
+    Global.Web :=
+      SettingsFile.ReadString('Sistema','Web', '');
+    Global.TipoPantalla :=
+      SettingsFile.ReadInteger('Sistema','TipoPantalla',0);
+    Global.DirectorioRespaldos :=
+      SettingsFile.ReadString('Sistema','DirectorioRespaldos', '');
+    Global.IdVendedorDefault :=
+      SettingsFile.ReadInteger('Sistema','IdVendedorDefault', 0);
+    Global.Idioma :=
+      SettingsFile.ReadString('Sistema','Idioma', '');
+    {$ENDREGION}
+
+    {$REGION 'BaseDatos'}
+    // Main
+    Global.DB_Driver :=
+      SettingsFile.ReadString('BaseDatos','DB_Driver','');
+    Global.DB_Tipo :=
+      SettingsFile.ReadInteger('BaseDatos','DB_Tipo', 0);
+    Global.DB_Servidor := HexToStringS(Trim(
+      SettingsFile.ReadString('BaseDatos','DB_Servidor','')));
+    Global.DB_BaseDatos := HexToStringS(Trim(
+      SettingsFile.ReadString('BaseDatos','DB_BaseDatos', '')));
+     Global.DB_Usuario := HexToStringS(Trim(
+       SettingsFile.ReadString('BaseDatos','DB_Usuario', '')));
+     Global.DB_Clave := HexToStringS(Trim(
+       SettingsFile.ReadString('BaseDatos','DB_Clave','')));
+     Global.DB_Puerto :=
+       SettingsFile.ReadInteger('BaseDatos','DB_Puerto', 0);
+     Global.DB_Varios :=
+       SettingsFile.ReadString('BaseDatos','DB_Varios','');
+    {$ENDREGION}
+
+    {$REGION 'Ordenes'}
+    // Main
+    Global.OrdenesImpresora1 :=
+      SettingsFile.ReadString('Ordenes','Impresora1','');
+    Global.OrdenesImpresora2 :=
+      SettingsFile.ReadString('Ordenes','Impresora2','');
+    Global.OrdenesImpresora3 :=
+      SettingsFile.ReadString('Ordenes','Impresora3','');
+    Global.OrdenesImpresora4 :=
+      SettingsFile.ReadString('Ordenes','Impresora4','');
+    {$ENDREGION}
+
+    _Resultado := 1;
+  except
+    _Resultado := -1;
+  end;
+end;
+
+procedure TConfig.EscribirIni_Instalado;
+var
+  SettingsFile: TIniFile;
+  mArchivo: string;
+begin
+  try
+    _Resultado := 1;
+
+    mArchivo := Global.PathAplicacion + '\' + Archivo;
+    SettingsFile := TIniFile.Create(mArchivo);
+
+    {$REGION 'Sistema'}
+    SettingsFile.WriteInteger('Sistema','Instalado', Global.Instalado);
+    {$ENDREGION}
+
+    _Resultado := 1;
+  except
+    _Resultado := -1;
+  end;
+end;
+
+procedure TConfig.EscribirIni_BaseDatos;
+var
+  SettingsFile: TIniFile;
+  mArchivo: string;
+begin
+  try
+    _Resultado := 1;
+
+    mArchivo := Global.PathAplicacion + '\' + Archivo;
+    SettingsFile := TIniFile.Create(mArchivo);
+
+    {$REGION 'BaseDatos'}
+    // // Main
+    SettingsFile.WriteString('BaseDatos','DB_Driver', Global.DB_Driver);
+    SettingsFile.WriteInteger('BaseDatos','DB_Tipo', Global.DB_Tipo);
+    SettingsFile.WriteString('BaseDatos','DB_Servidor', StringToHexS(Global.DB_Servidor));
+    SettingsFile.WriteString('BaseDatos','DB_BaseDatos', StringToHexS(Global.DB_BaseDatos));
+    SettingsFile.WriteString('BaseDatos','DB_Usuario', StringToHexS(Global.DB_Usuario));
+    SettingsFile.WriteString('BaseDatos','DB_Clave', StringToHexS(Global.DB_Clave));
+    SettingsFile.WriteInteger('BaseDatos','DB_Puerto', Global.DB_Puerto);
+    SettingsFile.WriteString('BaseDatos','DB_Varios', Global.DB_Varios);
+    {$ENDREGION}
+
+    _Resultado := 1;
+  except
+    _Resultado := -1;
+  end;
+end;
+
+procedure TConfig.EscribirIni_BaseDatosPathFull;
+var
+  SettingsFile: TIniFile;
+  mArchivo: string;
+begin
+  try
+    _Resultado := 1;
+
+    mArchivo := Global.PathAplicacion + '\' + Archivo;
+    SettingsFile := TIniFile.Create(mArchivo);
+
+    {$REGION 'BaseDatos'}
+    // Local
+    SettingsFile.WriteString('BaseDatos','DB_BaseDatos', StringToHexS(Global.DB_BaseDatos));
+    {$ENDREGION}
+
+    _Resultado := 1;
+  except
+    _Resultado := -1;
+  end;
+end;
+
+procedure TConfig.EscribirIni_Sistema;
+var
+  SettingsFile: TIniFile;
+  mArchivo: string;
+begin
+  try
+    _Resultado := 1;
+
+    mArchivo := Global.PathAplicacion + '\' + Archivo;
+    SettingsFile := TIniFile.Create(mArchivo);
+
+    {$REGION 'Sistema'}
+    SettingsFile.WriteInteger('Sistema','AplicarImpuestoServicio', Global.AplicarImpuestoServicio);
+    SettingsFile.WriteString('Sistema','ImpresoraComanda', Global.ImpresoraComanda);
+    SettingsFile.WriteString('Sistema','ImpresoraRecibos', Global.ImpresoraRecibos);
+    SettingsFile.WriteInteger('Sistema','CodigoBarrasDirecto', Global.CodigoBarrasDirecto);
+    SettingsFile.WriteInteger('Sistema','DiasVencimientoDefault', Global.DiasVencimientoDefault);
+    SettingsFile.WriteInteger('Sistema','TipoPantalla', Global.TipoPantalla);
+    SettingsFile.WriteString('Sistema','DirectorioRespaldos', Global.DirectorioRespaldos);
+    SettingsFile.WriteInteger('Sistema','IdVendedorDefault', Global.IdVendedorDefault);
+    SettingsFile.WriteString('Sistema','Idioma', Global.Idioma);
+    {$ENDREGION}
+
+    {$REGION 'Ordenes'}
+    SettingsFile.WriteString('Ordenes','Impresora1', Global.OrdenesImpresora1);
+    SettingsFile.WriteString('Ordenes','Impresora2', Global.OrdenesImpresora2);
+    SettingsFile.WriteString('Ordenes','Impresora3', Global.OrdenesImpresora3);
+    SettingsFile.WriteString('Ordenes','Impresora4', Global.OrdenesImpresora4);
+    {$ENDREGION}
+
+    _Resultado := 1;
+  except
+    _Resultado := -1;
+  end;
+end;
+
+procedure TConfig.LeerEmpresas(var pEmpresas: TStringList);
+var
+  SettingsFile: TIniFile;
+  mArchivo: string;
+begin
+  try
+    _Resultado := 1;
+
+    mArchivo := Global.PathAplicacion + '\' + Archivo;
+    SettingsFile := TIniFile.Create(mArchivo);
+
+    {$REGION 'Empresas'}
+    SettingsFile.ReadSectionValues('Empresas', pEmpresas);
+    {$ENDREGION}
+
+    _Resultado := 1;
+  except
+    _Resultado := -1;
+  end;
+end;
+
+procedure TConfig.EscribirIni_EmpresaLista(pNombre, pValor: string);
+var
+  SettingsFile: TIniFile;
+  mArchivo: string;
+begin
+  try
+    _Resultado := 1;
+
+    mArchivo := Global.PathAplicacion + '\' + Archivo;
+    SettingsFile := TIniFile.Create(mArchivo);
+
+    {$REGION 'Empresas'}
+    SettingsFile.WriteString('Empresas', pNombre, pValor);
+    {$ENDREGION}
+
+    _Resultado := 1;
+  except
+    _Resultado := -1;
+  end;
+end;
+
+procedure TConfig.EliminarIni_EmpresaLista(pNombre: string);
+var
+  SettingsFile: TIniFile;
+  mArchivo: string;
+begin
+  try
+    _Resultado := 1;
+
+    mArchivo := Global.PathAplicacion + '\' + Archivo;
+    SettingsFile := TIniFile.Create(mArchivo);
+
+    {$REGION 'Empresas'}
+    SettingsFile.DeleteKey('Empresas', pNombre);
+    {$ENDREGION}
+
+    _Resultado := 1;
+  except
+    _Resultado := -1;
+  end;
+end;
+
+function TConfig.CantidadEmpresas: Integer;
+var
+  SettingsFile: TIniFile;
+  mArchivo: string;
+  mLista: TStringList;
+  mResultado: Integer;
+begin
+  try
+    _Resultado := 1;
+
+    mResultado := 0;
+
+    mArchivo := Global.PathAplicacion + '\' + Archivo;
+    SettingsFile := TIniFile.Create(mArchivo);
+
+    {$REGION 'Empresas'}
+    mLista := TStringList.Create;
+    SettingsFile.ReadSectionValues('Empresas', mLista);
+    mResultado := mLista.Count;
+    mLista.Free;
+    {$ENDREGION}
+
+    _Resultado := 1;
+  except
+    _Resultado := -1;
+  end;
+
+  Result := mResultado;
+end;
+
+function TConfig.ExisteEmpresa(pNombre: string): Boolean;
+var
+  SettingsFile: TIniFile;
+  mArchivo: string;
+  mLista: TStringList;
+  mResultado: Boolean;
+  mFila: Integer;
+begin
+  try
+    _Resultado := 1;
+
+    mResultado := False;
+
+    mArchivo := Global.PathAplicacion + '\' + Archivo;
+    SettingsFile := TIniFile.Create(mArchivo);
+
+    {$REGION 'Empresas'}
+    mLista := TStringList.Create;
+    SettingsFile.ReadSection('Empresas', mLista);
+    for mFila := 0 to mLista.Count - 1 do
+    begin
+      if mLista.Strings[mFila] = pNombre then
+      begin
+        mResultado := True;
+        Break;
+      end;
+    end;
+    mLista.Free;
+    {$ENDREGION}
+
+    _Resultado := 1;
+  except
+    _Resultado := -1;
+  end;
+
+  Result := mResultado;
+end;
+
+function TConfig.HexToStringS(H: String): String;
+var
+  I: Integer;
+begin
+  Result:= '';
+  for I := 1 to length (H) div 2 do
+    Result:= Result+Char(StrToInt('$'+Copy(H,(I-1)*2+1,2)));
+end;
+
+function TConfig.StringToHexS(S: String): string;
+var
+  I: Integer;
+begin
+  Result:= '';
+  for I := 1 to length (S) do
+    Result:= Result+IntToHex(ord(S[i]),2);
+end;
+
+end.

@@ -1,0 +1,43 @@
+unit FrmFamilias01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils,
+  System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, RzTabs, Vcl.Buttons,
+  Vcl.ExtCtrls, RzPanel, uDL_Skeleton, Vcl.ComCtrls;
+
+type
+  TFormFamilias01 = class(TForm)
+    pnlTitulo: TRzPanel;
+    pnlAccion: TRzPanel;
+    pnlOpciones: TRzPanel;
+    btnAceptar: TBitBtn;
+    btnCancelar: TBitBtn;
+    pgcCampos: TRzPageControl;
+    TabSheet1: TRzTabSheet;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    edtUsuario: TEdit;
+    edtClave: TEdit;
+    edtNombre: TEdit;
+    cbNivel: TComboBoxEx;
+  private
+    FId: Integer;
+    FOpcion: Integer;
+  public
+    property _Id: Integer read FId write FId;
+    property _Opcion: Integer read FOpcion write FOpcion;
+  end;
+
+var
+  FormFamilias01: TFormFamilias01;
+
+implementation
+
+{$R *.dfm}
+
+end.

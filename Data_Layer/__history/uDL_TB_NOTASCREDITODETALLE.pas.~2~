@@ -1,0 +1,147 @@
+unit uDL_TB_NOTASCREDITODETALLE;
+
+interface
+uses udmObjects, FireDAC.Comp.Client, System.SysUtils, Data.DB,
+  System.Classes, udmConnection;
+
+type
+  TDatasetMem = TFDMemTable;
+
+  TDL_TB_NOTASCREDITODETALLE = class
+    Dataset: TDatasetMem;
+    _ListaCampos: TStringList;
+  const
+    Tabla = 'TB_NOTASCREDITODETALLE';
+    ClaseNombre = 'TDL_TB_NOTASCREDITODETALLE';
+  public
+    {$REGION 'Metodos'}
+    constructor Create;
+    destructor Destroy;
+    procedure Consultar(var pResultado: Integer; var pErrorM: string;
+      pWhere: string =''; pOrderBy: string ='';
+      pGroupBy: string =''; pHaving: string =''; pSelect: string ='';
+      pds1: TDatasetMem = nil; FTypeConection: TTypeConection = udmConnection.Main);
+    procedure Insertar(var pResultado: Integer; var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main);
+    procedure Modificar(pWhere: string; var pResultado: Integer;
+      var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main);
+    procedure Eliminar(pWhere: string; var pResultado: Integer;
+      var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main);
+    procedure Limpiar_Tag;
+    function Existe_Id(pWhere: string; var pResultado: Integer;
+      var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main): Boolean;
+    function Obtener_Id(pWhere: string; var pResultado: Integer;
+      var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main): Integer;
+    function Existe_Campo(pWhere: string;
+      pCampo: string; pResultado: Integer;
+      var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main): Boolean;
+    function Obtener_Valor(pWhere: string;
+      pCampo: string; var pResultado: Integer;
+      var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main): Variant;
+    procedure Actualizar_Campo(pWhere: string;
+      pCampo: string; pValor: Variant; var pResultado: Integer;
+      var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main);
+    procedure Sumar_Existencias(pWhere: string;
+      d1: TFDMemTable;
+      var pResultado: Integer; var pErrorM: string;
+      FTypeConection: TTypeConection = udmConnection.Main);
+    procedure Restar_Existencias(pWhere: string;
+      d1: TFDMemTable;
+      var pResultado: Integer; var pErrorM: string;
+      FTypeConection: TTypeConection = udmConnection.Main);
+    {$ENDREGION}
+  end;
+
+implementation
+
+{ TDL_TB_NOTASCREDITODETALLE }
+
+constructor TDL_TB_NOTASCREDITODETALLE.Create;
+begin
+
+end;
+
+destructor TDL_TB_NOTASCREDITODETALLE.Destroy;
+begin
+
+end;
+
+procedure TDL_TB_NOTASCREDITODETALLE.Consultar(var pResultado: Integer;
+  var pErrorM: string; pWhere, pOrderBy, pGroupBy, pHaving, pSelect: string;
+  pds1: TDatasetMem; FTypeConection: TTypeConection);
+begin
+
+end;
+
+procedure TDL_TB_NOTASCREDITODETALLE.Insertar(var pResultado: Integer;
+  var pErrorM: string; FTypeConection: TTypeConection);
+begin
+
+end;
+
+procedure TDL_TB_NOTASCREDITODETALLE.Modificar(pWhere: string;
+  var pResultado: Integer; var pErrorM: string; FTypeConection: TTypeConection);
+begin
+
+end;
+
+procedure TDL_TB_NOTASCREDITODETALLE.Eliminar(pWhere: string;
+  var pResultado: Integer; var pErrorM: string; FTypeConection: TTypeConection);
+begin
+
+end;
+
+procedure TDL_TB_NOTASCREDITODETALLE.Limpiar_Tag;
+begin
+
+end;
+
+function TDL_TB_NOTASCREDITODETALLE.Existe_Id(pWhere: string;
+  var pResultado: Integer; var pErrorM: string;
+  FTypeConection: TTypeConection): Boolean;
+begin
+
+end;
+
+function TDL_TB_NOTASCREDITODETALLE.Obtener_Id(pWhere: string;
+  var pResultado: Integer; var pErrorM: string;
+  FTypeConection: TTypeConection): Integer;
+begin
+
+end;
+
+function TDL_TB_NOTASCREDITODETALLE.Existe_Campo(pWhere, pCampo: string;
+  pResultado: Integer; var pErrorM: string;
+  FTypeConection: TTypeConection): Boolean;
+begin
+
+end;
+
+function TDL_TB_NOTASCREDITODETALLE.Obtener_Valor(pWhere, pCampo: string;
+  var pResultado: Integer; var pErrorM: string;
+  FTypeConection: TTypeConection): Variant;
+begin
+
+end;
+
+procedure TDL_TB_NOTASCREDITODETALLE.Actualizar_Campo(pWhere, pCampo: string;
+  pValor: Variant; var pResultado: Integer; var pErrorM: string;
+  FTypeConection: TTypeConection);
+begin
+
+end;
+
+procedure TDL_TB_NOTASCREDITODETALLE.Sumar_Existencias(pWhere: string;
+  d1: TFDMemTable; var pResultado: Integer; var pErrorM: string;
+  FTypeConection: TTypeConection);
+begin
+
+end;
+
+procedure TDL_TB_NOTASCREDITODETALLE.Restar_Existencias(pWhere: string;
+  d1: TFDMemTable; var pResultado: Integer; var pErrorM: string;
+  FTypeConection: TTypeConection);
+begin
+
+end;
+
+end.

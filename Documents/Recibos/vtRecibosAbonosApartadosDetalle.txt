@@ -1,0 +1,2 @@
+Factura_Numero string 50
+MontoAbono float

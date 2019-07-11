@@ -1,0 +1,66 @@
+unit uDL_tb_documentosotroscargos;
+
+interface
+uses
+  FireDAC.Comp.Client, System.SysUtils, Data.DB,
+  System.Classes;
+
+type
+  TDL_tb_documentosotroscargos = class
+    Dataset: TFDMemTable;
+  private
+    {$REGION 'Propiedades'}
+    FTabla: string;
+    FClaseNombre: string;
+    F_IdNombre: string;
+    {$ENDREGION}
+  public
+    {$REGION 'Propiedades'}
+    property Tabla: string read FTabla write FTabla;
+    property ClaseNombre: string read FClaseNombre write FClaseNombre;
+    property _IdNombre: string read F_IdNombre write F_IdNombre;
+    {$ENDREGION}
+
+    {$REGION 'Metodos'}
+    constructor Create;
+    destructor Destroy;
+    {$ENDREGION}
+  end;
+
+implementation
+
+{ TDL_tb_documentosotroscargos }
+
+{$REGION 'Metodos'}
+constructor TDL_tb_documentosotroscargos.Create;
+begin
+  Tabla := 'tb_documentosotroscargos';
+  ClaseNombre := 'TDL_tb_documentosotroscargos';
+  _IdNombre := 'Id';
+
+  Dataset := TFDMemTable.Create(nil);
+  with Dataset do
+  begin
+    FileName := 'tb_documentosotroscargos';
+    FieldDefs.Clear;
+    FieldDefs.Add('Id', ftInteger, 0);
+    FieldDefs.Add('IdEncabezado', ftInteger, 0);
+    FieldDefs.Add('TipoDocumento', ftInteger, 0);
+    FieldDefs.Add('NumeroIdentidadTercero', ftString, 12);
+    FieldDefs.Add('NombreTercero', ftString, 100);
+    FieldDefs.Add('Detalle', ftString, 160);
+    FieldDefs.Add('Porcentaje', ftFloat, 0);
+    FieldDefs.Add('MontoCargo', ftFloat, 0);
+    CreateDataSet;
+    Open;
+  end;
+end;
+
+destructor TDL_tb_documentosotroscargos.Destroy;
+begin
+  Dataset.Close;
+  Dataset.Free;
+end;
+{$ENDREGION}
+
+end.

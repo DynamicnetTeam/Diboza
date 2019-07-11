@@ -1,0 +1,48 @@
+unit uDL_TB_OrdenesDetalle;
+
+interface
+uses udmObjects, FireDAC.Comp.Client, System.SysUtils, Data.DB,
+  System.Classes, udmConnection;
+
+type
+  TDatasetMem = TFDMemTable;
+
+  TDL_TB_OrdenesDetalle = class
+    Dataset: TDatasetMem;
+    _ListaCampos: TStringList;
+  const
+    Tabla = 'TB_OrdenesDetalle';
+    ClaseNombre = 'TDL_TB_OrdenesDetalle';
+  public
+    {$REGION 'Metodos'}
+    constructor Create;
+    destructor Destroy;
+    procedure Consultar(var pResultado: Integer; var pErrorM: string;
+      pWhere: string =''; pOrderBy: string ='';
+      pGroupBy: string =''; pHaving: string =''; pSelect: string ='';
+      pds1: TDatasetMem = nil; FTypeConection: TTypeConection = udmConnection.Main);
+    procedure Insertar(var pResultado: Integer; var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main);
+    procedure Modificar(pWhere: string; var pResultado: Integer;
+      var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main);
+    procedure Eliminar(pWhere: string; var pResultado: Integer;
+      var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main);
+    procedure Limpiar_Tag;
+    function Existe_Id(pWhere: string; var pResultado: Integer;
+      var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main): Boolean;
+    function Obtener_Id(pWhere: string; var pResultado: Integer;
+      var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main): Integer;
+    function Existe_Campo(pWhere: string;
+      pCampo: string; pResultado: Integer;
+      var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main): Boolean;
+    function Obtener_Valor(pWhere: string;
+      pCampo: string; var pResultado: Integer;
+      var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main): Variant;
+    procedure Actualizar_Campo(pWhere: string;
+      pCampo: string; pValor: Variant; var pResultado: Integer;
+      var pErrorM: string; FTypeConection: TTypeConection = udmConnection.Main);
+    {$ENDREGION}
+  end;
+
+implementation
+
+end.

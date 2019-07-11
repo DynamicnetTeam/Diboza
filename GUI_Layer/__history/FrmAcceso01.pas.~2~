@@ -1,0 +1,32 @@
+unit FrmAcceso01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils,
+  System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
+  RzPanel;
+
+type
+  TFormAcceso01 = class(TForm)
+    pnlTitulo: TRzPanel;
+    pnlOpciones: TRzPanel;
+    btnAceptar: TBitBtn;
+    btnCancelar: TBitBtn;
+    Label1: TLabel;
+    Edit1: TEdit;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormAcceso01: TFormAcceso01;
+
+implementation
+
+{$R *.dfm}
+
+end.

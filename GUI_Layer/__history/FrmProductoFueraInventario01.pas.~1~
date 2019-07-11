@@ -1,0 +1,24 @@
+unit FrmProductoFueraInventario01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+
+type
+  TFormProductoFueraInventario01 = class(TForm)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormProductoFueraInventario01: TFormProductoFueraInventario01;
+
+implementation
+
+{$R *.dfm}
+
+end.

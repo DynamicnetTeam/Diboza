@@ -1,0 +1,68 @@
+unit BS_DBConexion;
+
+interface
+uses
+  uSistema, DL_DBConexion;
+
+var
+  _MainConexion: TBS_DBConexion;
+  _LicenciaConexion: TBS_DBConexion;
+
+  procedure BS_DBConexion_Conectar_Main(pDriver: string);
+  procedure BS_DBConexion_Desonectar_Main;
+  procedure BS_DBConexion_Conectar_Licencia(pDriver: string);
+  procedure BS_DBConexion_Desonectar_Licencia;
+
+implementation
+
+procedure BS_DBConexion_Conectar_Main(pDriver: string);
+begin
+  try
+    _MainConexion := TBS_DBConexion.Create;
+    _MainConexion.Database :=
+      Global.DB_BaseDatos;
+    _MainConexion.User :=
+      Global.DB_Usuario;
+    _MainConexion.Password :=
+      Global.DB_Clave;
+    _MainConexion.Port :=
+      Global.DB_Puerto;
+    _MainConexion.Conectar(pDriver, _Resultado, _ErrorM);
+  except
+  end;
+end;
+
+procedure BS_DBConexion_Desonectar_Main;
+begin
+  try
+    _MainConexion.Destroy;
+  except
+  end;
+end;
+
+procedure BS_DBConexion_Conectar_Licencia(pDriver: string);
+begin
+  try
+    _LicenciaConexion := TBS_DBConexion.Create;
+    _LicenciaConexion.Database :=
+      Global.DB_BaseDatos;
+    _LicenciaConexion.User :=
+      Global.DB_Usuario;
+    _LicenciaConexion.Password :=
+      Global.DB_Clave;
+    _LicenciaConexion.Port :=
+      Global.DB_Puerto;
+    _LicenciaConexion.Conectar(pDriver, _Resultado, _ErrorM);
+  except
+  end;
+end;
+
+procedure BS_DBConexion_Desonectar_Licencia;
+begin
+  try
+    _LicenciaConexion.Destroy;
+  except
+  end;
+end;
+
+end.

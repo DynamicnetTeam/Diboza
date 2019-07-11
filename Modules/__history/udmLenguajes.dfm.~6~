@@ -1,0 +1,59 @@
+object dmLenguajes: TdmLenguajes
+  OldCreateOrder = False
+  Height = 236
+  Width = 278
+  object FDConnectionMain: TFDConnection
+    Params.Strings = (
+      
+        'URI=file://E:\TODO/Proyectos 10.2 Tokyo/Sisfac/Win32/Debug/langu' +
+        'ages/mandarin.xml'
+      'DriverID=CDataXML')
+    Connected = True
+    LoginPrompt = False
+    Left = 48
+    Top = 16
+  end
+  object FDQuery1: TFDQuery
+    Connection = FDConnectionMain
+    SQL.Strings = (
+      'Select * from mandarin.xml')
+    Left = 32
+    Top = 72
+  end
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 152
+    Top = 16
+  end
+  object FDPhysCDataXMLDriverLink1: TFDPhysCDataXMLDriverLink
+    DriverID = 'CDataXML'
+    Left = 152
+    Top = 72
+  end
+  object FDMemIdioma: TFDMemTable
+    FieldDefs = <
+      item
+        Name = 'Key'
+        DataType = ftMemo
+      end
+      item
+        Name = 'Value'
+        DataType = ftMemo
+      end>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 32
+    Top = 128
+  end
+  object FDStanStorageXMLLink1: TFDStanStorageXMLLink
+    Left = 104
+    Top = 128
+  end
+end

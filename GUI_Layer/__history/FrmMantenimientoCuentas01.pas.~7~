@@ -1,0 +1,504 @@
+unit FrmMantenimientoCuentas01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils,
+  System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls,
+  RzListVw, RzStatus, RzPanel, Vcl.ExtCtrls,
+  System.RegularExpressions, uDL_Skeleton, Vcl.WinXCtrls;
+
+type
+  TFormMantenimientoCuentas01 = class(TForm)
+    pnlTitulo: TRzPanel;
+    pnlOpciones: TRzPanel;
+    btnInsertar: TBitBtn;
+    btnModificar: TBitBtn;
+    btnEliminar: TBitBtn;
+    btnRefrescar: TBitBtn;
+    btnCerrar: TBitBtn;
+    stbEstado1: TRzStatusBar;
+    RzStatusPane1: TRzStatusPane;
+    pnlFiltro: TRzPanel;
+    Label2: TLabel;
+    edtBuscar_Nombre: TSearchBox;
+    pnlListaTitulo: TRzPanel;
+    chkTodoLista1: TCheckBox;
+    lvLista1: TRzListView;
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure chkTodoLista1Click(Sender: TObject);
+    procedure btnInsertarClick(Sender: TObject);
+    procedure btnModificarClick(Sender: TObject);
+    procedure btnEliminarClick(Sender: TObject);
+    procedure btnRefrescarClick(Sender: TObject);
+    procedure btnCerrarClick(Sender: TObject);
+    procedure edtBuscar_NombreInvokeSearch(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormMantenimientoCuentas01: TFormMantenimientoCuentas01;
+
+  procedure InicializarForma;
+  procedure FinalizarForma;
+  procedure KeyDownForma(var Key: Word; Shift: TShiftState);
+  procedure LimpiarCampos;
+  procedure Insertar;
+  procedure Modificar(lv: TRzListView);
+  procedure Eliminar(lv: TRzListView);
+  procedure Refrescar(lv: TRzListView);
+  procedure Cerrar;
+  procedure LlenarlvLista1(lv: TRzListView; ds1: TDatasetMem);
+  procedure Eliminar_Data(pId: Integer; pIdProducto: Integer);
+  procedure Buscar_Nombre(pTexto: string; lv: TRzListView);
+  procedure MDLista_Todos(lv: TRzListView; chk: TCheckBox);
+
+implementation
+
+uses
+  uSistema, ufunciones, uDL_TB_Cuentas, BS_DBConexion,
+  FrmCuentas01, FrmMensaje_Espera01;
+
+{$R *.dfm}
+
+type
+  Clase_Tipo1 = TDL_TB_Cuentas;
+
+const
+  lv_Nombre = 0;
+  lv_id = 1;
+
+var
+  Forma01: TFormMantenimientoCuentas01;
+
+{$REGION 'Funciones Forma'}
+procedure TFormMantenimientoCuentas01.FormShow(Sender: TObject);
+begin
+  Forma01 := FormMantenimientoCuentas01;
+
+  InicializarForma;
+end;
+
+procedure TFormMantenimientoCuentas01.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  FinalizarForma;
+end;
+
+procedure TFormMantenimientoCuentas01.FormKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  KeyDownForma(Key, Shift);
+end;
+
+procedure TFormMantenimientoCuentas01.chkTodoLista1Click(Sender: TObject);
+begin
+  MDLista_Todos(lvLista1, chkTodoLista1);
+end;
+
+procedure TFormMantenimientoCuentas01.btnInsertarClick(Sender: TObject);
+begin
+  Insertar;
+end;
+
+procedure TFormMantenimientoCuentas01.btnModificarClick(Sender: TObject);
+begin
+  Modificar(lvLista1);
+end;
+
+procedure TFormMantenimientoCuentas01.btnEliminarClick(Sender: TObject);
+begin
+  Eliminar(lvLista1);
+end;
+
+procedure TFormMantenimientoCuentas01.btnRefrescarClick(Sender: TObject);
+begin
+  Refrescar(lvLista1);
+end;
+
+procedure TFormMantenimientoCuentas01.btnCerrarClick(Sender: TObject);
+begin
+  Cerrar;
+end;
+
+procedure TFormMantenimientoCuentas01.edtBuscar_NombreInvokeSearch(
+  Sender: TObject);
+begin
+  Buscar_Nombre(edtBuscar_Nombre.Text, lvLista1);
+end;
+{$ENDREGION}
+
+{$REGION 'Funciones Generales'}
+procedure InicializarForma;
+begin
+  with Forma01 do
+  begin
+
+    try
+      Tag := 0;
+
+      LimpiarCampos;
+      Refrescar(lvLista1);
+      if _Resultado = -1 then
+        raise Exception.Create('');
+    except
+      if _Resultado = -1 then
+      begin
+        Application.MessageBox(PChar('Ha ocurrido un error' + #13+#10 + _ErrorM),
+          'Error', MB_ICONERROR);
+        PostMessage(Handle, WM_CLOSE, 0, 0);
+      end;
+      _Resultado := -1;
+    end;
+
+  end;
+end;
+
+procedure FinalizarForma;
+begin
+  with Forma01 do
+  begin
+
+    try
+
+    except
+    end;
+
+  end;
+end;
+
+procedure KeyDownForma(var Key: Word; Shift: TShiftState);
+begin
+  with Forma01 do
+  begin
+
+    if Key = VK_ESCAPE then
+    begin
+      Key := 0;
+      Close;
+    end;
+    if Key = VK_F2 then
+    begin
+      Key := 0;
+      Insertar;
+    end;
+    if Key = VK_F3 then
+    begin
+      Key := 0;
+      btnModificar.Click;
+    end;
+    if Key = VK_F4 then
+    begin
+      Key := 0;
+      btnEliminar.Click;
+    end;
+    if Key = VK_F4 then
+    begin
+      Key := 0;
+      btnRefrescar.Click;
+    end;
+    if (Key = (ord('T') Or ord('t'))) and (Shift = [ssCtrl]) then
+    begin
+      Key := 0;
+      lvLista1.SetFocus;
+    end;
+
+  end;
+end;
+
+procedure LimpiarCampos;
+begin
+  with Forma01 do
+  begin
+
+    edtBuscar_Nombre.Clear;
+
+  end;
+end;
+
+procedure Insertar;
+begin
+  with Forma01 do
+  begin
+
+    FormCuentas01._Opcion := 1;
+    FormCuentas01.ShowModal;
+    if FormCuentas01.Tag = 1 then
+      btnRefrescar.Click;
+
+  end;
+end;
+
+procedure Modificar(lv: TRzListView);
+var
+  mLinea: string;
+  mId, mIdProducto: Integer;
+begin
+  with Forma01 do
+  begin
+
+    if lv.Selected <> nil then
+    begin
+      mLinea := lv.Selected.SubItems[lv_id];
+      try
+        mId := StrToInt(mLinea);
+      except
+        mId := 0;
+      end;
+      mLinea := lv.Selected.SubItems[2];
+      try
+        mIdProducto := StrToInt(mLinea);
+      except
+        mIdProducto := 0;
+      end;
+      if mId > 0 then
+      begin
+        FormCuentas01._Id := mId;
+        FormCuentas01._Opcion := 2;
+        FormCuentas01.ShowModal;
+        if FormCuentas01.Tag = 1 then
+          btnRefrescar.Click;
+      end;
+    end;
+
+  end;
+end;
+
+procedure Eliminar(lv: TRzListView);
+var
+  mDL_TB_Cuentas: TDL_TB_Cuentas;
+  mFila, mId, mIdProducto: Integer;
+  mLinea: string;
+begin
+  with Forma01 do
+  begin
+
+    if Application.MessageBox('Desea eliminar los registros marcados?',
+      'Confirmar', MB_YESNO + MB_ICONQUESTION) = IDYES then
+    begin
+      for mFila := 0 to lv.Items.Count - 1 do
+      begin
+        if lv.Items[mFila].Checked = True then
+        begin
+          mLinea := lv.Items[mFila].SubItems[lv_id];
+          try
+            mId := StrToInt(mLinea);
+          except
+            mId := 0;
+          end;
+          mLinea := lv.Items[mFila].SubItems[2];
+          try
+            mIdProducto := StrToInt(mLinea);
+          except
+            mIdProducto := 0;
+          end;
+          if mId > 0 then
+          begin
+            Eliminar_Data(mId, mIdProducto);
+            mDL_TB_Cuentas := TDL_TB_Cuentas.Create;
+            mDL_TB_Cuentas.Eliminar('Id=' + IntToStr(mIdProducto), _Resultado, _ErrorM);
+            mDL_TB_Cuentas.Destroy;
+          end;
+        end;
+      end;
+      btnRefrescar.Click;
+    end;
+
+  end;
+end;
+
+procedure Refrescar(lv: TRzListView);
+var
+  mDL_TB_Cuentas: Clase_Tipo1;
+  mWhere, mOrderBy: TStringList;
+  mResultado: Integer;
+  mErrorM: string;
+begin
+  with Forma01 do
+  begin
+
+    Screen.Cursor := crHourGlass;
+    FormMensaje_Espera01.Show;
+    FormMensaje_Espera01.Repaint;
+    try
+      _Resultado := 1;
+
+      _MainConexion.Iniciar_Transaccion(_Resultado, _ErrorM);
+
+      mDL_TB_Cuentas := Clase_Tipo1.Create;
+      mWhere := TStringList.Create;
+      mWhere.Clear;
+      mWhere.Add('A.Editable=1');
+      mOrderBy := TStringList.Create;
+      mOrderBy.Clear;
+      mOrderBy.Add('A.Nombre');
+      mDL_TB_Cuentas.Consultar(_Resultado, _ErrorM, mWhere.Text,
+        mOrderBy.Text);
+      mWhere.Free;
+      mOrderBy.Free;
+      if _Resultado = -1 then
+        raise Exception.Create('');
+
+      LlenarlvLista1(lv, mDL_TB_Cuentas.Dataset);
+      mDL_TB_Cuentas.Destroy;
+
+      _MainConexion.Aceptar_Transaccion(_Resultado, _ErrorM);
+
+      _Resultado := 1;
+    except
+      _Resultado := -1;
+      mResultado := _Resultado;
+      mErrorM := _ErrorM;
+      _MainConexion.Rechazar_Transaccion(_Resultado, _ErrorM);
+      _Resultado := mResultado;
+      _ErrorM := mErrorM;
+    end;
+    FormMensaje_Espera01.Close;
+    Screen.Cursor := crDefault;
+
+  end;
+end;
+
+procedure Cerrar;
+begin
+  with Forma01 do
+  begin
+
+    Close;
+
+  end;
+end;
+
+procedure LlenarlvLista1(lv: TRzListView; ds1: TDatasetMem);
+begin
+  with Forma01 do
+  begin
+
+    lv.Items.Clear;
+
+    with ds1 do
+    begin
+      RzStatusPane1.Caption := 'Registros: ' +
+        FormatFloat('#,##0', RecordCount);
+      First;
+      while not Eof do
+      begin
+        with lv.Items.Add do
+        begin
+          Caption := '';
+          SubItems.Add(
+            FieldByName('NOMBRE').AsString);
+          SubItems.Add(
+            FieldByName('ID').AsString);
+        end;
+        Next;
+      end;
+    end;
+
+  end;
+end;
+
+procedure Eliminar_Data(pId: Integer; pIdProducto: Integer);
+var
+  mDL_TB_Cuentas: Clase_Tipo1;
+  mWhere: TStringList;
+  mResultado: Integer;
+  mErrorM: string;
+  mLinea: string;
+begin
+  with Forma01 do
+  begin
+
+    try
+      _Resultado := 1;
+
+      _MainConexion.Iniciar_Transaccion(_Resultado, _ErrorM);
+
+      mDL_TB_Cuentas := Clase_Tipo1.Create;
+      mWhere := TStringList.Create;
+      mWhere.Add('ID = ' + IntToStr(pId));
+      mDL_TB_Cuentas.Eliminar(mWhere.Text, _Resultado, _ErrorM);
+      mWhere.Free;
+      if _Resultado = -1 then
+        raise Exception.Create('');
+      mDL_TB_Cuentas.Destroy;
+
+      _MainConexion.Aceptar_Transaccion(_Resultado, _ErrorM);
+
+      _Resultado := 1;
+    except
+      mResultado := _Resultado;
+      mErrorM := _ErrorM;
+      _MainConexion.Rechazar_Transaccion(_Resultado, _ErrorM);
+      _Resultado := mResultado;
+      _ErrorM := mErrorM;
+      if _Resultado = -1 then
+      begin
+        Application.MessageBox(PChar('Ha ocurrido un error' + #13+#10 + _ErrorM),
+          'Error', MB_ICONERROR);
+      end;
+      _Resultado := -1;
+    end;
+
+  end;
+end;
+
+procedure Buscar_Nombre(pTexto: string; lv: TRzListView);
+var
+  mEncontrado: Boolean;
+  mFila: Integer;
+  mTexto, mLinea: string;
+  regexpr : TRegEx;
+  match   : TMatch;
+begin
+  with Forma01 do
+  begin
+
+    mEncontrado := False;
+    mTexto := Trim(pTexto);
+    for mFila := 0 to lv.Items.Count - 1 do
+    begin
+      mLinea := Trim(lv.Items[mFila].SubItems[lv_Nombre]);
+      if mTexto <> '' then
+      begin
+        regexpr := TRegEx.Create(mTexto,[roIgnoreCase,roMultiline]);
+        match := regexpr.Match(mLinea);
+        if match.Success then
+        begin
+          mEncontrado := True;
+          lv.Items[mFila].Selected := true;
+          lv.Items[mFila].MakeVisible(True);
+          lv.SetFocus;
+          Break;
+        end;
+      end
+      else
+        Break;
+    end;
+    if mEncontrado = False then
+      Application.MessageBox('No encontrado', 'Advertencia', MB_OK);
+
+  end;
+end;
+
+procedure MDLista_Todos(lv: TRzListView; chk: TCheckBox);
+var
+  mFila: Integer;
+begin
+  with Forma01 do
+  begin
+
+    for mFila := 0 to lv.Items.Count - 1 do
+      lv.Items[mFila].Checked := chk.Checked;
+
+  end;
+end;
+{$ENDREGION}
+
+end.

@@ -1,0 +1,656 @@
+object FormCambiarPrecios01: TFormCambiarPrecios01
+  Left = 0
+  Top = 0
+  Caption = 'Cambiar Precios'
+  ClientHeight = 462
+  ClientWidth = 844
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  KeyPreview = True
+  OldCreateOrder = False
+  Position = poOwnerFormCenter
+  ShowHint = True
+  OnClose = FormClose
+  OnKeyDown = FormKeyDown
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlTitulo: TRzPanel
+    Left = 0
+    Top = 0
+    Width = 844
+    Height = 25
+    Align = alTop
+    BorderOuter = fsNone
+    Caption = 'CAMBIAR PRECIOS'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    GradientColorStyle = gcsCustom
+    GradientColorStart = clBlue
+    GradientColorStop = clWhite
+    ParentFont = False
+    TabOrder = 0
+    VisualStyle = vsGradient
+  end
+  object pnlOpciones: TRzPanel
+    Left = 0
+    Top = 25
+    Width = 844
+    Height = 64
+    Align = alTop
+    BorderOuter = fsFlat
+    TabOrder = 1
+    object btnCerrar: TBitBtn
+      Left = 11
+      Top = 6
+      Width = 80
+      Height = 50
+      Caption = 'Cerrar'
+      Glyph.Data = {
+        3E040000424D3E04000000000000FE0100002800000018000000180000000100
+        08000000000040020000120B0000120B0000720000007200000000000000FFFF
+        FF00FF00FF0069333400CD676800CC666700CF696A00CE686900D06A6B00D26C
+        6D00D16B6C00C6666700D46E6F00D36D6E00D6707100D56F7000D7717200D973
+        7400D8727300D26F7000DB757600DA747500DD777800DC767700DF797A00DE78
+        7900E17B7C00E07A7B00E37D7E00E27C7D00C0696A00E57F8000E47E7F00E781
+        8200E6808100E9838400E8828300EB858600EA848500ED878800EC868700B366
+        6700EF898A00EE888900B4676800F18B8C00F08A8B00B6696A00F48E8F00F38D
+        8E00F28C8D00B0666700F6909100F58F9000E7878800B96C6D00F8929300F791
+        9200BB6E6F00FB959600FA949500F9939400FD979800FC969700BE717200AF68
+        6900FF999A00FE989900C0737400F9969700C3767700F2939400DF898A00C87B
+        7C00C67C7D00C0797A00FEA2A300A76C6D00FDA8A900F3A6A700FCAFB000ECA6
+        A700F0AAAB00FBB6B700FABCBD00F5BBBC00F2B9BA00F9C5C600B86B6B00AE66
+        6600BD707000C2757500C5787800C77A7A00A7666600CA7D7D00CD808000CC7F
+        7F00A3666600A0666600B3737300AD7070009A666600F0B0B000F9C2C200F2D9
+        C000FFFFDD00E2F8CC00C7F0BC0073B8760059B2670079DD900060D6810033CB
+        6700020202020202020202020266030202020202020202020202020202020202
+        02026666625E0302020202020202020202020202020202666663330B05290302
+        020202020202020202020202026666411E060704042903596666666666666666
+        020202020266130F0C0D090A082C034C4E505354685757660202020202661112
+        100E0F0C0D2F036E71717171717157660202020202661714151112100E58036E
+        71717171717157660202020202661818191617141537036E7171717171715766
+        0202020202661C1D1A1B1819163A036E7171717171715766020202020266221F
+        201C1D1A1B5A036E71717171717157660202020202662324212236512040036D
+        7171717171715766020202020266272825265601674403696C6F6F7070705766
+        0202020202662E2A2B275501525B03696A6A6A6A6B6B57660202020202663132
+        2D2E2A4F274603696A6A6A6A6A6A57660202020202663434353031322D5C0369
+        6A6A6A6A6A6A57660202020202663C3D38393435305D03696A6A6A6A6A6A5766
+        0202020202663E3F3B3C3D38394903696A6A6A6A6A6A57660202020202664242
+        433E3E3F3B5F03696A6A6A6A6A6A576602020202026642424242424343610369
+        6A6A6A6A6A6A5766020202020266454242424242426003696A6A6A6A6A6A5766
+        020202020266664B48424242426003696A6A6A6A6A6A57660202020202020266
+        664D4A474260035E666666666666666602020202020202020202666665640302
+        0202020202020202020202020202020202020202026603020202020202020202
+        0202}
+      TabOrder = 0
+      OnClick = btnCerrarClick
+    end
+  end
+  object pnlFiltro: TRzPanel
+    Left = 0
+    Top = 89
+    Width = 844
+    Height = 40
+    Align = alTop
+    BorderOuter = fsFlat
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+    object edtBuscar: TButtonedEdit
+      Left = 1
+      Top = 1
+      Width = 792
+      Height = 38
+      Align = alClient
+      AutoSelect = False
+      Color = clGreen
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -32
+      Font.Name = 'Terminal'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      Text = 'edtBuscar'
+      StyleElements = [seBorder]
+      ExplicitHeight = 40
+    end
+    object btnBuscar: TBitBtn
+      Left = 793
+      Top = 1
+      Width = 50
+      Height = 38
+      Align = alRight
+      Glyph.Data = {
+        F6060000424DF606000000000000360000002800000018000000180000000100
+        180000000000C0060000120B0000120B00000000000000000000FF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFBCBCBC9E9E9EBEBEBEFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFBDBDBD9C9C9C767676898989BEBEBEFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFB0B0B09F9F9FAAAAAA8787
+        878A8A8ABFBFBFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFB2B2B2
+        BFBFBFBABABAA9A9A9858585898989BEBEBEFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFB4B4B4C1C1C1BABABAA9A9A98484848C8C8CBFBFBFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFB4B4B4C1C1C1BABABAA9A9A984
+        84848B8B8BBEBEBEFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFB4B4
+        B4C1C1C1BABABAA8A8A88383838F8F8FBBBBBBFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFB5B5B5C1C1C1BABABAA6A6A6838383818181FF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFB6B6B6C1C1C1B9B9B9AAAAAA
+        898989FF00FFFF00FFFF00FFA1A1A1A1A1A1A1A1A1A1A1A1A1A1A1FF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFB6
+        B6B6C6C6C6CACACAB4B4B47B7B7B979797A1A1A1D1D1D1F0F0F0F0F0F0EFEFEF
+        DADADAA1A1A1A1A1A1FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFCACACAAAAAAABDBDBDEEEEEEEEEEEEED
+        EDEDECECECEDEDEDEEEEEEF4F4F4CACACAA1A1A1FF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFA2A2A2C1C1C1E0E0
+        E0E2E2E2ECECECECECECECECECEFEFEFF1F1F1F7F7F7FFFFFFD2D2D2A1A1A1FF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        A1A1A1DCDCDCCDCDCDE0E0E0EDEDEDECECECEEEEEEF5F5F5FAFAFAFDFDFDFEFE
+        FEFEFEFEA1A1A1FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFA1A1A1D0D0D0CDCDCDC4C4C4E0E0E0EDEDEDECECECEFEFEFF7F7F7
+        FEFEFEFEFEFEFAFAFAF5F5F5CCCCCCA1A1A1FF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFA1A1A1DFDFDFC4C4C4BFBFBFD9D9D9EAEAEAED
+        EDEDEFEFEFF5F5F5FBFBFBFBFBFBF5F5F5EFEFEFF1F1F1A1A1A1FF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFA1A1A1DFDFDFC3C3C3B9B9
+        B9CDCDCDE4E4E4EDEDEDEEEEEEF0F0F0F3F3F3F4F4F4F0F0F0EEEEEEF1F1F1A1
+        A1A1FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFA1A1A1
+        E1E1E1C9C9C9B5B5B5C2C2C2D5D5D5E6E6E6EDEDEDEEEEEEEEEEEEEEEEEEEDED
+        EDECECECF0F0F0A1A1A1FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFA1A1A1D0D0D0D7D7D7C4C4C4C2C2C2C7C7C7D6D6D6E4E4E4ECECEC
+        EDEDEDEDEDEDEDEDEDEDEDEDCDCDCDA1A1A1FF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFA1A1A1E7E7E7E9E9E9DBDBDBC8C8C8C6
+        C6C6D0D0D0DDDDDDE4E4E4E5E5E5E7E7E7EEEEEEA1A1A1FF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFA1A1A1C9C9C9FFFF
+        FFF8F8F8DBDBDBBFBFBFB9B9B9C1C1C1CACACAD4D4D4E2E2E2C5C5C5A1A1A1FF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFA1A1A1CCCCCCFFFFFFEBEBEBCFCFCFC4C4C4C7C7C7CFCFCFDDDDDDC3C3
+        C3A1A1A1FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFA1A1A1A1A1A1CECECEE2E2E2DFDFDFE0E0E0
+        D2D2D2A1A1A1A1A1A1FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFA1A1A1A1
+        A1A1A1A1A1A1A1A1A1A1A1FF00FFFF00FFFF00FFFF00FFFF00FF}
+      TabOrder = 1
+      OnClick = btnBuscarClick
+    end
+  end
+  object pnlCampos: TRzPanel
+    Left = 0
+    Top = 129
+    Width = 844
+    Height = 333
+    Align = alClient
+    BorderOuter = fsFlat
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+    object pnlLista: TRzPanel
+      Left = 209
+      Top = 1
+      Width = 634
+      Height = 331
+      Align = alClient
+      BorderOuter = fsFlat
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+      object stbEstado1: TRzStatusBar
+        Left = 1
+        Top = 311
+        Width = 632
+        Height = 19
+        BorderInner = fsNone
+        BorderOuter = fsNone
+        BorderSides = [sdLeft, sdTop, sdRight, sdBottom]
+        BorderWidth = 0
+        TabOrder = 2
+        object RzStatusPane1: TRzStatusPane
+          Left = 0
+          Top = 0
+          Width = 465
+          Height = 19
+          Align = alLeft
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clGreen
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Caption = ''
+        end
+      end
+      object pnlListaTitulo: TRzPanel
+        Left = 1
+        Top = 1
+        Width = 632
+        Height = 22
+        Align = alTop
+        BorderOuter = fsFlat
+        Caption = 'Lista de Productos'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+      end
+      object lvLista1: TRzListView
+        Left = 1
+        Top = 23
+        Width = 632
+        Height = 288
+        Align = alClient
+        Columns = <
+          item
+            Caption = 'C'#243'digo'
+            Width = 100
+          end
+          item
+            Caption = 'Nombre'
+            Width = 100
+          end
+          item
+            Alignment = taRightJustify
+            Caption = 'Utilidad'
+            Width = 100
+          end
+          item
+            Alignment = taRightJustify
+            Caption = 'Compra'
+            Width = 100
+          end
+          item
+            Alignment = taRightJustify
+            Caption = 'Venta'
+            Width = 100
+          end
+          item
+            Alignment = taRightJustify
+            Caption = 'Mayorista'
+            Width = 100
+          end
+          item
+            Caption = 'Id'
+            MaxWidth = 1
+            Width = 1
+          end
+          item
+            Alignment = taRightJustify
+            Caption = 'Existencia'
+            Width = 100
+          end
+          item
+            Alignment = taRightJustify
+            Caption = 'M'#237'nimo'
+            Width = 100
+          end
+          item
+            Alignment = taRightJustify
+            Caption = 'Peso'
+            Width = 100
+          end>
+        ReadOnly = True
+        RowSelect = True
+        TabOrder = 1
+        ViewStyle = vsReport
+        OnClick = lvLista1Click
+      end
+    end
+    object pgcCampos: TRzPageControl
+      Left = 1
+      Top = 1
+      Width = 208
+      Height = 331
+      Hint = ''
+      ActivePage = TabSheet2
+      Align = alLeft
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabIndex = 1
+      TabOrder = 0
+      FixedDimension = 22
+      object TabSheet1: TRzTabSheet
+        Caption = 'Info. General'
+        object Label4: TLabel
+          Left = 9
+          Top = 47
+          Width = 63
+          Height = 16
+          Caption = 'Utilidad %:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label5: TLabel
+          Left = 9
+          Top = 78
+          Width = 50
+          Height = 16
+          Caption = 'Compra:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label6: TLabel
+          Left = 9
+          Top = 108
+          Width = 38
+          Height = 16
+          Caption = 'Venta:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label7: TLabel
+          Left = 9
+          Top = 138
+          Width = 60
+          Height = 16
+          Caption = 'Mayorista:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label9: TLabel
+          Left = 9
+          Top = 16
+          Width = 58
+          Height = 16
+          Caption = 'Impuesto:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label12: TLabel
+          Left = 9
+          Top = 168
+          Width = 39
+          Height = 16
+          Caption = '+ Imp:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label1: TLabel
+          Left = 10
+          Top = 198
+          Width = 46
+          Height = 16
+          Caption = 'M'#237'nimo:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label2: TLabel
+          Left = 11
+          Top = 224
+          Width = 27
+          Height = 16
+          Caption = 'Peso'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object edtUtilidad: TCurrencyEdit
+          Left = 76
+          Top = 44
+          Width = 121
+          Height = 24
+          DisplayFormat = ',0.00;-,0.00'
+          TabOrder = 1
+          OnExit = edtUtilidadExit
+        end
+        object edtCosto: TCurrencyEdit
+          Left = 76
+          Top = 75
+          Width = 121
+          Height = 24
+          DisplayFormat = ',0.00;-,0.00'
+          TabOrder = 2
+        end
+        object edtVenta: TCurrencyEdit
+          Left = 76
+          Top = 105
+          Width = 121
+          Height = 24
+          DisplayFormat = ',0.00;-,0.00'
+          TabOrder = 3
+          OnChange = edtVentaChange
+        end
+        object edtMayorista: TCurrencyEdit
+          Left = 76
+          Top = 135
+          Width = 121
+          Height = 24
+          DisplayFormat = ',0.00;-,0.00'
+          TabOrder = 4
+        end
+        object btnAplicar: TBitBtn
+          Left = 9
+          Top = 269
+          Width = 188
+          Height = 30
+          Caption = 'Aplicar'
+          TabOrder = 9
+          OnClick = btnAplicarClick
+        end
+        object cbImpuesto: TComboBoxEx
+          Left = 76
+          Top = 13
+          Width = 122
+          Height = 25
+          ItemsEx = <>
+          TabOrder = 0
+          Text = 'cbImpuesto'
+          OnChange = cbImpuestoChange
+        end
+        object edtVentaIVA: TCurrencyEdit
+          Left = 76
+          Top = 165
+          Width = 121
+          Height = 24
+          DisplayFormat = ',0.00;-,0.00'
+          TabOrder = 5
+          OnChange = edtVentaIVAChange
+        end
+        object chkImpuestoIncluido: TCheckBox
+          Left = 76
+          Top = 246
+          Width = 80
+          Height = 17
+          Caption = 'Imp. Inc.'
+          TabOrder = 8
+          OnClick = chkImpuestoIncluidoClick
+        end
+        object edtMinimo: TCurrencyEdit
+          Left = 76
+          Top = 195
+          Width = 121
+          Height = 24
+          DisplayFormat = ',0.00;-,0.00'
+          TabOrder = 6
+        end
+        object edtPeso: TCurrencyEdit
+          Left = 76
+          Top = 221
+          Width = 121
+          Height = 24
+          DisplayFormat = ',0.00;-,0.00'
+          TabOrder = 7
+        end
+      end
+      object TabSheet2: TRzTabSheet
+        Caption = 'Varios'
+        object GroupBox1: TGroupBox
+          Left = 3
+          Top = 16
+          Width = 201
+          Height = 241
+          Caption = 'M'#237'nimos'
+          TabOrder = 0
+          object Label21: TLabel
+            Left = 16
+            Top = 32
+            Width = 38
+            Height = 16
+            Caption = 'Lunes:'
+          end
+          object Label22: TLabel
+            Left = 16
+            Top = 62
+            Width = 44
+            Height = 16
+            Caption = 'Martes:'
+          end
+          object Label23: TLabel
+            Left = 16
+            Top = 92
+            Width = 59
+            Height = 16
+            Caption = 'Miercoles:'
+          end
+          object Label24: TLabel
+            Left = 16
+            Top = 122
+            Width = 43
+            Height = 16
+            Caption = 'Jueves:'
+          end
+          object Label25: TLabel
+            Left = 16
+            Top = 152
+            Width = 48
+            Height = 16
+            Caption = 'Viernes:'
+          end
+          object Label26: TLabel
+            Left = 16
+            Top = 182
+            Width = 48
+            Height = 16
+            Caption = 'Sabado:'
+          end
+          object Label27: TLabel
+            Left = 16
+            Top = 212
+            Width = 55
+            Height = 16
+            Caption = 'Domingo:'
+          end
+          object edtMinimoLunes: TCurrencyEdit
+            Left = 93
+            Top = 29
+            Width = 97
+            Height = 24
+            DisplayFormat = ',0.00;-,0.00'
+            TabOrder = 0
+          end
+          object edtMinimoMartes: TCurrencyEdit
+            Left = 93
+            Top = 59
+            Width = 97
+            Height = 24
+            DisplayFormat = ',0.00;-,0.00'
+            TabOrder = 1
+          end
+          object edtMinimoMiercoles: TCurrencyEdit
+            Left = 93
+            Top = 89
+            Width = 97
+            Height = 24
+            DisplayFormat = ',0.00;-,0.00'
+            TabOrder = 2
+          end
+          object edtMinimoJueves: TCurrencyEdit
+            Left = 93
+            Top = 119
+            Width = 97
+            Height = 24
+            DisplayFormat = ',0.00;-,0.00'
+            TabOrder = 3
+          end
+          object edtMinimoViernes: TCurrencyEdit
+            Left = 93
+            Top = 149
+            Width = 97
+            Height = 24
+            DisplayFormat = ',0.00;-,0.00'
+            TabOrder = 4
+          end
+          object edtMinimoSabado: TCurrencyEdit
+            Left = 93
+            Top = 179
+            Width = 97
+            Height = 24
+            DisplayFormat = ',0.00;-,0.00'
+            TabOrder = 5
+          end
+          object edtMinimoDomingo: TCurrencyEdit
+            Left = 93
+            Top = 209
+            Width = 97
+            Height = 24
+            DisplayFormat = ',0.00;-,0.00'
+            TabOrder = 6
+          end
+        end
+      end
+    end
+  end
+end

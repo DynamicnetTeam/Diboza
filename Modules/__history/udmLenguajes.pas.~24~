@@ -1,0 +1,93 @@
+unit udmLenguajes;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.CDataXML,
+  FireDAC.Phys.CDataXMLDef, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
+  FireDAC.DApt, FireDAC.VCLUI.Wait, FireDAC.Comp.UI, Data.DB,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Xml, Vcl.Dialogs,
+  FireDAC.Stan.StorageXML;
+
+type
+  TdmLenguajes = class(TDataModule)
+    FDConnectionMain: TFDConnection;
+    FDQuery1: TFDQuery;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
+    FDPhysCDataXMLDriverLink1: TFDPhysCDataXMLDriverLink;
+    FDMemIdioma: TFDMemTable;
+    FDStanStorageXMLLink1: TFDStanStorageXMLLink;
+  private
+    _xml: TXmlReader;
+  public
+    { Public declarations }
+    procedure CargarArchivo;
+  end;
+
+var
+  dmLenguajes: TdmLenguajes;
+
+implementation
+uses
+  uSistema;
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+{ TdmLenguajes }
+
+procedure TdmLenguajes.CargarArchivo;
+var
+  mArchivo: string;
+  mCount: Integer;
+  mNombre: string;
+  mKey, mValue: string;
+begin
+  FDMemIdioma.Open;
+  mArchivo := Global.PathLanguages + '\' + Global.Idioma;
+  if (FileExists(mArchivo) = True) and (Trim(mArchivo) <> '') then
+  begin
+    try
+      _xml := TXmlReader.Create(mArchivo);
+      with _xml do
+      begin
+        while Read do
+        begin
+          case Node of
+            xnElement: begin
+              Element;
+              FirstAttribute;
+              for mCount := 1 to AttributeCount do
+              begin
+                mNombre := Name;
+                if mNombre = 'key' then
+                  mKey := Value;
+                if mNombre = 'value' then
+                  mValue := Value;
+                NextAttribute;
+              end;
+              if (Trim(mNombre) <> '') And (Trim(Value) <> '') then
+              begin
+                FDMemIdioma.Append;
+                FDMemIdioma.Encoder := TEncoding.Unicode;
+                FDMemIdioma.FieldByName('Key').AsString := Trim(mKey);
+                FDMemIdioma.FieldByName('Value').AsWideString := Trim(mValue);
+                FDMemIdioma.Post;
+              end;
+            end;
+          end;
+        end;
+      end;
+
+      _xml.Free;
+    except
+      on E: Exception do
+        ShowMessage(E.Message);
+    end;
+  end;
+end;
+
+end.

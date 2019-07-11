@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<TfrxReport Version="5.2.12" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4089" PreviewOptions.Zoom="1" PrintOptions.Printer="Por defecto" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="41335,7510912153" ReportOptions.Description.Text="" ReportOptions.LastChange="43487,9442907176" ScriptLanguage="PascalScript" ScriptText.Text="&#13;&#10;begin&#13;&#10;&#13;&#10;end.">
+  <Datasets>
+    <item DataSet="frxDBDataset1" DataSetName="Cierre_Caja_Encabezado"/>
+  </Datasets>
+  <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+  <TfrxReportPage Name="Page1" PaperWidth="76" PaperHeight="280" PaperSize="256" LeftMargin="0" RightMargin="0" TopMargin="0" BottomMargin="0" ColumnWidth="0" ColumnPositions.Text="" EndlessHeight="True" HGuides.Text="" VGuides.Text="">
+    <TfrxReportTitle Name="ReportTitle1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Height="317,48030031" Left="0" Top="18,89765" Width="287,24428">
+      <TfrxMemoView Name="Memo1" Left="7,55906" Top="0" Width="94,48825" Height="18,89765" Text="Número:"/>
+      <TfrxMemoView Name="facturasencabezadoFechaDe" Left="105,82684" Top="30,23624" Width="170,07885" Height="18,89765" DataField="FechaDe" DataSet="frxDBDataset1" DataSetName="Cierre_Caja_Encabezado" Text="[Cierre_Caja_Encabezado.&#34;FechaDe&#34;]"/>
+      <TfrxMemoView Name="Memo2" Left="7,55906" Top="30,23624" Width="94,48825" Height="18,89765" Text="Fecha:"/>
+      <TfrxMemoView Name="facturasencabezadoTotalMontoEfectivo" Left="105,82684" Top="95,47248" Width="170,07885" Height="18,89765" DataField="TotalMontoEfectivo" DataSet="frxDBDataset1" DataSetName="Cierre_Caja_Encabezado" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Text="[Cierre_Caja_Encabezado.&#34;TotalMontoEfectivo&#34;]"/>
+      <TfrxMemoView Name="Memo3" Left="7,55906" Top="95,47248" Width="94,48825" Height="18,89765" Text="Efectivo:"/>
+      <TfrxMemoView Name="Memo4" Left="7,55906" Top="121,92919" Width="94,48825" Height="18,89765" Text="Tarjeta:"/>
+      <TfrxMemoView Name="facturasencabezadoTotalMontoTarjeta" Left="105,82684" Top="121,92919" Width="170,07885" Height="18,89765" DataField="TotalMontoTarjeta" DataSet="frxDBDataset1" DataSetName="Cierre_Caja_Encabezado" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Text="[Cierre_Caja_Encabezado.&#34;TotalMontoTarjeta&#34;]"/>
+      <TfrxMemoView Name="Memo5" Left="7,55906" Top="148,3859" Width="94,48825" Height="18,89765" Text="Cheque:"/>
+      <TfrxMemoView Name="facturasencabezadoTotalMontoCheque" Left="109,60637" Top="148,3859" Width="166,29932" Height="18,89765" DataField="TotalMontoCheque" DataSet="frxDBDataset1" DataSetName="Cierre_Caja_Encabezado" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Text="[Cierre_Caja_Encabezado.&#34;TotalMontoCheque&#34;]"/>
+      <TfrxMemoView Name="Memo6" Left="7,55906" Top="174,84261" Width="94,48825" Height="18,89765" Text="Transferencia:"/>
+      <TfrxMemoView Name="facturasencabezadoTotalMontoTransferencia" Left="105,82684" Top="174,84261" Width="170,07885" Height="18,89765" DataField="TotalMontoTransferencia" DataSet="frxDBDataset1" DataSetName="Cierre_Caja_Encabezado" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Text="[Cierre_Caja_Encabezado.&#34;TotalMontoTransferencia&#34;]"/>
+      <TfrxMemoView Name="Memo7" Left="7,55906" Top="199,51979" Width="94,48825" Height="18,89765" Text="Total:"/>
+      <TfrxMemoView Name="facturasencabezadoTotalMontoFinal" Left="105,82684" Top="199,51979" Width="170,07885" Height="18,89765" DataField="TotalMontoFinal" DataSet="frxDBDataset1" DataSetName="Cierre_Caja_Encabezado" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Text="[Cierre_Caja_Encabezado.&#34;TotalMontoFinal&#34;]"/>
+      <TfrxMemoView Name="Memo8" Left="7,55906" Top="222,19697" Width="94,48825" Height="18,89765" Text="Notas Crédito:"/>
+      <TfrxMemoView Name="Memo9" Left="105,82684" Top="222,19697" Width="170,07878409" Height="18,89765" DataField="TOTALNOTASCREDITO" DataSet="frxDBDataset1" DataSetName="Cierre_Caja_Encabezado" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Text="[Cierre_Caja_Encabezado.&#34;TOTALNOTASCREDITO&#34;]"/>
+      <TfrxMemoView Name="Memo10" Left="7,55906" Top="248,65368" Width="94,48825" Height="18,89765" Text="Descuentos:"/>
+      <TfrxMemoView Name="Memo11" Left="105,82684" Top="248,65368" Width="170,07878409" Height="18,89765" DataField="TOTALDESCUENTOS" DataSet="frxDBDataset1" DataSetName="Cierre_Caja_Encabezado" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Text="[Cierre_Caja_Encabezado.&#34;TOTALDESCUENTOS&#34;]"/>
+      <TfrxMemoView Name="Memo12" Left="7,55906" Top="275,11039" Width="94,48825" Height="18,89765" Text="Kilos:"/>
+      <TfrxMemoView Name="Memo13" Left="105,82684" Top="275,11039" Width="170,07878409" Height="18,89765" DataField="TOTALKILOS" DataSet="frxDBDataset1" DataSetName="Cierre_Caja_Encabezado" Text="[Cierre_Caja_Encabezado.&#34;TOTALKILOS&#34;]"/>
+      <TfrxMemoView Name="Memo14" Left="105,82684" Top="60,47248" Width="170,07885" Height="18,89765" DataField="MontoInicial" DataSet="frxDBDataset1" DataSetName="Cierre_Caja_Encabezado" DisplayFormat.FormatStr="%2.2n" DisplayFormat.Kind="fkNumeric" Text="[Cierre_Caja_Encabezado.&#34;MontoInicial&#34;]"/>
+      <TfrxMemoView Name="Memo15" Left="7,55906" Top="60,47248" Width="94,48825" Height="18,89765" Text="Inicial:"/>
+    </TfrxReportTitle>
+    <TfrxMemoView Name="facturasencabezadoCodigo" Left="105,82684" Top="15,11812" Width="170,07885" Height="18,89765" DataField="Codigo" DataSet="frxDBDataset1" DataSetName="Cierre_Caja_Encabezado" Text="[Cierre_Caja_Encabezado.&#34;Codigo&#34;]"/>
+  </TfrxReportPage>
+</TfrxReport>

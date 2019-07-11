@@ -1,0 +1,100 @@
+unit BS_DBConexion;
+
+interface
+uses
+  uSistema, DL_DBConexion;
+
+var
+  _MainConexion: TBS_DBConexion;
+  _LicenciaConexion: TBS_DBConexion;
+  _ClienteConexion: TBS_DBConexion;
+
+  procedure BS_DBConexion_Conectar_Main(pDriver: string);
+  procedure BS_DBConexion_Desonectar_Main;
+  procedure BS_DBConexion_Conectar_Licencia(pDriver: string);
+  procedure BS_DBConexion_Desonectar_Licencia;
+  procedure BS_DBConexion_Conectar_Cliente(pDriver: string);
+  procedure BS_DBConexion_Desonectar_Cliente;
+
+implementation
+
+procedure BS_DBConexion_Conectar_Main(pDriver: string);
+begin
+  try
+    _MainConexion := TBS_DBConexion.Create;
+    _MainConexion.Database :=
+      Global.DB_BaseDatos;
+    _MainConexion.User :=
+      Global.DB_Usuario;
+    _MainConexion.Password :=
+      Global.DB_Clave;
+    _MainConexion.Port :=
+      Global.DB_Puerto;
+    _MainConexion.Conectar(pDriver, _Resultado, _ErrorM, udmConnection.Main);
+  except
+  end;
+end;
+
+procedure BS_DBConexion_Desonectar_Main;
+begin
+  try
+    _MainConexion.Destroy;
+  except
+  end;
+end;
+
+procedure BS_DBConexion_Conectar_Licencia(pDriver: string);
+begin
+  try
+    _LicenciaConexion := TBS_DBConexion.Create;
+    _LicenciaConexion.Server :=
+      Global.DB_LicenciaServidor;
+    _LicenciaConexion.Database :=
+      Global.DB_LicenciaBaseDatos;
+    _LicenciaConexion.User :=
+      Global.DB_LicenciaUsuario;
+    _LicenciaConexion.Password :=
+      Global.DB_LicenciaClave;
+    _LicenciaConexion.Port :=
+      Global.DB_LicenciaPuerto;
+    _LicenciaConexion.Conectar(pDriver, _Resultado, _ErrorM);
+  except
+  end;
+end;
+
+procedure BS_DBConexion_Desonectar_Licencia;
+begin
+  try
+    _LicenciaConexion.Destroy;
+  except
+  end;
+end;
+
+procedure BS_DBConexion_Conectar_Cliente(pDriver: string);
+begin
+  try
+    _ClienteConexion := TBS_DBConexion.Create;
+    _ClienteConexion.Server :=
+      Global.DB_ClienteServidor;
+    _ClienteConexion.Database :=
+      Global.DB_ClienteBaseDatos;
+    _ClienteConexion.User :=
+      Global.DB_ClienteUsuario;
+    _ClienteConexion.Password :=
+      Global.DB_ClienteClave;
+    _ClienteConexion.Port :=
+      Global.DB_ClientePuerto;
+    _ClienteConexion.Conectar(pDriver, _Resultado, _ErrorM);
+  except
+  end;
+end;
+
+procedure BS_DBConexion_Desonectar_Cliente;
+begin
+  try
+    _ClienteConexion.Destroy;
+  except
+  end;
+end;
+
+end.

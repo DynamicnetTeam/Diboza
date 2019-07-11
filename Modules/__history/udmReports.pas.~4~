@@ -1,0 +1,61 @@
+unit udmReports;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, frxClass, frxDBSet, frxExportRTF,
+  frxExportCSV, frxExportText, frxExportImage, frxExportHTML, frxExportPDF,
+  frxExportSVG, frxExportHTMLDiv, frxExportHelpers, frxExportXLSX,
+  frxExportPPTX, frxExportDOCX, frxExportBIFF, frxExportDBF, frxExportODF,
+  frxExportMail, frxExportXML, frxExportXLS, frxExportBaseDialog;
+
+type
+  TdmReports = class(TDataModule)
+    frxReport1: TfrxReport;
+    frxDBDataset1: TfrxDBDataset;
+    frxDBDataset2: TfrxDBDataset;
+    frxDBDataset3: TfrxDBDataset;
+    frxDBDataset4: TfrxDBDataset;
+    frxDBDataset5: TfrxDBDataset;
+    frxDBDataset6: TfrxDBDataset;
+    frxDBDataset7: TfrxDBDataset;
+    frxDBDataset8: TfrxDBDataset;
+    frxRTFExport1: TfrxRTFExport;
+    frxXLSExport1: TfrxXLSExport;
+    frxXMLExport1: TfrxXMLExport;
+    frxMailExport1: TfrxMailExport;
+    frxODSExport1: TfrxODSExport;
+    frxODTExport1: TfrxODTExport;
+    frxDBFExport1: TfrxDBFExport;
+    frxBIFFExport1: TfrxBIFFExport;
+    frxDOCXExport1: TfrxDOCXExport;
+    frxPPTXExport1: TfrxPPTXExport;
+    frxXLSXExport1: TfrxXLSXExport;
+    frxHTML4DivExport1: TfrxHTML4DivExport;
+    frxHTML5DivExport1: TfrxHTML5DivExport;
+    frxSVGExport1: TfrxSVGExport;
+    frxPDFExport1: TfrxPDFExport;
+    frxHTMLExport1: TfrxHTMLExport;
+    frxRTFExport2: TfrxRTFExport;
+    frxBMPExport1: TfrxBMPExport;
+    frxJPEGExport1: TfrxJPEGExport;
+    frxTIFFExport1: TfrxTIFFExport;
+    frxGIFExport1: TfrxGIFExport;
+    frxSimpleTextExport1: TfrxSimpleTextExport;
+    frxCSVExport1: TfrxCSVExport;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dmReports: TdmReports;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

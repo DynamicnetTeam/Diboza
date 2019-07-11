@@ -1,0 +1,479 @@
+unit FrmBaseDatos01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils,
+  System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, RzTabs, Vcl.Buttons,
+  Vcl.ExtCtrls, RzPanel, Vcl.Samples.Spin, Winapi.ShellAPI, FileCtrl,
+  stdActns, ShlObj, uDialogDirectory, System.Zip;
+
+type
+  TFormBaseDatos01 = class(TForm)
+    pnlTitulo: TRzPanel;
+    pnlOpciones: TRzPanel;
+    btnAceptar: TBitBtn;
+    btnCancelar: TBitBtn;
+    pgcCampos: TRzPageControl;
+    TabSheet1: TRzTabSheet;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    edtServidor: TEdit;
+    edtBaseDatos: TEdit;
+    edtUsuario: TEdit;
+    edtClave: TEdit;
+    spePuerto: TSpinEdit;
+    btnBuscar_BaseDatos: TBitBtn;
+    OpenDialog1: TOpenDialog;
+    btnCrearRespaldo: TBitBtn;
+    TabSheet2: TRzTabSheet;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    edtServidorHacienda: TEdit;
+    edtBaseDatosHacienda: TEdit;
+    edtUsuarioHacienda: TEdit;
+    edtClaveHacienda: TEdit;
+    spePuertoHacienda: TSpinEdit;
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btnAceptarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnBuscar_BaseDatosClick(Sender: TObject);
+    procedure btnCrearRespaldoClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormBaseDatos01: TFormBaseDatos01;
+
+  procedure InicializarForma;
+  procedure FinalizarForma;
+  procedure KeyDownForma(var Key: Word; Shift: TShiftState);
+  procedure LimpiarCampos;
+  procedure Aceptar;
+  procedure Cancelar;
+  procedure Modificar_Data;
+  procedure Buscar_BaseDatos;
+  procedure CrearRespaldo;
+  procedure EjecutarExe( const ruta, args: string; bWait: boolean; bShow:boolean );
+  function WindowsPath: string;
+  function ChooseFolderDlg(const subtitle: string;
+    const newStyle: boolean; pRoot: string) : string;
+  procedure CargarIdioma;
+
+implementation
+
+uses
+  uSistema, ufunciones, uConfig, udmLenguajes;
+
+{$R *.dfm}
+
+var
+  Forma01: TFormBaseDatos01;
+
+{$REGION 'Funciones Forma'}
+procedure TFormBaseDatos01.FormShow(Sender: TObject);
+begin
+  Forma01 := FormBaseDatos01;
+
+  InicializarForma;
+end;
+
+procedure TFormBaseDatos01.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  FinalizarForma;
+end;
+
+procedure TFormBaseDatos01.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  KeyDownForma(Key, Shift);
+end;
+
+procedure TFormBaseDatos01.btnAceptarClick(Sender: TObject);
+begin
+  Aceptar;
+end;
+
+procedure TFormBaseDatos01.btnCancelarClick(Sender: TObject);
+begin
+  Cancelar;
+end;
+
+procedure TFormBaseDatos01.btnBuscar_BaseDatosClick(Sender: TObject);
+begin
+  Buscar_BaseDatos;
+end;
+
+procedure TFormBaseDatos01.btnCrearRespaldoClick(Sender: TObject);
+begin
+  CrearRespaldo;
+end;
+{$ENDREGION}
+
+{$REGION 'Funciones Generales'}
+procedure InicializarForma;
+begin
+  with Forma01 do
+  begin
+
+    try
+      Tag := 0;
+
+      LimpiarCampos;
+
+      edtServidor.SetFocus;
+    except
+      if _Resultado = -1 then
+      begin
+        Application.MessageBox(PChar('Ha ocurrido un error' + #13+#10 + _ErrorM),
+          'Error', MB_ICONERROR);
+        PostMessage(Handle, WM_CLOSE, 0, 0);
+      end;
+      _Resultado := -1;
+    end;
+
+  end;
+end;
+
+procedure FinalizarForma;
+begin
+  with Forma01 do
+  begin
+
+    try
+
+    except
+    end;
+
+  end;
+end;
+
+procedure KeyDownForma(var Key: Word; Shift: TShiftState);
+begin
+  with Forma01 do
+  begin
+
+    if Key = VK_ESCAPE then
+    begin
+      Key := 0;
+      Close;
+    end;
+    if Key = VK_F10 then
+    begin
+      Key := 0;
+      btnAceptar.Click;
+    end;
+    if Key = VK_F11 then
+    begin
+      Key := 0;
+      btnCancelar.Click;
+    end;
+
+  end;
+end;
+
+procedure LimpiarCampos;
+begin
+  with Forma01 do
+  begin
+
+    edtServidor.Text :=
+      Global.DB_Servidor;
+    edtBaseDatos.Text :=
+      Global.DB_BaseDatos;
+    edtUsuario.Text :=
+      Global.DB_Usuario;
+    edtClave.Text :=
+      Global.DB_Clave;
+    spePuerto.Value :=
+      Global.DB_Puerto;
+
+    edtServidorHacienda.Text :=
+      Global.DB_HaciendaServidor;
+    edtBaseDatosHacienda.Text :=
+      Global.DB_HaciendaBaseDatos;
+    edtUsuarioHacienda.Text :=
+      Global.DB_HaciendaUsuario;
+    edtClaveHacienda.Text :=
+      Global.DB_HaciendaClave;
+    spePuertoHacienda.Value :=
+      Global.DB_HaciendaPuerto;
+
+  end;
+end;
+
+procedure Aceptar;
+var
+  mConfig: TConfig;
+begin
+  with Forma01 do
+  begin
+
+    Modificar_Data;
+    if _Resultado = 1 then
+    begin
+      mConfig := TConfig.Create;
+      mConfig.EscribirIni_BaseDatos;
+      mConfig.Destroy;
+
+      Tag := 1;
+      Close;
+    end;
+
+  end;
+end;
+
+procedure Cancelar;
+begin
+  with Forma01 do
+  begin
+
+    Close;
+
+  end;
+end;
+
+procedure Modificar_Data;
+begin
+  with Forma01 do
+  begin
+
+    try
+      _Resultado := 1;
+
+      Global.DB_Servidor :=
+        edtServidor.Text;
+      Global.DB_BaseDatos :=
+        edtBaseDatos.Text;
+      Global.DB_Usuario :=
+        edtUsuario.Text;
+      Global.DB_Clave :=
+        edtClave.Text;
+      Global.DB_Puerto :=
+        spePuerto.Value;
+
+      Global.DB_HaciendaServidor :=
+        edtServidorHacienda.Text;
+      Global.DB_HaciendaBaseDatos :=
+        edtBaseDatosHacienda.Text;
+      Global.DB_HaciendaUsuario :=
+        edtUsuarioHacienda.Text;
+      Global.DB_HaciendaClave :=
+        edtClaveHacienda.Text;
+      Global.DB_HaciendaPuerto :=
+        spePuertoHacienda.Value;
+
+      _Resultado := 1;
+    except
+      if _Resultado = -1 then
+      begin
+        Application.MessageBox(PChar('Ha ocurrido un error' + #13+#10 + _ErrorM),
+          'Error', MB_ICONERROR);
+      end;
+      if _Resultado = 0 then
+      begin
+        Application.MessageBox(PChar(_ErrorM),
+          'Advertencia', MB_ICONWARNING);
+      end;
+      _Resultado := -1;
+    end;
+
+  end;
+end;
+
+procedure Buscar_BaseDatos;
+begin
+  with Forma01 do
+  begin
+
+    if OpenDialog1.Execute = True then
+      edtBaseDatos.Text := OpenDialog1.FileName;
+
+  end;
+end;
+
+procedure CrearRespaldo;
+var
+  mNombreBaseDatos: string;
+  sPassword, sFileDBF, sFileBAK, sParamet, sFileEXE: string;
+  chosenDirectory: string;
+  mLen: Integer;
+  mSistema: string;
+  mDestino, mNombreDestino: string;
+  mZip: TZipFile;
+begin
+  with Forma01 do
+  begin
+
+    try
+      mSistema := WindowsPath;
+      mSistema := Copy(mSistema, 1, 1) + ':\';
+      if Trim(Global.DirectorioRespaldos) <> '' then
+        mSistema := Global.DirectorioRespaldos;
+
+      if GetFolderDialog(Application.Handle, 'Seleccione un Directorio', mSistema) then
+      begin
+        chosenDirectory := mSistema;
+        mLen := Length(chosenDirectory);
+        if chosenDirectory[mLen] = '\' then
+          chosenDirectory := Copy(chosenDirectory, 1, mLen - 1);
+        mNombreBaseDatos := ExtractFileName(Global.DB_BaseDatos);
+        mNombreBaseDatos := Copy(mNombreBaseDatos, 1, Pos('.', mNombreBaseDatos) - 1);
+        mNombreDestino := mNombreBaseDatos + '_' + FormatDateTime('yyyyMMdd_HHmmss', Now);
+        mDestino := chosenDirectory + '\' + mNombreDestino + '.fbk';
+        sPassword := Global.DB_Clave;
+        sFileDBF  :=  Global.PathAplicacion + '\' + mNombreBaseDatos + '.fdb';
+        sFileBAK  := mDestino;
+        sParamet := ' -b -t -user sysdba -password ' + sPassword + ' ';
+
+        sFileEXE := Global.PathAplicacion + '\gbak.exe';
+
+        EjecutarExe(sFileEXE, sParamet + ' ' + sFileDBF + ' ' + sFileBAK, true, false );
+        if FileExists(mDestino) = True then
+        begin
+          if FileExists(chosenDirectory + '\' + mNombreDestino + '.zip') = True then
+            DeleteFile(chosenDirectory + '\' + mNombreDestino + '.zip');
+          mZip := TZipFile.Create;
+          mZip.Open(chosenDirectory + '\' + mNombreDestino + '.zip', zmWrite);
+          mZip.Add(mDestino);
+          mZip.Close;
+          mZip.Free;
+          DeleteFile(mDestino);
+
+          Application.MessageBox('Respaldo Creado', 'Terminado', MB_ICONEXCLAMATION);
+        end
+        else
+          Application.MessageBox('Respaldo No Creado', 'Fallo', MB_ICONERROR);
+      end;
+    except
+    end;
+
+  end;
+end;
+
+procedure EjecutarExe( const ruta, args: string; bWait: boolean; bShow:boolean );
+var
+    salida: DWord;
+    PSEI: PShellExecuteInfo;
+    SEI: TShellExecuteInfo;
+    iShow:integer;
+begin
+    iShow := SW_HIDE;
+    if bShow then iShow := SW_NORMAL;
+
+    if not FileExists( ruta ) then exit;
+    with SEI do
+    begin
+        hInstApp := 0;
+        lpVerb := nil;
+        lpDirectory := nil;
+        nShow := iShow;
+        cbSize := SizeOf(SEI);
+        lpFile := PChar(ruta);
+        wnd := GetDesktopWindow;
+        lpParameters := PChar(args + #0);
+        fMask := SEE_MASK_NOCLOSEPROCESS;
+    end;
+    PSEI := @SEI;
+    ShellExecuteEx( PSEI );
+    if not bWait then exit;
+    repeat
+        salida := WaitforSingleObject( SEI.hProcess, 500 );
+        Application.ProcessMessages;
+    until ( salida <> WAIT_TIMEOUT );
+end;
+
+function WindowsPath: string;
+begin
+    SetLength(Result, MAX_PATH);
+    SetLength(Result, GetWindowsDirectory(@Result[1], MAX_PATH));
+end;
+
+function ChooseFolderDlg(const subtitle: string;
+  const newStyle: boolean; pRoot: string) : string;
+var
+  BI: TBrowseInfo;
+  IL: PItemIDList;
+begin
+  Result := '';
+  with BI do begin
+    lpfn:= nil;
+    lParam:= 0;
+    iImage:= 0;
+    pidlRoot := nil;
+    hwndOwner:= GetActiveWindow;
+    lpszTitle:= PChar(subtitle);
+    pszDisplayName := PChar(pRoot);
+    GetMem(pszDisplayName, MAX_PATH);
+    ulFlags := BIF_RETURNONLYFSDIRS;
+    if newStyle then
+      ulFlags := BIF_NEWDIALOGSTYLE;
+  end;
+  IL := SHBrowseForFolder(BI);
+  if SHGetPathFromIDList(IL, BI.pszDisplayName)
+    then Result := StrPas(BI.pszDisplayName);
+  FreeMem(BI.pszDisplayName);
+  GlobalFreePtr(IL);
+end;
+
+procedure CargarIdioma;
+var
+  mValor: string;
+  mCount, mLen: Integer;
+begin
+  with Forma01 do
+  begin
+
+    for mCount := 0 to Forma01.ComponentCount - 1 do
+    begin
+      if Forma01.Components[mCount] is TLabel then
+      begin
+        mValor := TLabel(Forma01.Components[mCount]).Caption;
+        mLen := Length(mValor);
+        if mValor[mLen] = ':' then
+          mValor := Copy(mValor, 1, mLen - 1);
+        mValor := dmLenguajes.GetValue(mValor);
+        if Trim(mValor) <> '' then
+          TLabel(Forma01.Components[mCount]).Caption := mValor;
+      end;
+      if Forma01.Components[mCount] is TBitBtn then
+      begin
+        mValor := TBitBtn(Forma01.Components[mCount]).Caption;
+        mValor := dmLenguajes.GetValue(mValor);
+        if Trim(mValor) <> '' then
+          TBitBtn(Forma01.Components[mCount]).Caption := mValor;
+      end;
+      if Forma01.Components[mCount] is TRzPanel then
+      begin
+        mValor := TRzPanel(Forma01.Components[mCount]).Caption;
+        mValor := dmLenguajes.GetValue(mValor);
+        if Trim(mValor) <> '' then
+          TRzPanel(Forma01.Components[mCount]).Caption := mValor;
+      end;
+      if Forma01.Components[mCount] is TRzTabSheet then
+      begin
+        mValor := TRzTabSheet(Forma01.Components[mCount]).Caption;
+        mValor := dmLenguajes.GetValue(mValor);
+        if Trim(mValor) <> '' then
+          TRzTabSheet(Forma01.Components[mCount]).Caption := mValor;
+      end;
+    end;
+
+  end;
+end;
+{$ENDREGION}
+
+end.
+

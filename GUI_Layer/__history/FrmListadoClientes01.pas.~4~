@@ -1,0 +1,226 @@
+unit FrmListadoClientes01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils,
+  System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, RzListVw, Vcl.StdCtrls,
+  Vcl.Buttons, Vcl.ExtCtrls, RzPanel, uDL_Skeleton;
+
+type
+  TFormListadoClientes01 = class(TForm)
+    pnlOpciones: TRzPanel;
+    btnAceptar: TBitBtn;
+    btnCancelar: TBitBtn;
+    lvLista1: TRzListView;
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormListadoClientes01: TFormListadoClientes01;
+
+  procedure InicializarForma;
+  procedure FinalizarForma;
+  procedure KeyDownForma(var Key: Word; Shift: TShiftState);
+  procedure LimpiarCampos;
+  procedure Refrescar(lv: TRzListView);
+  procedure LlenarlvLista1(lv: TRzListView; ds1: TDatasetMem);
+
+implementation
+
+uses
+  uSistema, ufunciones, uDL_TB_CLIENTES, BS_DBConexion,
+  FrmClientes01, FrmMensaje_Espera01;
+
+{$R *.dfm}
+
+type
+  Clase_Tipo1 = TDL_TB_PRODUCTOS;
+
+const
+  lv_Codigo = 0;
+  lv_Nombre = 1;
+  lv_id = 5;
+
+var
+  Forma01: TFormListadoClientes01;
+
+{$REGION 'Funciones Forma'}
+procedure TFormListadoClientes01.FormShow(Sender: TObject);
+begin
+  Forma01 := FormListadoClientes01;
+
+  InicializarForma;
+end;
+
+procedure TFormListadoClientes01.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  FinalizarForma;
+end;
+
+procedure TFormListadoClientes01.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  KeyDownForma(Key, Shift);
+end;
+{$ENDREGION}
+
+{$REGION 'Funciones Generales'}
+procedure InicializarForma;
+begin
+  with Forma01 do
+  begin
+
+    try
+      Tag := 0;
+
+      LimpiarCampos;
+      Refrescar(lvLista1);
+      if _Resultado = -1 then
+        raise Exception.Create('');
+    except
+      if _Resultado = -1 then
+      begin
+        Application.MessageBox(PChar('Ha ocurrido un error' + #13+#10 + _ErrorM),
+          'Error', MB_ICONERROR);
+        PostMessage(Handle, WM_CLOSE, 0, 0);
+      end;
+      _Resultado := -1;
+    end;
+
+  end;
+end;
+
+procedure FinalizarForma;
+begin
+  with Forma01 do
+  begin
+
+    try
+
+    except
+    end;
+
+  end;
+end;
+
+procedure KeyDownForma(var Key: Word; Shift: TShiftState);
+begin
+  with Forma01 do
+  begin
+
+    if Key = VK_ESCAPE then
+    begin
+      Key := 0;
+      Close;
+    end;
+
+  end;
+end;
+
+procedure LimpiarCampos;
+begin
+  with Forma01 do
+  begin
+
+
+  end;
+end;
+
+procedure Refrescar(lv: TRzListView);
+var
+  mBS_Clientes: Clase_Tipo1;
+  mWhere, mOrderBy: TStringList;
+  mResultado: Integer;
+  mErrorM: string;
+begin
+  with Forma01 do
+  begin
+
+    Screen.Cursor := crHourGlass;
+    FormMensaje_Espera01.Show;
+    FormMensaje_Espera01.Repaint;
+    try
+      _Resultado := 1;
+
+      _MainConexion.Iniciar_Transaccion(_Resultado, _ErrorM);
+
+      mBS_Clientes := Clase_Tipo1.Create;
+      mWhere := TStringList.Create;
+      mWhere.Clear;
+      mOrderBy := TStringList.Create;
+      mOrderBy.Clear;
+      mOrderBy.Add('A.NombreCompleto');
+      mBS_Clientes.Consultar(_Resultado, _ErrorM, mWhere.Text,
+        mOrderBy.Text);
+      mWhere.Free;
+      mOrderBy.Free;
+      if _Resultado = -1 then
+        raise Exception.Create('');
+
+      LlenarlvLista1(lv, mBS_Clientes.Dataset);
+      mBS_Clientes.Destroy;
+
+      _MainConexion.Aceptar_Transaccion(_Resultado, _ErrorM);
+
+      _Resultado := 1;
+    except
+      _Resultado := -1;
+      mResultado := _Resultado;
+      mErrorM := _ErrorM;
+      _MainConexion.Rechazar_Transaccion(_Resultado, _ErrorM);
+      _Resultado := mResultado;
+      _ErrorM := mErrorM;
+    end;
+    FormMensaje_Espera01.Close;
+    Screen.Cursor := crDefault;
+
+  end;
+end;
+
+procedure LlenarlvLista1(lv: TRzListView; ds1: TDatasetMem);
+begin
+  with Forma01 do
+  begin
+
+    lv.Items.Clear;
+
+    with ds1 do
+    begin
+      RzStatusPane1.Caption := 'Registros: ' +
+        FormatFloat('#,##0', RecordCount);
+      First;
+      while not Eof do
+      begin
+        with lv.Items.Add do
+        begin
+          Caption := '';
+          SubItems.Add(
+            FieldByName('NOMBRECompleto').AsString);
+          SubItems.Add(
+            FieldByName('TELEFONO1').AsString);
+          SubItems.Add(
+            FieldByName('TELEFONO2').AsString);
+          SubItems.Add(
+            FieldByName('EMAIL').AsString);
+          SubItems.Add(
+            FieldByName('ID').AsString);
+        end;
+        Next;
+      end;
+    end;
+
+  end;
+end;
+{$ENDREGION}
+
+
+end.

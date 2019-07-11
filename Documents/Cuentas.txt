@@ -1,0 +1,71 @@
+1000000000 Activos
+1100000000 Activo Circulante
+1110000000 Efectivo en Caja
+1120000000 Fondos en Bancos
+1130000000 Inversiones
+1140000000 Cuentas por Cobrar
+1150000000 Deudores Diversos
+1160000000 Inventario de Mercancia
+1170000000 Impuesto pagado por Anticipado
+1180000000 Clientes
+1190000000 Anticipos a Proveedores
+1200000000 Activo Fijo
+1210000000 Terrenos
+1220000000 Edificios
+1230000000 Mobiliario y Equipo de Oficina
+1240000000 Equipo Rodante
+1250000000 Herramientas y enseres
+1260000000 Equipo de Cómputo
+1270000000 Equipo de entrega de reparto
+1280000000 Papelería y útiles
+1290000000 Depreciación Acumulada
+1300000000 Otros Activos
+1310000000 Depósito en garantía 
+1320000000 Activo Fijo Obsoleto
+1330000000 Gastos de instalación
+1340000000 Propaganda y publicidad
+1350000000 Primas de seguro
+1360000000 Rentas pagadas por anticipado
+1370000000 Intereses pagados por anticipado
+2000000000 Pasivos
+2100000000 Pasivo Circulante
+2110000000 Proveedores
+2120000000 Documentos por Pagar
+2130000000 Acreedores Diversos
+2140000000 Retenciones por Pagar
+2150000000 Retenciones Sociales
+2160000000 Anticipo de clientes
+2170000000 Impuesto sobre la renta por pagar
+2180000000 Intereses cobrados por anticipado
+2190000000 I.V.A. por pagar
+2200000000 Pasivo a Largo Plazo
+2210000000 Documentos por pagar a largo plazo
+2220000000 Acreedores hipotecarios
+2230000000 Acreedores bancarios
+2240000000 Intereses cobrados por anticipado a largo plazo
+2250000000 Rentas cobradas por anticipado a largo plazo
+2300000000 Otros Pasivos
+3000000000 Patrimonio
+3100000000 Capital Social
+3110000000 Donaciones
+3120000000 Utilidades o pérdidas acumuladas
+3130000000 Reserva legal
+3140000000 Utilidad del ejercicio
+3150000000 Pérdida del ejercicio
+4000000000 Ingresos
+4100000000 Ingresos por Ventas
+4200000000 Ingresos Financieros
+4300000000 Otros Ingresos
+4400000000 Sobrantes de Inventario
+5000000000 Gastos
+5100000000 Gastos de Ventas
+5200000000 Gastos de Administración
+5300000000 Gastos Financieros
+5400000000 Otros Gastos
+5500000000 Faltantes de Inventario
+6000000000 Costos
+6100000000 Costos de Ventas
+7000000000 Orden
+7100000000 Valores ajenos
+7200000000 Valores contingentes
+7300000000 De control

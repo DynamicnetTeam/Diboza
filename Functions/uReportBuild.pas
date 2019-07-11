@@ -1,0 +1,447 @@
+unit uReportBuild;
+
+interface
+uses
+  FireDAC.Comp.Client, System.IniFiles, TypInfo, Data.DB,
+  System.Classes, SysUtils, Vcl.Dialogs, FireDAC.Comp.DataSet,
+  FireDAC.Stan.Intf;
+
+type
+  TReportBuild = class
+    ArchivoConfig: string;
+  private
+    FPathAplicacion: string;
+    FPrecargar: Integer;
+    FContenidoPre: string;
+    FReporteActual: string;
+    FConexionPre: string;
+    FOrigenPre: Integer;
+    FUsarConexionPre: Integer;
+    FPlantillaSalidaArchivo: string;
+    FPlantillaSalidaContenido: string;
+    FDataSet1Name: string;
+    FDataSet2Name: string;
+    FDataSet3Name: string;
+    FDataSet4Name: string;
+    FDataSet5Name: string;
+    FDataSet6Name: string;
+    FDataSet7Name: string;
+    FDataSet8Name: string;
+    procedure SetPathAplicacion(pValor: string);
+    procedure SetPrecargar(pValor: Integer);
+    procedure SetContenidoPre(pValor: string);
+    procedure SetReporteActual(pValor: string);
+    procedure SetConexionPre(pValor: string);
+    procedure SetOrigenPre(pValor: Integer);
+    procedure SetUsarConexionPre(pValor: Integer);
+    function GetPlantillaSalidaArchivo: string;
+    function GetPlantillaSalidaContenido: string;
+    procedure SetDataSet1Name(pValor: string);
+    procedure SetDataSet2Name(pValor: string);
+    procedure SetDataSet3Name(pValor: string);
+    procedure SetDataSet4Name(pValor: string);
+    procedure SetDataSet5Name(pValor: string);
+    procedure SetDataSet6Name(pValor: string);
+    procedure SetDataSet7Name(pValor: string);
+    procedure SetDataSet8Name(pValor: string);
+    function Obtener_LineaCampos(ds: TFDMemTable): TStringList;
+  public
+    property PathAplicacion: string read FPathAplicacion write SetPathAplicacion;
+    property Precargar: Integer read FPrecargar write SetPrecargar;
+    property ContenidoPre: string read FContenidoPre write SetContenidoPre;
+    property ReporteActual: string read FReporteActual write SetReporteActual;
+    property ConexionPre: string read FConexionPre write SetConexionPre;
+    property OrigenPre: Integer read FOrigenPre write SetOrigenPre;
+    property UsarConexionPre: Integer read FUsarConexionPre write SetUsarConexionPre;
+    property PlantillaSalidaArchivo: string read GetPlantillaSalidaArchivo write FPlantillaSalidaArchivo;
+    property PlantillaSalidaContenido: string read GetPlantillaSalidaContenido write FPlantillaSalidaContenido;
+    property DataSet1Name: string read FDataSet1Name write SetDataSet1Name;
+    property DataSet2Name: string read FDataSet2Name write SetDataSet2Name;
+    property DataSet3Name: string read FDataSet3Name write SetDataSet3Name;
+    property DataSet4Name: string read FDataSet4Name write SetDataSet4Name;
+    property DataSet5Name: string read FDataSet5Name write SetDataSet5Name;
+    property DataSet6Name: string read FDataSet6Name write SetDataSet6Name;
+    property DataSet7Name: string read FDataSet7Name write SetDataSet7Name;
+    property DataSet8Name: string read FDataSet8Name write SetDataSet8Name;
+    constructor Create(pPathAplicacion: string; pPrecargar: Boolean = False);
+    procedure GenerarEstructura(d1: TFDMemTable; d2: TFDMemTable;
+      d3: TFDMemTable; d4: TFDMemTable; d5: TFDMemTable;
+      d6: TFDMemTable; d7: TFDMemTable; d8: TFDMemTable);
+    procedure ExportarDatos(d1: TFDMemTable; d2: TFDMemTable;
+      d3: TFDMemTable; d4: TFDMemTable; d5: TFDMemTable;
+      d6: TFDMemTable; d7: TFDMemTable; d8: TFDMemTable);
+  end;
+
+implementation
+
+{ TCReportBuild }
+
+constructor TReportBuild.Create(pPathAplicacion: string; pPrecargar: Boolean);
+begin
+  PathAplicacion := pPathAplicacion;
+{  if pPrecargar = True then
+    Precargar := 1;
+  if pPrecargar = False then
+    Precargar := 0;   }
+end;
+
+procedure TReportBuild.SetPathAplicacion(pValor: string);
+var
+  myConfig: TIniFile;
+  mArchivoNombre: string;
+begin
+  FPathAplicacion := pValor;
+  mArchivoNombre := FPathAplicacion + '\Config_ReportBuild.ini';
+  myConfig := TIniFile.Create(mArchivoNombre);
+  myConfig.WriteString('General', 'PathAplicacion', FPathAplicacion);
+  myConfig.Free;
+end;
+
+procedure TReportBuild.SetPrecargar(pValor: Integer);
+var
+  myConfig: TIniFile;
+begin
+  FPrecargar := pValor;
+  myConfig := TIniFile.Create(ArchivoConfig);
+  myConfig.WriteInteger('General', 'Precargar', FPrecargar);
+  myConfig.Free;
+end;
+
+procedure TReportBuild.SetContenidoPre(pValor: string);
+var
+  myConfig: TStringList;
+  mPos: Integer;
+begin
+  FContenidoPre := pValor;
+  myConfig := TStringList.Create;
+  myConfig.LoadFromFile(ArchivoConfig);
+  mPos := myConfig.IndexOf('[ContenidoPreOnly]');
+  if mPos > 0 then
+    myConfig.Delete(mPos);
+  myConfig.Add('[ContenidoPreOnly]');
+  myConfig.Add(FContenidoPre);
+  myConfig.SaveToFile(ArchivoConfig);
+  myConfig.Free;
+end;
+
+procedure TReportBuild.SetReporteActual(pValor: string);
+var
+  myConfig: TIniFile;
+begin
+  FReporteActual := pValor;
+  myConfig := TIniFile.Create(ArchivoConfig);
+  myConfig.WriteString('ReportePre', 'ReporteActual', FReporteActual);
+  myConfig.Free;
+end;
+
+procedure TReportBuild.SetConexionPre(pValor: string);
+var
+  myConfig: TIniFile;
+begin
+  FConexionPre := pValor;
+  myConfig := TIniFile.Create(ArchivoConfig);
+  myConfig.WriteString('ReportePre', 'ConexionPre', FConexionPre);
+  myConfig.Free;
+end;
+
+procedure TReportBuild.SetOrigenPre(pValor: Integer);
+var
+  myConfig: TIniFile;
+begin
+  FOrigenPre := pValor;
+  myConfig := TIniFile.Create(ArchivoConfig);
+  myConfig.WriteInteger('ReportePre', 'OrigenPre', FOrigenPre);
+  myConfig.Free;
+end;
+
+procedure TReportBuild.SetUsarConexionPre(pValor: Integer);
+var
+  myConfig: TIniFile;
+begin
+  FUsarConexionPre := pValor;
+  myConfig := TIniFile.Create(ArchivoConfig);
+  myConfig.WriteInteger('ReportePre', 'UsarConexionPre', FUsarConexionPre);
+  myConfig.Free;
+end;
+
+function TReportBuild.GetPlantillaSalidaArchivo: string;
+var
+  myConfig: TIniFile;
+begin
+  myConfig := TIniFile.Create(ArchivoConfig);
+  FPlantillaSalidaArchivo :=
+    myConfig.ReadString('General', 'NombreReporteSalida', '');
+  myConfig.Free;
+
+  Result := FPlantillaSalidaArchivo;
+end;
+
+function TReportBuild.GetPlantillaSalidaContenido: string;
+var
+  myConfig: TIniFile;
+  mArchivo: TStringList;
+  mArchivoNombre: string;
+begin
+  myConfig := TIniFile.Create(ArchivoConfig);
+  mArchivoNombre :=
+    myConfig.ReadString('General', 'NombreReporteSalida', '');
+  myConfig.Free;
+
+  mArchivoNombre := FPathAplicacion + '\' + mArchivoNombre;
+  mArchivo := TStringList.Create;
+  if FileExists(mArchivoNombre) = True then
+  begin
+    mArchivo.LoadFromFile(mArchivoNombre);
+    FPlantillaSalidaContenido := mArchivo.Text;
+  end
+  else
+    FPlantillaSalidaContenido := '';
+  mArchivo.Free;
+
+  Result := FPlantillaSalidaContenido;
+end;
+
+procedure TReportBuild.SetDataSet1Name(pValor: string);
+var
+  myConfig: TIniFile;
+begin
+  FDataSet1Name := pValor;
+  myConfig := TIniFile.Create(ArchivoConfig);
+  myConfig.WriteString('DataSet1', 'DataSet1Name', FDataSet1Name);
+  myConfig.Free;
+end;
+
+procedure TReportBuild.SetDataSet2Name(pValor: string);
+var
+  myConfig: TIniFile;
+begin
+  FDataSet2Name := pValor;
+  myConfig := TIniFile.Create(ArchivoConfig);
+  myConfig.WriteString('DataSet2', 'DataSet2Name', FDataSet2Name);
+  myConfig.Free;
+end;
+
+procedure TReportBuild.SetDataSet3Name(pValor: string);
+var
+  myConfig: TIniFile;
+begin
+  FDataSet3Name := pValor;
+  myConfig := TIniFile.Create(ArchivoConfig);
+  myConfig.WriteString('DataSet3', 'DataSet3Name', FDataSet3Name);
+  myConfig.Free;
+end;
+
+procedure TReportBuild.SetDataSet4Name(pValor: string);
+var
+  myConfig: TIniFile;
+begin
+  FDataSet4Name := pValor;
+  myConfig := TIniFile.Create(ArchivoConfig);
+  myConfig.WriteString('DataSet4', 'DataSet4Name', FDataSet4Name);
+  myConfig.Free;
+end;
+
+procedure TReportBuild.SetDataSet5Name(pValor: string);
+var
+  myConfig: TIniFile;
+begin
+  FDataSet5Name := pValor;
+  myConfig := TIniFile.Create(ArchivoConfig);
+  myConfig.WriteString('DataSet5', 'DataSet5Name', FDataSet5Name);
+  myConfig.Free;
+end;
+
+procedure TReportBuild.SetDataSet6Name(pValor: string);
+var
+  myConfig: TIniFile;
+begin
+  FDataSet6Name := pValor;
+  myConfig := TIniFile.Create(ArchivoConfig);
+  myConfig.WriteString('DataSet6', 'DataSet6Name', FDataSet6Name);
+  myConfig.Free;
+end;
+
+procedure TReportBuild.SetDataSet7Name(pValor: string);
+var
+  myConfig: TIniFile;
+begin
+  FDataSet7Name := pValor;
+  myConfig := TIniFile.Create(ArchivoConfig);
+  myConfig.WriteString('DataSet7', 'DataSet7Name', FDataSet7Name);
+  myConfig.Free;
+end;
+
+procedure TReportBuild.SetDataSet8Name(pValor: string);
+var
+  myConfig: TIniFile;
+begin
+  FDataSet8Name := pValor;
+  myConfig := TIniFile.Create(ArchivoConfig);
+  myConfig.WriteString('DataSet8', 'DataSet8Name', FDataSet8Name);
+  myConfig.Free;
+end;
+
+procedure TReportBuild.GenerarEstructura(d1, d2, d3, d4, d5, d6, d7,
+  d8: TFDMemTable);
+var
+  myConfig: TIniFile;
+  mLista1: TStringList;
+  mFila: Integer;
+begin
+  myConfig := TIniFile.Create(ArchivoConfig);
+
+  if d1 <> nil then
+  begin
+    myConfig.EraseSection('DataSet1Campos');
+    mLista1 := TStringList.Create;
+    mLista1 := Obtener_LineaCampos(d1);
+    for mFila := 0 to mLista1.Count - 1 do
+      myConfig.WriteString('DataSet1Campos',
+        'Campo' + IntToStr(mFila + 1), mLista1.Strings[mFila]);
+    mLista1.Free;
+  end;
+
+  if d2 <> nil then
+  begin
+    myConfig.EraseSection('DataSet2Campos');
+    mLista1 := TStringList.Create;
+    mLista1 := Obtener_LineaCampos(d2);
+    for mFila := 0 to mLista1.Count - 1 do
+      myConfig.WriteString('DataSet2Campos',
+        'Campo' + IntToStr(mFila + 1), mLista1.Strings[mFila]);
+    mLista1.Free;
+  end;
+
+  if d3 <> nil then
+  begin
+    myConfig.EraseSection('DataSet3Campos');
+    mLista1 := TStringList.Create;
+    mLista1 := Obtener_LineaCampos(d3);
+    for mFila := 0 to mLista1.Count - 1 do
+      myConfig.WriteString('DataSet3Campos',
+        'Campo' + IntToStr(mFila + 1), mLista1.Strings[mFila]);
+    mLista1.Free;
+  end;
+
+  if d4 <> nil then
+  begin
+    myConfig.EraseSection('DataSet4Campos');
+    mLista1 := TStringList.Create;
+    mLista1 := Obtener_LineaCampos(d4);
+    for mFila := 0 to mLista1.Count - 1 do
+      myConfig.WriteString('DataSet4Campos',
+        'Campo' + IntToStr(mFila + 1), mLista1.Strings[mFila]);
+    mLista1.Free;
+  end;
+
+  if d5 <> nil then
+  begin
+    myConfig.EraseSection('DataSet5Campos');
+    mLista1 := TStringList.Create;
+    mLista1 := Obtener_LineaCampos(d5);
+    for mFila := 0 to mLista1.Count - 1 do
+      myConfig.WriteString('DataSet5Campos',
+        'Campo' + IntToStr(mFila + 1), mLista1.Strings[mFila]);
+    mLista1.Free;
+  end;
+
+  if d6 <> nil then
+  begin
+    myConfig.EraseSection('DataSet6Campos');
+    mLista1 := TStringList.Create;
+    mLista1 := Obtener_LineaCampos(d6);
+    for mFila := 0 to mLista1.Count - 1 do
+      myConfig.WriteString('DataSet6Campos',
+        'Campo' + IntToStr(mFila + 1), mLista1.Strings[mFila]);
+    mLista1.Free;
+  end;
+
+  if d7 <> nil then
+  begin
+    myConfig.EraseSection('DataSet7Campos');
+    mLista1 := TStringList.Create;
+    mLista1 := Obtener_LineaCampos(d7);
+    for mFila := 0 to mLista1.Count - 1 do
+      myConfig.WriteString('DataSet7Campos',
+        'Campo' + IntToStr(mFila + 1), mLista1.Strings[mFila]);
+    mLista1.Free;
+  end;
+
+  if d8 <> nil then
+  begin
+    myConfig.EraseSection('DataSet8Campos');
+    mLista1 := TStringList.Create;
+    mLista1 := Obtener_LineaCampos(d8);
+    for mFila := 0 to mLista1.Count - 1 do
+      myConfig.WriteString('DataSet8Campos',
+        'Campo' + IntToStr(mFila + 1), mLista1.Strings[mFila]);
+    mLista1.Free;
+  end;
+
+  myConfig.Free;
+end;
+
+procedure TReportBuild.ExportarDatos(d1, d2, d3, d4, d5, d6, d7,
+  d8: TFDMemTable);
+begin
+  if d1 <> nil then
+  begin
+    d1.SaveToFile('DataSet1.xml', TFDStorageFormat.sfXML);
+  end;
+  if d2 <> nil then
+  begin
+    d2.SaveToFile('DataSet2.xml', TFDStorageFormat.sfXML);
+  end;
+  if d3 <> nil then
+  begin
+    d3.SaveToFile('DataSet3.xml', TFDStorageFormat.sfXML);
+  end;
+  if d4 <> nil then
+  begin
+    d4.SaveToFile('DataSet4.xml', TFDStorageFormat.sfXML);
+  end;
+  if d5 <> nil then
+  begin
+    d5.SaveToFile('DataSet5.xml', TFDStorageFormat.sfXML);
+  end;
+  if d6 <> nil then
+  begin
+    d6.SaveToFile('DataSet6.xml', TFDStorageFormat.sfXML);
+  end;
+  if d7 <> nil then
+  begin
+    d7.SaveToFile('DataSet7.xml', TFDStorageFormat.sfXML);
+  end;
+  if d8 <> nil then
+  begin
+    d8.SaveToFile('DataSet8.xml', TFDStorageFormat.sfXML);
+  end;
+end;
+
+function TReportBuild.Obtener_LineaCampos(ds: TFDMemTable): TStringList;
+var
+  mColumnas: Integer;
+  mNombre, mTipo, mSize: string;
+  mResultado: TStringList;
+begin
+  mResultado := TStringList.Create;
+
+  with ds do
+  begin
+    for mColumnas := 0 to FieldDefs.Count - 1 do
+    begin
+      mNombre := FieldDefs.Items[mColumnas].Name;
+      try
+        mTipo := GetEnumName(TypeInfo(TFieldType), Integer(Fields[mColumnas].DataType));
+      except
+        mTipo := '';
+      end;
+      mSize := IntToStr(FieldDefs.Items[mColumnas].Size);
+      mResultado.Add(mNombre + ',' + mTipo + ',' + mSize);
+    end;
+  end;
+
+  Result := mResultado;
+end;
+
+end.

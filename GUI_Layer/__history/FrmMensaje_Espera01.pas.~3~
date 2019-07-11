@@ -1,0 +1,29 @@
+unit FrmMensaje_Espera01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils,
+  System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, RzPanel,
+  Vcl.WinXCtrls;
+
+type
+  TFormMensaje_Espera01 = class(TForm)
+    RzPanel1: TRzPanel;
+    Label1: TLabel;
+    ActivityIndicator1: TActivityIndicator;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormMensaje_Espera01: TFormMensaje_Espera01;
+
+implementation
+
+{$R *.dfm}
+
+end.

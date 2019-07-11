@@ -1,0 +1,20 @@
+unit uDL_TB_AsientosDetalle;
+
+interface
+uses udmObjects, FireDAC.Comp.Client, System.SysUtils, Data.DB,
+  System.Classes, udmConnection;
+
+type
+  TDatasetMem = TFDMemTable;
+
+  TDL_TB_AsientosDetalle = class
+    Dataset: TDatasetMem;
+    _ListaCampos: TStringList;
+  const
+    Tabla = 'TB_AsientosDetalle';
+    ClaseNombre = 'TDL_TB_AsientosDetalle';
+  public
+
+implementation
+
+end.

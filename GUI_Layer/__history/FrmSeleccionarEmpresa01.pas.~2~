@@ -1,0 +1,34 @@
+unit FrmSeleccionarEmpresa01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils,
+  System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, RzTabs,
+  Vcl.Buttons, Vcl.ExtCtrls, RzPanel;
+
+type
+  TFormSeleccionarEmpresa01 = class(TForm)
+    pnlTitulo: TRzPanel;
+    pnlOpciones: TRzPanel;
+    btnAceptar: TBitBtn;
+    btnCancelar: TBitBtn;
+    pgcCampos: TRzPageControl;
+    TabSheet1: TRzTabSheet;
+    Label1: TLabel;
+    cbEmpresas: TComboBoxEx;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormSeleccionarEmpresa01: TFormSeleccionarEmpresa01;
+
+implementation
+
+{$R *.dfm}
+
+end.

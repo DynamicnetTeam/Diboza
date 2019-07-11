@@ -1,0 +1,33 @@
+unit FrmPedirLicencia01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons;
+
+type
+  TFormPedirLicencia01 = class(TForm)
+    pnlTitulo: TPanel;
+    pnlOpciones: TPanel;
+    btnAceptar: TBitBtn;
+    btnCancelar: TBitBtn;
+    btnCampos: TPanel;
+    Panel1: TPanel;
+    ButtonedEdit1: TButtonedEdit;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormPedirLicencia01: TFormPedirLicencia01;
+
+implementation
+
+{$R *.dfm}
+
+end.

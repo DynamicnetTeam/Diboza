@@ -1,0 +1,35 @@
+unit udmReports;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, frxClass, frxDBSet, frxExportRTF;
+
+type
+  TdmReports = class(TDataModule)
+    frxReport1: TfrxReport;
+    frxDBDataset1: TfrxDBDataset;
+    frxDBDataset2: TfrxDBDataset;
+    frxDBDataset3: TfrxDBDataset;
+    frxDBDataset4: TfrxDBDataset;
+    frxDBDataset5: TfrxDBDataset;
+    frxDBDataset6: TfrxDBDataset;
+    frxDBDataset7: TfrxDBDataset;
+    frxDBDataset8: TfrxDBDataset;
+    frxRTFExport1: TfrxRTFExport;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dmReports: TdmReports;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

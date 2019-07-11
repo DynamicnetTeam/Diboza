@@ -1,0 +1,14 @@
+Recibo_Numero string 50
+Fecha date
+Hora string 20
+CodigoCliente string 100
+NombreCliente string 160
+MontoLetras memo
+SaldoAnterior float
+MontoNumero float
+SaldoActual float
+Estado string 100
+FormaPago string 100
+Moneda string 100
+Impresa string 100
+Tipo sttring 100

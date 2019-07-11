@@ -1,0 +1,44 @@
+unit FrmMantenimientoNotasDebito01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, RzListVw, Vcl.StdCtrls,
+  Vcl.WinXCtrls, Vcl.WinXCalendars, RzStatus, RzPanel, Vcl.Buttons, Vcl.ExtCtrls;
+
+type
+  TFormMantenimientoNotasDebito01 = class(TForm)
+    pnlTitulo: TRzPanel;
+    pnlOpciones: TRzPanel;
+    btnInsertar: TBitBtn;
+    btnModificar: TBitBtn;
+    btnRefrescar: TBitBtn;
+    btnCerrar: TBitBtn;
+    stbEstado1: TRzStatusBar;
+    RzStatusPane1: TRzStatusPane;
+    pnlFiltro: TRzPanel;
+    Label2: TLabel;
+    Label1: TLabel;
+    Label3: TLabel;
+    edtBuscar_Numero: TSearchBox;
+    dtpFechaDesde: TCalendarPicker;
+    dtpFechaHasta: TCalendarPicker;
+    chkAplicarRangoFecha: TToggleSwitch;
+    pnlListaTitulo: TRzPanel;
+    chkTodoLista1: TCheckBox;
+    lvLista1: TRzListView;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormMantenimientoNotasDebito01: TFormMantenimientoNotasDebito01;
+
+implementation
+
+{$R *.dfm}
+
+end.

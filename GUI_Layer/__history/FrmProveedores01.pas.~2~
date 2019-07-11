@@ -1,0 +1,55 @@
+unit FrmProveedores01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Samples.Spin,
+  Vcl.Mask, RxToolEdit, RxCurrEdit, RzTabs, Vcl.Buttons, Vcl.ExtCtrls, RzPanel;
+
+type
+  TFormProveedores01 = class(TForm)
+    pnlTitulo: TRzPanel;
+    pnlAccion: TRzPanel;
+    pnlOpciones: TRzPanel;
+    btnAceptar: TBitBtn;
+    btnCancelar: TBitBtn;
+    pgcCampos: TRzPageControl;
+    TabSheet1: TRzTabSheet;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    edtCodigo: TEdit;
+    edtNombre: TEdit;
+    edtDireccion: TEdit;
+    edtTelefono1: TEdit;
+    edtTelefono2: TEdit;
+    edtEmail: TEdit;
+    edtContacto: TEdit;
+    edtLimiteCredito: TCurrencyEdit;
+    edtSaldo: TCurrencyEdit;
+    rbContado: TRadioButton;
+    rbCredito: TRadioButton;
+    spePlazo: TSpinEdit;
+    chkAplicarLimiteCredito: TCheckBox;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormProveedores01: TFormProveedores01;
+
+implementation
+
+{$R *.dfm}
+
+end.

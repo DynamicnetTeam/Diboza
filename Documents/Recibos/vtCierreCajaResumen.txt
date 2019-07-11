@@ -1,0 +1,12 @@
+Codigo integer
+IdMaquina string 100
+FechaDe date
+FechaHasta date
+HoraDe string 20
+HoraHasta string 20
+TotalMontoEfectivo float
+TotalMontoTarjeta float
+TotalMontoCheque float
+TotalMontoTransferencia float
+TotalMontoFinal float
+Empresa string 100

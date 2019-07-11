@@ -1,0 +1,42 @@
+unit RptProductosMinimos01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  frxClass, frxDBSet, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, Vcl.ExtCtrls,
+  RzPanel;
+
+type
+  TReptProductosMinimos01 = class(TForm)
+    pnlTitulo: TRzPanel;
+    pnlCampos: TRzPanel;
+    GroupBox1: TGroupBox;
+    cbOrden: TComboBoxEx;
+    GroupBox4: TGroupBox;
+    cbProveedor: TComboBoxEx;
+    GroupBox5: TGroupBox;
+    cbFamilia: TComboBoxEx;
+    pnlOpciones: TRzPanel;
+    btnAceptar: TBitBtn;
+    btnCancelar: TBitBtn;
+    frxReport1: TfrxReport;
+    frxDBDataset1: TfrxDBDataset;
+    FDMemTable1: TFDMemTable;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  ReptProductosMinimos01: TReptProductosMinimos01;
+
+implementation
+
+{$R *.dfm}
+
+end.

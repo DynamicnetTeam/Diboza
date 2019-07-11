@@ -1,0 +1,988 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{55F71309-CFC1-4B1B-A6F5-8AA6577727A7}</ProjectGuid>
+        <ProjectVersion>18.2</ProjectVersion>
+        <FrameworkType>VCL</FrameworkType>
+        <MainSource>Sisfac.dpr</MainSource>
+        <Base>True</Base>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <TargetedPlatforms>1</TargetedPlatforms>
+        <AppType>Application</AppType>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+        <Cfg_1_Win32>true</Cfg_1_Win32>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <VCL_Custom_Styles>&quot;Slate Classico|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\15.0\Styles\SlateClassico.vsf&quot;</VCL_Custom_Styles>
+        <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
+        <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
+        <DCC_E>false</DCC_E>
+        <DCC_N>false</DCC_N>
+        <DCC_S>false</DCC_S>
+        <DCC_F>false</DCC_F>
+        <DCC_K>false</DCC_K>
+        <DCC_UsePackage>RESTComponents;emsclientfiredac;FireDACIBDriver;emsclient;FireDACCommon;RESTBackendComponents;soapserver;CloudService;FireDACCommonDriver;inet;FireDAC;FireDACSqliteDriver;soaprtl;soapmidas;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
+        <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
+        <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
+        <SanitizedProjectName>Sisfac</SanitizedProjectName>
+        <Custom_Styles>&quot;Slate Classico|VCLSTYLE|$(BDSCOMMONDIR)\Styles\SlateClassico.vsf&quot;</Custom_Styles>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <DCC_UsePackage>DBXSqliteDriver;DataSnapServerMidas;DBXDb2Driver;DBXInterBaseDriver;vclactnband;vclFireDAC;CheckComboBox;DataSnapFireDAC;tethering;svnui;FireDACADSDriver;DBXMSSQLDriver;DatasnapConnectorsFreePascal;FireDACMSSQLDriver;vcltouch;vcldb;bindcompfmx;Intraweb;svn;DBXOracleDriver;inetdb;RaizeComponentsVcl;CheckTreeView;FmxTeeUI;emsedge;RaizeComponentsVclDb;fmx;fmxdae;vclib;frxTee25;FireDACDBXDriver;dbexpress;IndyCore;PanelGradient;vclx;dsnap;DataSnapCommon;DataSnapConnectors;VCLRESTComponents;vclie;CheckGroupBox;bindengine;DBXMySQLDriver;FireDACOracleDriver;FireDACMySQLDriver;DBXFirebirdDriver;FireDACCommonODBC;DataSnapClient;bindcompdbx;IndyIPCommon;vcl;DBXSybaseASEDriver;IndyIPServer;IndySystem;FireDACDb2Driver;dsnapcon;FireDACMSAccDriver;FireDACInfxDriver;fmxFireDAC;vclimg;TeeDB;emshosting;FireDACPgDriver;ibmonitor;FireDACASADriver;DBXOdbcDriver;FireDACTDataDriver;FMXTee;DbxCommonDriver;CodeSiteLoggingPkg;ibxpress;Tee;CodeSiteDBToolsPkg;DataSnapServer;xmlrtl;DataSnapNativeClient;ibxbindings;fmxobj;FireDACDSDriver;rtl;vclwinx;DbxClientDriver;DBXSybaseASADriver;CustomIPTransport;vcldsnap;RtmRxDB250;bindcomp;appanalytics;DBXInformixDriver;IndyIPClient;bindcompvcl;TeeUI;dbxcds;VclSmp;adortl;FireDACODBCDriver;DataSnapIndy10ServerTransport;DataSnapProviderClient;dsnapxml;dbrtl;FireDACMongoDBDriver;IndyProtocols;inetdbxpress;RtmRxCtl250;fmxase;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Keys>CompanyName=Dynamic;FileDescription=Sistema de facturación;FileVersion=8.5.0.0;InternalName=Sisfac;LegalCopyright=;LegalTrademarks=;OriginalFilename=Sisfac;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=Sisfac;ProductVersion=8.5.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <DCC_DcuOutput>.\$(Platform)\$(Config)\DCU</DCC_DcuOutput>
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <Icon_MainIcon>Sisfac_Icon.ico</Icon_MainIcon>
+        <VerInfo_MajorVer>8</VerInfo_MajorVer>
+        <VerInfo_MinorVer>5</VerInfo_MinorVer>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+        <DCC_DebugDCUs>true</DCC_DebugDCUs>
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+        <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+        <DCC_RemoteDebug>true</DCC_RemoteDebug>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <DCC_RemoteDebug>false</DCC_RemoteDebug>
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <AppEnableHighDPI>true</AppEnableHighDPI>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <Icon_MainIcon>Sisfac_Icon.ico</Icon_MainIcon>
+        <VerInfo_MajorVer>8</VerInfo_MajorVer>
+        <VerInfo_MinorVer>5</VerInfo_MinorVer>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+        <DCC_DebugInformation>0</DCC_DebugInformation>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <AppEnableHighDPI>true</AppEnableHighDPI>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_MajorVer>6</VerInfo_MajorVer>
+        <VerInfo_MinorVer>7</VerInfo_MinorVer>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <Icon_MainIcon>Sisfac_Icon.ico</Icon_MainIcon>
+        <VerInfo_Release>1</VerInfo_Release>
+    </PropertyGroup>
+    <ItemGroup>
+        <DelphiCompile Include="$(MainSource)">
+            <MainSource>MainSource</MainSource>
+        </DelphiCompile>
+        <DCCReference Include="GUI_Layer\FrmPrincipal01.pas">
+            <Form>FormPrincipal01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Modules\udmConnection.pas">
+            <Form>dmConnection</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Modules\udmObjects.pas">
+            <Form>dmObjects</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Data_Layer\uDL_Skeleton.pas"/>
+        <DCCReference Include="Data_Layer\DL_DBConexion.pas"/>
+        <DCCReference Include="Data_Layer\DL_DBGeneral.pas"/>
+        <DCCReference Include="Business_Layer\BS_DBConexion.pas"/>
+        <DCCReference Include="Functions\uConfig.pas"/>
+        <DCCReference Include="Functions\ufunciones.pas"/>
+        <DCCReference Include="Functions\uSistema.pas"/>
+        <DCCReference Include="GUI_Layer\FrmPresentacion01.pas">
+            <Form>FormPresentacion01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FmrEmpresas01.pas">
+            <Form>FormEmpresas01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Data_Layer\uDL_TB_APARTADOSDETALLE.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_APARTADOSENCABEZADO.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_CIERRESCAJAENCABEZADO.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_CLIENTES.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_CONSECUTIVOS.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_EMPRESAS.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_ENTRADASDETALLE.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_ENTRADASENCABEZADO.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_ESTADOS.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_FACTURASCLIENTESDETALLE.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_FACTURASCLIENTESENCABEZADO.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_FAMILIAS.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_FORMASPAGO.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_IMPUESTOS.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_NOTASCREDITOENCABEZADO.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_NOTASDEBITOENCABEZADO.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_PLANTILLAS.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_PRODUCTOS.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_PROFORMASDETALLE.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_PROFORMASENCABEZADO.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_PROVEEDORES.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_RECIBOSAPARTADOSDETALLE.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_RECIBOSAPARTADOSENCABEZADO.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_RECIBOSCLIENTESDETALLE.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_RECIBOSCLIENTESENCABEZADO.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_RECIBOSPROVEEDORESDETALLE.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_RECIBOSPROVEEDORESENCABEZADO.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_SISTEMA.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_TIPOS.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_UNIDADESMEDIDA.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_USUARIOS.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_VENDEDORES.pas"/>
+        <DCCReference Include="Business_Layer\uBS_TB_EMPRESAS.pas"/>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoUsuarios01.pas">
+            <Form>FormMantenimientoUsuarios01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmUsuarios01.pas">
+            <Form>FormUsuarios01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmBaseDatos01.pas">
+            <Form>FormBaseDatos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMensaje_Espera01.pas">
+            <Form>FormMensaje_Espera01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoFamilias01.pas">
+            <Form>FormMantenimientoFamilias01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmFamilias01.pas">
+            <Form>FormFamilias01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoProductos01.pas">
+            <Form>FormMantenimientoProductos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmProductos01.pas">
+            <Form>FormProductos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoClientes01.pas">
+            <Form>FormMantenimientoClientes01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmClientes01.pas">
+            <Form>FormClientes01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoProveedores01.pas">
+            <Form>FormMantenimientoProveedores01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmProveedores01.pas">
+            <Form>FormProveedores01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoVendedores01.pas">
+            <Form>FormMantenimientoVendedores01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmVendedores01.pas">
+            <Form>FormVendedores01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoImpuestos01.pas">
+            <Form>FormMantenimientoImpuestos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmImpuestos01.pas">
+            <Form>FormImpuestos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmCambiarPrecios01.pas">
+            <Form>FormCambiarPrecios01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoFacturasClientes01.pas">
+            <Form>FormMantenimientoFacturasClientes01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmFacturaClientes01.pas">
+            <Form>FormFacturaClientes01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmBuscar_Productos01.pas">
+            <Form>FormBuscar_Productos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmPagar01.pas">
+            <Form>FormPagar01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoPlantillas01.pas">
+            <Form>FormMantenimientoPlantillas01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmPlantillas01.pas">
+            <Form>FormPlantillas01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Functions\uReportBuild.pas"/>
+        <DCCReference Include="GUI_Layer\FrmAcercaDe01.pas">
+            <Form>FormAcercaDe01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Modules\udmReports.pas">
+            <Form>dmReports</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoProformas01.pas">
+            <Form>FormMantenimientoProformas01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmProformas01.pas">
+            <Form>FormProformas01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoApartados01.pas">
+            <Form>FormMantenimientoApartados01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmApartados01.pas">
+            <Form>FormApartados01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoFacturasProveedores01.pas">
+            <Form>FormMantenimientoFacturasProveedores01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmFacturasProveedores01.pas">
+            <Form>FormFacturasProveedores01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmOpciones01.pas">
+            <Form>FormOpciones01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoRecibosClientes01.pas">
+            <Form>FormMantenimientoRecibosClientes01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoRecibosProveedores01.pas">
+            <Form>FormMantenimientoRecibosProveedores01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmAcceso01.pas">
+            <Form>FormAcceso01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoRecibosCierresCaja01.pas">
+            <Form>FormMantenimientoRecibosCierresCaja01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmRecibosClientes01.pas">
+            <Form>FormRecibosClientes01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoRecibosApartados01.pas">
+            <Form>FormMantenimientoRecibosApartados01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmProductoFueraInventario01.pas">
+            <Form>FormProductoFueraInventario01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmRecibosProveedores01.pas">
+            <Form>FormRecibosProveedores01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmRecibosApartados01.pas">
+            <Form>FormRecibosApartados01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmCierresCaja01.pas">
+            <Form>FormCierresCaja01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptListadoFamilias01.pas">
+            <Form>ReptListadoFamilias01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptListadoProductos01.pas">
+            <Form>ReptListadoProductos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptListadoClientes01.pas">
+            <Form>ReptListadoClientes01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptListadoProveedores01.pas">
+            <Form>ReptListadoProveedores01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptListadoVendedores01.pas">
+            <Form>ReptListadoVendedores01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptFacturasProveedores01.pas">
+            <Form>ReptFacturasProveedores01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptFacturasClientes01.pas">
+            <Form>ReptFacturasClientes01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptRecibosProveedores01.pas">
+            <Form>ReptRecibosProveedores01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptRecibosClientes01.pas">
+            <Form>ReptRecibosClientes01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptRecibosApartados01.pas">
+            <Form>ReptRecibosApartados01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptApartados01.pas">
+            <Form>ReptApartados01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptProformas01.pas">
+            <Form>ReptProformas01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptCierresCaja01.pas">
+            <Form>ReptCierresCaja01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptCompras01.pas">
+            <Form>ReptCompras01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptVentas01.pas">
+            <Form>ReptVentas01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptEstadoCuenta01.pas">
+            <Form>ReptEstadoCuenta01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Data_Layer\uDL_TB_GruposEncabezado.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_GruposDetalle.pas"/>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoGrupos01.pas">
+            <Form>FormMantenimientoGrupos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmGrupos01.pas">
+            <Form>FormGrupos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptNotasCredito01.pas">
+            <Form>ReptNotasCredito01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptUtilidad01.pas">
+            <Form>ReptUtilidad01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptValorInventario01.pas">
+            <Form>ReptValorInventario01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmOpcionesIniciales01.pas">
+            <Form>FormOpcionesIniciales01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoOrdenes01.pas">
+            <Form>FormMantenimientoOrdenes01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Data_Layer\uDL_TB_OrdenesEncabezado.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_OrdenesDetalle.pas"/>
+        <DCCReference Include="Functions\uLicencia.pas"/>
+        <DCCReference Include="GUI_Layer\FrmPedirLicencia01.pas">
+            <Form>FormPedirLicencia01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmOrdenes01.pas">
+            <Form>FormOrdenes01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmActivarLicencia01.pas">
+            <Form>FormActivarLicencia01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Data_Layer\uDL_TB_Licencia.pas"/>
+        <DCCReference Include="GUI_Layer\FrmCambiarDetalle01.pas">
+            <Form>FormCambiarDetalle01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmDesuentoMonto01.pas">
+            <Form>FormDesuentoMonto01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Data_Layer\uDL_TB_Cuentas.pas"/>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoCuentas01.pas">
+            <Form>FormMantenimientoCuentas01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmCuentas01.pas">
+            <Form>FormCuentas01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Data_Layer\uDL_TB_AsientosEncabezado.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_AsientosDetalle.pas"/>
+        <DCCReference Include="GUI_Layer\FrmAcceso02.pas">
+            <Form>FormAcceso02</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Data_Layer\uDL_TB_NIVELESUSUARIOS.pas"/>
+        <DCCReference Include="Reports\RptEstadistico01.pas">
+            <Form>ReptEstadistico01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMovimientoInventario01.pas">
+            <Form>FormMovimientoInventario01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Data_Layer\uDL_TB_INVENTARIOM.pas"/>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoAsientos01.pas">
+            <Form>FormMantenimientoAsientos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmAsientos01.pas">
+            <Form>FormAsientos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Functions\uDialogDirectory.pas"/>
+        <DCCReference Include="Reports\RptMovimientosInventario01.pas">
+            <Form>ReptMovimientosInventario01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoNotasCredito01.pas">
+            <Form>FormMantenimientoNotasCredito01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmNotasCredito01.pas">
+            <Form>FormNotasCredito01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Data_Layer\uDL_TB_NOTASCREDITODETALLE.pas"/>
+        <DCCReference Include="GUI_Layer\FrmBuscar_Facturas01.pas">
+            <Form>FormBuscar_Facturas01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Data_Layer\uDL_TB_VENDEDORESCLIENTES.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_CONEXIONES.pas"/>
+        <DCCReference Include="Reports\RptDescuentos01.pas">
+            <Form>ReptDescuentos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptKilos01.pas">
+            <Form>ReptKilos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\RptProductosDevueltos01.pas">
+            <Form>ReptProductosDevueltos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Reports\RptProductosMinimos01.pas">
+            <Form>ReptProductosMinimos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmListadoProductos01.pas">
+            <Form>FormListadoProductos01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmListadoClientes01.pas">
+            <Form>FormListadoClientes01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmRuta01.pas">
+            <Form>FormRuta01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Modules\udmLenguajes.pas">
+            <Form>dmLenguajes</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmSeleccionarEmpresa01.pas">
+            <Form>FormSeleccionarEmpresa01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="GUI_Layer\FrmEmpresasLista01.pas">
+            <Form>FormEmpresasLista01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Functions\uHacienda.pas"/>
+        <DCCReference Include="Functions\uAuxiliares.pas"/>
+        <DCCReference Include="Data_Layer\uDL_TB_DOCUMENTOSHACIENDA.pas"/>
+        <DCCReference Include="GUI_Layer\FrmMantenimientoNotasDebito01.pas">
+            <Form>FormMantenimientoNotasDebito01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Data_Layer\uDL_tb_docunentosencabezado.pas"/>
+        <DCCReference Include="Data_Layer\uDL_tb_docunentosdetalle.pas"/>
+        <DCCReference Include="Data_Layer\uDL_tb_documentosdescuentos.pas"/>
+        <DCCReference Include="Data_Layer\uDL_tb_documentosotroscargos.pas"/>
+        <DCCReference Include="Data_Layer\uDL_tb_docunentosimpuestos.pas"/>
+        <DCCReference Include="GUI_Layer\FrmImportarEmpresaServidor01.pas">
+            <Form>FormImportarEmpresaServidor01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Data_Layer\uDL_tb_empresas2.pas"/>
+        <DCCReference Include="GUI_Layer\FrmVerReporte01.pas">
+            <Form>FormVerReporte01</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Data_Layer\uDL_tb_consecutivosdocumentos.pas"/>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType>Application</Borland.ProjectType>
+        <BorlandProject>
+            <Delphi.Personality>
+                <Source>
+                    <Source Name="MainSource">Sisfac.dpr</Source>
+                </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k210.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp210.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\FastReport 6 VCL Standard\LibD21\dclfrxIntIO21.bpl">FastReport 6.0 Internet transports</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\FastReport 6 VCL Standard\LibD21\dclfrxIntIOIndy21.bpl">FastReport 6.0 Internet transports</Excluded_Packages>
+                </Excluded_Packages>
+            </Delphi.Personality>
+            <Deployment Version="3">
+                <DeployFile LocalName="Win32\Debug\Sisfac.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>Sisfac.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployClass Name="Android_SplashImage470">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-normal</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Required="true" Name="DependencyPackage">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.bpl</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch2048">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSDeviceDebug">
+                    <Platform Name="iOSDevice">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidLibnativeMipsFile">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\mips</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXInfoPList">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidGDBServer">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSResource">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXEntitlements">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch640">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage960">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xlarge</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon96">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon144">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch320">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="UWP_DelphiLogo150">
+                    <Platform Name="Win64">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashImageDef">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="UWP_DelphiLogo44">
+                    <Platform Name="Win64">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidLibnativeX86File">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\x86</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DebugSymbols">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DependencyFramework">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.framework</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage426">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-small</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSEntitlements">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AdditionalDebugSymbols">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidClassesDexFile">
+                    <Platform Name="Android">
+                        <RemoteDir>classes</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSInfoPList">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch1024">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidServiceOutput">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_DefaultAppIcon">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSDeviceResourceRules">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXResource">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\Resources</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch768">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidLibnativeArmeabiFile">
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Required="true" Name="ProjectOutput">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android">
+                        <RemoteDir>library\lib\armeabi-v7a</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_SplashImage640">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-large</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="File">
+                    <Platform Name="iOSDevice">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="Android">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch640x1136">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashStyles">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon36">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-ldpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch1536">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon48">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-mdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon72">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-hdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectAndroidManifest">
+                    <Platform Name="Android">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectUWPManifest">
+                    <Platform Name="Win64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+            </Deployment>
+            <Platforms>
+                <Platform value="Win32">True</Platform>
+            </Platforms>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+    <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+    <Import Project="$(MSBuildProjectName).deployproj" Condition="Exists('$(MSBuildProjectName).deployproj')"/>
+</Project>

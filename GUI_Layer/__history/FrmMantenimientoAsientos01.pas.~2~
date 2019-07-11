@@ -1,0 +1,40 @@
+unit FrmMantenimientoAsientos01;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, RzListVw, Vcl.StdCtrls,
+  Vcl.WinXCtrls, RzStatus, RzPanel, Vcl.Buttons, Vcl.ExtCtrls;
+
+type
+  TFormMantenimientoAsientos01 = class(TForm)
+    pnlTitulo: TRzPanel;
+    pnlOpciones: TRzPanel;
+    btnInsertar: TBitBtn;
+    btnModificar: TBitBtn;
+    btnEliminar: TBitBtn;
+    btnRefrescar: TBitBtn;
+    btnCerrar: TBitBtn;
+    stbEstado1: TRzStatusBar;
+    RzStatusPane1: TRzStatusPane;
+    pnlFiltro: TRzPanel;
+    Label2: TLabel;
+    edtBuscar_Nombre: TSearchBox;
+    pnlListaTitulo: TRzPanel;
+    chkTodoLista1: TCheckBox;
+    lvLista1: TRzListView;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormMantenimientoAsientos01: TFormMantenimientoAsientos01;
+
+implementation
+
+{$R *.dfm}
+
+end.

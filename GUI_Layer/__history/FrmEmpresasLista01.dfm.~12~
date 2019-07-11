@@ -1,0 +1,218 @@
+object FormEmpresasLista01: TFormEmpresasLista01
+  Left = 0
+  Top = 0
+  Caption = 'Lista de Empresas'
+  ClientHeight = 345
+  ClientWidth = 584
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  KeyPreview = True
+  OldCreateOrder = False
+  Position = poOwnerFormCenter
+  ShowHint = True
+  OnClose = FormClose
+  OnKeyDown = FormKeyDown
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlTitulo: TRzPanel
+    Left = 0
+    Top = 0
+    Width = 584
+    Height = 25
+    Align = alTop
+    BorderOuter = fsNone
+    Caption = 'LISTA DE EMPRESAS'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    GradientColorStyle = gcsCustom
+    GradientColorStart = clBlue
+    GradientColorStop = clWhite
+    ParentFont = False
+    TabOrder = 0
+    VisualStyle = vsGradient
+  end
+  object pnlOpciones: TRzPanel
+    Left = 0
+    Top = 25
+    Width = 584
+    Height = 64
+    Align = alTop
+    BorderOuter = fsFlat
+    TabOrder = 1
+    object btnCerrar: TBitBtn
+      Left = 16
+      Top = 6
+      Width = 80
+      Height = 50
+      Caption = 'Cerrar'
+      Glyph.Data = {
+        3E040000424D3E04000000000000FE0100002800000018000000180000000100
+        08000000000040020000120B0000120B0000720000007200000000000000FFFF
+        FF00FF00FF0069333400CD676800CC666700CF696A00CE686900D06A6B00D26C
+        6D00D16B6C00C6666700D46E6F00D36D6E00D6707100D56F7000D7717200D973
+        7400D8727300D26F7000DB757600DA747500DD777800DC767700DF797A00DE78
+        7900E17B7C00E07A7B00E37D7E00E27C7D00C0696A00E57F8000E47E7F00E781
+        8200E6808100E9838400E8828300EB858600EA848500ED878800EC868700B366
+        6700EF898A00EE888900B4676800F18B8C00F08A8B00B6696A00F48E8F00F38D
+        8E00F28C8D00B0666700F6909100F58F9000E7878800B96C6D00F8929300F791
+        9200BB6E6F00FB959600FA949500F9939400FD979800FC969700BE717200AF68
+        6900FF999A00FE989900C0737400F9969700C3767700F2939400DF898A00C87B
+        7C00C67C7D00C0797A00FEA2A300A76C6D00FDA8A900F3A6A700FCAFB000ECA6
+        A700F0AAAB00FBB6B700FABCBD00F5BBBC00F2B9BA00F9C5C600B86B6B00AE66
+        6600BD707000C2757500C5787800C77A7A00A7666600CA7D7D00CD808000CC7F
+        7F00A3666600A0666600B3737300AD7070009A666600F0B0B000F9C2C200F2D9
+        C000FFFFDD00E2F8CC00C7F0BC0073B8760059B2670079DD900060D6810033CB
+        6700020202020202020202020266030202020202020202020202020202020202
+        02026666625E0302020202020202020202020202020202666663330B05290302
+        020202020202020202020202026666411E060704042903596666666666666666
+        020202020266130F0C0D090A082C034C4E505354685757660202020202661112
+        100E0F0C0D2F036E71717171717157660202020202661714151112100E58036E
+        71717171717157660202020202661818191617141537036E7171717171715766
+        0202020202661C1D1A1B1819163A036E7171717171715766020202020266221F
+        201C1D1A1B5A036E71717171717157660202020202662324212236512040036D
+        7171717171715766020202020266272825265601674403696C6F6F7070705766
+        0202020202662E2A2B275501525B03696A6A6A6A6B6B57660202020202663132
+        2D2E2A4F274603696A6A6A6A6A6A57660202020202663434353031322D5C0369
+        6A6A6A6A6A6A57660202020202663C3D38393435305D03696A6A6A6A6A6A5766
+        0202020202663E3F3B3C3D38394903696A6A6A6A6A6A57660202020202664242
+        433E3E3F3B5F03696A6A6A6A6A6A576602020202026642424242424343610369
+        6A6A6A6A6A6A5766020202020266454242424242426003696A6A6A6A6A6A5766
+        020202020266664B48424242426003696A6A6A6A6A6A57660202020202020266
+        664D4A474260035E666666666666666602020202020202020202666665640302
+        0202020202020202020202020202020202020202026603020202020202020202
+        0202}
+      TabOrder = 0
+      OnClick = btnCerrarClick
+    end
+  end
+  object stbEstado1: TRzStatusBar
+    Left = 0
+    Top = 326
+    Width = 584
+    Height = 19
+    BorderInner = fsNone
+    BorderOuter = fsNone
+    BorderSides = [sdLeft, sdTop, sdRight, sdBottom]
+    BorderWidth = 0
+    TabOrder = 5
+    object RzStatusPane1: TRzStatusPane
+      Left = 0
+      Top = 0
+      Width = 465
+      Height = 19
+      Align = alLeft
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Caption = ''
+    end
+  end
+  object pnlFiltro: TRzPanel
+    Left = 0
+    Top = 89
+    Width = 584
+    Height = 41
+    Align = alTop
+    BorderOuter = fsFlat
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+    object Label2: TLabel
+      Left = 8
+      Top = 13
+      Width = 47
+      Height = 16
+      Caption = 'Archivo:'
+    end
+    object edtArchivo: TSearchBox
+      Left = 64
+      Top = 11
+      Width = 333
+      Height = 24
+      ReadOnly = True
+      TabOrder = 1
+      Text = 'edtArchivo'
+      OnInvokeSearch = edtArchivoInvokeSearch
+    end
+    object btnAgregar: TBitBtn
+      Left = 403
+      Top = 11
+      Width = 75
+      Height = 25
+      Caption = 'Agregar'
+      TabOrder = 2
+      OnClick = btnAgregarClick
+    end
+    object btnQuitar: TBitBtn
+      Left = 484
+      Top = 10
+      Width = 75
+      Height = 25
+      Caption = 'Quitar'
+      TabOrder = 0
+      OnClick = btnQuitarClick
+    end
+  end
+  object pnlListaTitulo: TRzPanel
+    Left = 0
+    Top = 130
+    Width = 584
+    Height = 22
+    Align = alTop
+    BorderOuter = fsFlat
+    Caption = 'Lista'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+  end
+  object lvLista1: TRzListView
+    Left = 0
+    Top = 152
+    Width = 584
+    Height = 174
+    Align = alClient
+    Checkboxes = True
+    Columns = <
+      item
+        MaxWidth = 25
+        Width = 25
+      end
+      item
+        Caption = 'Nombre'
+        Width = 200
+      end
+      item
+        Caption = 'Directorio'
+        Width = 338
+      end>
+    ReadOnly = True
+    RowSelect = True
+    TabOrder = 4
+    ViewStyle = vsReport
+  end
+  object OpenDialog1: TOpenDialog
+    DefaultExt = 'fdb'
+    Filter = 'Archivo de Base de Datos|*.FDB'
+    Left = 89
+    Top = 144
+  end
+end
