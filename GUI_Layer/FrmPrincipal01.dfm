@@ -2,7 +2,7 @@ object FormPrincipal01: TFormPrincipal01
   Left = 0
   Top = 0
   BorderStyle = bsSingle
-  Caption = 'Diboza punto de venta'
+  Caption = 'Koxi punto de venta'
   ClientHeight = 331
   ClientWidth = 594
   Color = clBtnFace
@@ -1800,6 +1800,10 @@ object FormPrincipal01: TFormPrincipal01
       end
       object TabSheet2: TRzTabSheet
         Caption = 'Nuevos'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object RzRapidFireButton5: TRzRapidFireButton
           Left = 0
           Top = 0
@@ -1911,6 +1915,10 @@ object FormPrincipal01: TFormPrincipal01
       end
       object TabSheet3: TRzTabSheet
         Caption = 'Info.'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Image2: TImage
           Left = 0
           Top = 92
@@ -2830,7 +2838,7 @@ object FormPrincipal01: TFormPrincipal01
         object Label2: TLabel
           Left = 0
           Top = 0
-          Width = 207
+          Width = 133
           Height = 23
           Align = alTop
           Alignment = taCenter
@@ -2841,12 +2849,11 @@ object FormPrincipal01: TFormPrincipal01
           Font.Name = 'Comic Sans MS'
           Font.Style = []
           ParentFont = False
-          ExplicitWidth = 133
         end
         object Label3: TLabel
           Left = 0
           Top = 23
-          Width = 207
+          Width = 98
           Height = 23
           Align = alTop
           Alignment = taCenter
@@ -2857,12 +2864,11 @@ object FormPrincipal01: TFormPrincipal01
           Font.Name = 'Comic Sans MS'
           Font.Style = []
           ParentFont = False
-          ExplicitWidth = 98
         end
         object Label4: TLabel
           Left = 0
           Top = 46
-          Width = 207
+          Width = 192
           Height = 23
           Align = alTop
           Alignment = taCenter
@@ -2873,12 +2879,11 @@ object FormPrincipal01: TFormPrincipal01
           Font.Name = 'Comic Sans MS'
           Font.Style = []
           ParentFont = False
-          ExplicitWidth = 192
         end
         object Label1: TLabel
           Left = 0
           Top = 69
-          Width = 207
+          Width = 117
           Height = 23
           Cursor = crHandPoint
           Align = alTop
@@ -2892,7 +2897,6 @@ object FormPrincipal01: TFormPrincipal01
           ParentFont = False
           StyleElements = [seClient, seBorder]
           OnClick = Label1Click
-          ExplicitWidth = 117
         end
       end
     end

@@ -62,14 +62,13 @@
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <BT_BuildType>Debug</BT_BuildType>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Dynamic;FileDescription=Sistema de facturación;FileVersion=8.5.0.0;InternalName=Sisfac;LegalCopyright=;LegalTrademarks=;OriginalFilename=Sisfac;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=Sisfac;ProductVersion=8.5.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Dynamic;FileDescription=Sistema de facturación;FileVersion=9.0.0.0;InternalName=Sisfac;LegalCopyright=;LegalTrademarks=;OriginalFilename=Sisfac;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=Sisfac;ProductVersion=9.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <DCC_DcuOutput>.\$(Platform)\$(Config)\DCU</DCC_DcuOutput>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <Icon_MainIcon>Sisfac_Icon.ico</Icon_MainIcon>
-        <VerInfo_MajorVer>8</VerInfo_MajorVer>
-        <VerInfo_MinorVer>5</VerInfo_MinorVer>
+        <VerInfo_MajorVer>9</VerInfo_MajorVer>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -966,15 +965,15 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
             <Platforms>
                 <Platform value="Win32">True</Platform>

@@ -10,8 +10,7 @@ uses
 
 type
   TFormPresentacion01 = class(TForm)
-    Image1: TImage;
-    Label7: TLabel;
+    Label1: TLabel;
   private
     { Private declarations }
   public
